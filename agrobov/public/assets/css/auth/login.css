@@ -1,0 +1,312 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Inter', sans-serif;
+  background: #f5f5f2;
+  overflow: hidden;
+}
+
+.login-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+/* LEFT SIDE */
+
+.login-banner{
+  width: 50%;
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0, 40, 0, 0.96),
+    rgba(0, 70, 20, 0.95)
+  );
+  display: flex;
+  align-items: center;
+  padding: 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-banner::before{
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(0,255,100,0.08);
+  border-radius: 50%;
+  filter: blur(100px);
+  top: -150px;
+  left: -150px;
+}
+
+.login-banner::after{
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(0,255,100,0.06);
+  border-radius: 50%;
+  bottom: -120px;
+  right: -120px;
+  filter: blur(100px);
+}
+
+.banner-content{
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 90px;
+}
+
+.logo-icon{
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  background: rgba(125,255,125,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon i{
+  font-size: 30px;
+}
+
+.logo-text h2{
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.logo-text span{
+  color: rgba(255,255,255,0.7);
+}
+
+.banner-text h1{
+  font-size: 68px;
+  line-height: 1.1;
+  max-width: 700px;
+  margin-bottom: 28px;
+}
+
+.banner-text h1 span{
+  color: #72d96c;
+}
+
+.banner-text p{
+  max-width: 650px;
+  line-height: 1.7;
+  font-size: 22px;
+  color: rgba(255,255,255,0.80);
+}
+
+.stats{
+  display: flex;
+  gap: 24px;
+  margin-top: 70px;
+}
+
+.stat-card{
+  flex: 1;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+}
+
+.stat-card h3{
+  font-size: 36px;
+  color: #72d96c;
+  margin-bottom: 10px;
+}
+
+.stat-card span{
+  color: rgba(255,255,255,0.75);
+}
+
+/* RIGHT SIDE */
+
+.login-form-section{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f2;
+  padding: 40px;
+}
+
+.login-box{
+  width: 100%;
+  max-width: 520px;
+}
+
+.login-header{
+  margin-bottom: 45px;
+}
+
+.login-header h1{
+  font-size: 48px;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.login-header p{
+  color: #666;
+  font-size: 18px;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.input-group{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group label{
+  font-weight: 600;
+  color: #222;
+}
+
+.input-group input{
+  width: 100%;
+  height: 65px;
+  border-radius: 18px;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 0 20px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus{
+  border-color: #0c5a1d;
+  box-shadow: 0 0 0 4px rgba(12,90,29,0.1);
+}
+
+.password-label{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-label a{
+  text-decoration: none;
+  color: #0c5a1d;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.password-input{
+  position: relative;
+}
+
+.password-input button{
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.password-input button i{
+  font-size: 20px;
+  color: #777;
+}
+
+.remember{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #444;
+}
+
+.login-btn{
+  width: 100%;
+  height: 65px;
+  border: none;
+  border-radius: 18px;
+  background: #0c5a1d;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover{
+  background: #084514;
+  transform: translateY(-2px);
+}
+
+.register-link{
+  margin-top: 35px;
+  text-align: center;
+}
+
+.register-link p{
+  color: #666;
+}
+
+.register-link a{
+  text-decoration: none;
+  color: #0c5a1d;
+  font-weight: 700;
+}
+
+/* RESPONSIVO */
+
+@media(max-width: 1200px){
+
+  .banner-text h1{
+    font-size: 54px;
+  }
+
+}
+
+@media(max-width: 992px){
+
+  .login-banner{
+    display: none;
+  }
+
+  .login-form-section{
+    width: 100%;
+  }
+
+}
+
+@media(max-width: 600px){
+
+  body{
+    overflow-y: auto;
+  }
+
+  .login-form-section{
+    padding: 25px;
+  }
+
+  .login-header h1{
+    font-size: 36px;
+  }
+
+}
