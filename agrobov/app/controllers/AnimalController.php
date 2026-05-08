@@ -1,29 +1,109 @@
 <?php
-// app/controllers/boiController.php
-use App\Models\Boi;
 
-class boiController extends Controller {
-    
-    public function cadastro() {
-        // Carrega a view de formulário (que está em views/boi/cadastroBoi.php)
-        $this->render("home/homeGranboi");
+class AnimalController extends Controller
+{
+    public function listar()
+{
+    $model = new Animal();
+
+    $dados = [
+        'animais' => $model->listarTodos()
+    ];
+
+    $this->render("animal/listar", $dados);
+}
+
+    public function cadastrar()
+    {
+        $this->render("animal/cadastrar");
     }
 
-    public function salvar() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $model = new Boi();
-            $dados = [
-                'brinco'     => $_POST['brinco'],
-                'raca'       => $_POST['raca_id'],
-                'lote'       => $_POST['lote_id'],
-                'nascimento' => $_POST['data_nascimento'],
-                'sexo'       => $_POST['sexo'],
-                'peso'       => $_POST['peso_entrada']
-            ];
-
-            if ($model->salvar($dados)) {
-                header("Location: " . BASE_URL . "boi/verBoi");
-            }
-        }
+    public function salvar()
+    {
+        // POST - salvar animal (futuro)
     }
+
+    public function editar()
+{
+    $model = new Animal();
+
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        header("Location: /animal/listar");
+        exit;
+    }
+
+    $animal = $model->buscarPorId($id);
+
+    $this->render("animal/editar", [
+        'animal' => $animal
+    ]);
+}
+
+public function atualizar()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $model = new Animal();
+
+        $dados = [
+            'id' => $_POST['id'],
+            'brinco' => $_POST['brinco'],
+            'sexo' => $_POST['sexo'],
+            'peso' => $_POST['peso_entrada'],
+            'status' => $_POST['status']
+        ];
+
+        $model->atualizar($dados);
+
+        header("Location: /animal/listar");
+        exit;
+    }
+}
+
+    public function excluir()
+{
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        header("Location: /animal/listar");
+        exit;
+    }
+
+    $model = new Animal();
+    $model->softDelete($id);
+
+    header("Location: /animal/listar");
+    exit;
+}
+
+    public function detalhes()
+    {
+        $this->render("animal/detalhes");
+    }
+
+    public function historicoPeso()
+{
+    $id = $_GET['id'] ?? null;
+
+    $model = new Animal();
+
+    $historico = $model->getHistoricoPeso($id);
+
+    $pesos = [];
+    $datas = [];
+
+    foreach ($historico as $item) {
+        $pesos[] = $item['peso'];
+        $datas[] = date('d/m', strtotime($item['data_registro']));
+    }
+
+    $this->render("animal/historicoPeso", [
+        'animal' => $model->buscarPorId($id),
+        'pesos' => $pesos,
+        'datas' => $datas,
+        'historico' => $historico
+    ]);
+}
 }

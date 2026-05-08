@@ -13,7 +13,7 @@
 
   <title>GranBoi - Dashboard</title>
 
-  <link rel="stylesheet" href="/assets/css/dashboard/dashboard.css">
+  <link rel="stylesheet" href="../../../public/assets/css/dashboard/dashboard.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,32 +41,32 @@
 
     <nav class="menu">
 
-      <a href="/dashboard" class="menu-item active">
+      <a href="dashboard.php" class="menu-item active">
         <i class="ri-dashboard-line"></i>
         <span>Dashboard</span>
       </a>
 
-      <a href="/animal/listar" class="menu-item">
+      <a href="../animal/listar.php" class="menu-item">
         <i class="ri-bear-smile-line"></i>
         <span>Gado</span>
       </a>
 
-      <a href="/vacinas" class="menu-item">
+      <a href="../vacinas/listar.php" class="menu-item">
         <i class="ri-heart-pulse-line"></i>
         <span>Vacinação</span>
       </a>
 
-      <a href="/financeiro" class="menu-item">
+      <a href="../financeiro/index.php" class="menu-item">
         <i class="ri-line-chart-line"></i>
         <span>Financeiro</span>
       </a>
 
-      <a href="/relatorios" class="menu-item">
+      <a href="../relatorios/index.php" class="menu-item">
         <i class="ri-file-chart-line"></i>
         <span>Relatórios</span>
       </a>
 
-      <a href="/profile" class="menu-item">
+      <a href="../profile/index.php" class="menu-item">
         <i class="ri-user-line"></i>
         <span>Perfil</span>
       </a>

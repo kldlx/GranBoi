@@ -7,7 +7,7 @@
 
   <title>GranBoi - Login</title>
 
-  <link rel="stylesheet" href="/assets/css/auth/login.css">
+  <link rel="stylesheet" href="../../../public/assets/css/auth/login.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,6 @@
       <div class="banner-content">
 
         <div class="logo">
-
           <div class="logo-icon">
             <i class="ri-leaf-line"></i>
           </div>
@@ -37,11 +36,9 @@
             <h2>GranBoi</h2>
             <span>Sistema de Gestão de Gado</span>
           </div>
-
         </div>
 
         <div class="banner-text">
-
           <h1>
             Gerencie seu rebanho com
             <span>eficiência e precisão</span>
@@ -52,7 +49,6 @@
             vacinação, pesagem, financeiro
             e relatórios em uma única plataforma.
           </p>
-
         </div>
 
         <div class="stats">
@@ -84,50 +80,43 @@
       <div class="login-box">
 
         <div class="login-header">
-
           <h1>Bem-vindo de volta</h1>
-
           <p>Entre com suas credenciais para acessar o sistema</p>
-
         </div>
 
         <!-- FORM -->
-        <form class="login-form" method="POST" action="/login">
+        <form class="login-form" action="/login" method="POST">
 
+          <!-- EMAIL -->
           <div class="input-group">
-
             <label>E-mail</label>
-
             <input
               type="email"
               name="email"
               placeholder="seu@email.com"
               required
             >
-
           </div>
 
+          <!-- PASSWORD -->
           <div class="input-group">
 
             <div class="password-label">
-
               <label>Senha</label>
-
               <a href="#">Esqueceu a senha?</a>
-
             </div>
 
             <div class="password-input">
 
               <input
                 type="password"
-                name="password"
                 id="password"
+                name="password"
                 placeholder="Digite sua senha"
                 required
               >
 
-              <button type="button" id="togglePassword">
+              <button title="Mostrar senha" type="button" id="togglePassword">
                 <i class="ri-eye-line"></i>
               </button>
 
@@ -135,6 +124,7 @@
 
           </div>
 
+          <!-- REMEMBER -->
           <div class="remember">
 
             <input type="checkbox" name="remember">
@@ -143,19 +133,19 @@
 
           </div>
 
+          <!-- BUTTON -->
           <button type="submit" class="login-btn">
             Entrar
           </button>
 
         </form>
 
+        <!-- REGISTER -->
         <div class="register-link">
-
           <p>
             Ainda não tem uma conta?
-            <a href="/register">Solicitar acesso</a>
+            <a href="/usuario/cadastro">Solicitar acesso</a>
           </p>
-
         </div>
 
       </div>
