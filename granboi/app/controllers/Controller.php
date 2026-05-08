@@ -1,0 +1,35 @@
+<?php
+
+class Controller
+{
+    protected function render($view, $dados = [])
+    {
+        $viewPath = __DIR__ . "/../views/{$view}.php";
+
+        if (!file_exists($viewPath)) {
+            die("View não encontrada: {$view}");
+        }
+
+        extract($dados);
+
+        require_once $viewPath;
+    }
+
+    protected function view($view, $dados = [])
+    {
+        return $this->render($view, $dados);
+    }
+
+    protected function model($model)
+    {
+        $modelPath = __DIR__ . "/../models/{$model}.php";
+
+        if (!file_exists($modelPath)) {
+            die("Model não encontrado: {$model}");
+        }
+
+        require_once $modelPath;
+
+        return new $model();
+    }
+}
