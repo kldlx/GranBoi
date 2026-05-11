@@ -12,7 +12,7 @@
 
   <title>GranBoi - Dashboard</title>
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/dashboard/dashboard.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/dashboard/dashboard.css">
    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -296,7 +296,7 @@
 
   </div>
 
-  <script src="<?= BASE_URL ?>/public/assets/js/dashboard/dashboard.js"></script>
+  <script src="<?= BASE_URL ?>/public/assets/js/pages/dashboard/dashboard.js"></script>
 
 </body>
 

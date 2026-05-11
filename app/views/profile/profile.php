@@ -10,7 +10,7 @@
 
 
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/profile/profile.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/profile/profile.css">
 
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -225,7 +225,7 @@
   </div>
 
 
-  <script src="<?= BASE_URL ?>/public/assets/js/profile/profile.js"></script>
+  <script src="<?= BASE_URL ?>/public/assets/js/pages/profile/profile.js"></script>
 
 </body>
 

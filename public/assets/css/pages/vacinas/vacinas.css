@@ -15,7 +15,6 @@ body{
   min-height: 100vh;
 }
 
-
 .sidebar{
   width: 280px;
   background: linear-gradient(
@@ -68,7 +67,7 @@ body{
 .menu{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1px;
 }
 
 .menu-item{
@@ -100,13 +99,11 @@ body{
   font-weight: 700;
 }
 
-
 .main-content{
   flex: 1;
   margin-left: 280px;
   padding: 35px;
 }
-
 
 .topbar{
   display: flex;
@@ -190,7 +187,6 @@ body{
   font-size: 34px;
 }
 
-
 .table-container{
   background: white;
   border-radius: 24px;
@@ -272,6 +268,55 @@ td{
   color: #e53935;
 }
 
+.actions{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.action-btn{
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.action-btn i{
+  pointer-events: none;
+}
+
+.view-btn{
+  background: rgba(34,118,255,0.12);
+  color: #2276ff;
+}
+
+.view-btn:hover{
+  background: rgba(34,118,255,0.2);
+}
+
+.edit-btn{
+  background: rgba(255,152,0,0.12);
+  color: #ff9800;
+}
+
+.edit-btn:hover{
+  background: rgba(255,152,0,0.2);
+}
+
+.delete-btn{
+  background: rgba(229,57,53,0.12);
+  color: #e53935;
+}
+
+.delete-btn:hover{
+  background: rgba(229,57,53,0.2);
+}
 
 @media(max-width: 992px){
 

@@ -8,10 +8,10 @@
 
   <title>GranBoi - Vacinação</title>
 
-
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/vacinas/vacinas.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/vacinas/vacinas.css">
 
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/components/modal.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-
 
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
@@ -30,7 +29,6 @@
 <body>
 
   <div class="dashboard-container">
-
 
     <aside class="sidebar" id="sidebar">
 
@@ -181,7 +179,10 @@
 
           </div>
 
-          <button class="new-vaccine-btn">
+          <button
+            class="new-vaccine-btn"
+            id="abrirModalVacinacao"
+          >
             Nova Vacinação
           </button>
 
@@ -196,13 +197,26 @@
               <th>Vacina</th>
               <th>Data</th>
               <th>Status</th>
+              <th>Ações</th>
             </tr>
 
           </thead>
 
           <tbody>
 
-            <tr>
+            <tr
+              data-id="1"
+              data-animal="#1023"
+              data-vacina="Febre Aftosa"
+              data-data-aplicacao="2026-05-12"
+              data-proxima-dose="2026-11-12"
+              data-responsavel="Carlos Silva"
+              data-lote="AFT-2026"
+              data-quantidade="5ml"
+              data-via-aplicacao="Subcutânea"
+              data-observacoes="Vacinação sem reações."
+              data-status="Pendente"
+            >
 
               <td>#1023</td>
               <td>Febre Aftosa</td>
@@ -214,9 +228,50 @@
                 </span>
               </td>
 
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="action-btn view-btn"
+                    data-action="view"
+                  >
+                    <i class="ri-eye-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn edit-btn"
+                    data-action="edit"
+                  >
+                    <i class="ri-edit-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn delete-btn"
+                    data-action="delete"
+                  >
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
             </tr>
 
-            <tr>
+            <tr
+              data-id="2"
+              data-animal="#2045"
+              data-vacina="Brucelose"
+              data-data-aplicacao="2026-05-15"
+              data-proxima-dose="2026-11-15"
+              data-responsavel="Marcos Oliveira"
+              data-lote="BRU-9921"
+              data-quantidade="3ml"
+              data-via-aplicacao="Intramuscular"
+              data-observacoes="Aplicação realizada normalmente."
+              data-status="Aplicada"
+            >
 
               <td>#2045</td>
               <td>Brucelose</td>
@@ -228,9 +283,50 @@
                 </span>
               </td>
 
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="action-btn view-btn"
+                    data-action="view"
+                  >
+                    <i class="ri-eye-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn edit-btn"
+                    data-action="edit"
+                  >
+                    <i class="ri-edit-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn delete-btn"
+                    data-action="delete"
+                  >
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
             </tr>
 
-            <tr>
+            <tr
+              data-id="3"
+              data-animal="#8741"
+              data-vacina="Raiva"
+              data-data-aplicacao="2026-05-18"
+              data-proxima-dose="2026-11-18"
+              data-responsavel="Fernanda Costa"
+              data-lote="RAV-4412"
+              data-quantidade="4ml"
+              data-via-aplicacao="Oral"
+              data-observacoes="Vacinação atrasada devido ao manejo."
+              data-status="Atrasada"
+            >
 
               <td>#8741</td>
               <td>Raiva</td>
@@ -240,6 +336,35 @@
                 <span class="status warning">
                   Atrasada
                 </span>
+              </td>
+
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="action-btn view-btn"
+                    data-action="view"
+                  >
+                    <i class="ri-eye-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn edit-btn"
+                    data-action="edit"
+                  >
+                    <i class="ri-edit-line"></i>
+                  </button>
+
+                  <button
+                    class="action-btn delete-btn"
+                    data-action="delete"
+                  >
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+
+                </div>
+
               </td>
 
             </tr>
@@ -254,7 +379,9 @@
 
   </div>
 
-  <script src="<?= BASE_URL ?>/public/assets/js/vacinas/vacinas.js"></script>
+  <?php require_once 'app/components/modals/modal-vacinacao.php'; ?>
+
+  <script src="<?= BASE_URL ?>/public/assets/js/pages/vacinas/vacinas.js"></script>
 
 </body>
 

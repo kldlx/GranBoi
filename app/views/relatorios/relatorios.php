@@ -8,7 +8,7 @@
 
   <title>GranBoi - Relatórios</title>
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/relatorios/relatorios.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/relatorios/relatorios.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,7 +275,7 @@
 
   </div>
 
-  <script src="<?= BASE_URL ?>/public/assets/js/relatorios/relatorios.js"></script>
+  <script src="<?= BASE_URL ?>/public/assets/js/pages/relatorios/relatorios.js"></script>
 
 </body>
 
