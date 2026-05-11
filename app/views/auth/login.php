@@ -9,7 +9,7 @@
 
 
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/auth/login.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/auth/login.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
