@@ -2,18 +2,20 @@
 
 class Controller
 {
-    protected function render($view, $dados = [])
-    {
-        $viewPath = __DIR__ . "/../views/{$view}.php";
+   protected function render($view, $dados = [])
+{
+    $viewPath = __DIR__ . "/../views/{$view}.php";
 
-        if (!file_exists($viewPath)) {
-            die("View não encontrada: {$view}");
-        }
-
-        extract($dados);
-
-        require_once $viewPath;
+    if (!file_exists($viewPath)) {
+        die("View não encontrada: {$view}");
     }
+
+    extract($dados);
+
+    require_once __DIR__ . "/../layout/cabecalho.php";
+    require_once $viewPath;
+    require_once __DIR__ . "/../layout/rodape.php";
+}
 
     protected function view($view, $dados = [])
     {
