@@ -8,11 +8,11 @@
 
   <title>GranBoi - Vacinação</title>
 
-  <!-- CSS -->
+
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/vacinas/vacinas.css">
 
-  <!-- GOOGLE FONTS -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -20,7 +20,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- REMIX ICONS -->
+
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
     rel="stylesheet">
@@ -31,7 +31,7 @@
 
   <div class="dashboard-container">
 
-    <!-- SIDEBAR -->
+
     <aside class="sidebar" id="sidebar">
 
       <div class="logo">
@@ -47,7 +47,6 @@
 
       </div>
 
-      <!-- MENU -->
       <nav class="menu">
 
         <a
@@ -102,10 +101,8 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="main-content">
 
-      <!-- TOPBAR -->
       <header class="topbar">
 
         <button
@@ -127,7 +124,6 @@
 
       </header>
 
-      <!-- CARDS -->
       <section class="cards">
 
         <div class="card">
@@ -171,7 +167,6 @@
 
       </section>
 
-      <!-- TABLE -->
       <section class="table-container">
 
         <div class="table-header">
@@ -259,7 +254,6 @@
 
   </div>
 
-  <!-- JS -->
   <script src="<?= BASE_URL ?>/public/assets/js/vacinas/vacinas.js"></script>
 
 </body>

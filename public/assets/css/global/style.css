@@ -21,14 +21,11 @@ textarea{
   font-family: inherit;
 }
 
-/* LAYOUT */
 
 .dashboard-container{
   display: flex;
   min-height: 100vh;
 }
-
-/* SIDEBAR */
 
 .sidebar{
   width: 280px;
@@ -115,7 +112,6 @@ textarea{
   font-weight: 700;
 }
 
-/* MAIN */
 
 .main-content{
   flex: 1;
@@ -123,7 +119,7 @@ textarea{
   padding: 35px;
 }
 
-/* TOPBAR */
+
 
 .topbar{
   display: flex;
@@ -187,7 +183,6 @@ textarea{
   font-size: 24px;
 }
 
-/* CARDS */
 
 .cards{
   display: grid;
@@ -246,7 +241,6 @@ textarea{
   margin-top: 8px;
 }
 
-/* CONTENT */
 
 .content-grid{
   display: grid;
@@ -272,7 +266,7 @@ textarea{
   font-size: 24px;
 }
 
-/* TABLE */
+
 
 table{
   width: 100%;
@@ -296,7 +290,7 @@ td{
   font-size: 15px;
 }
 
-/* STATUS */
+
 
 .status{
   padding: 8px 14px;
@@ -320,7 +314,7 @@ td{
   color: #e53935;
 }
 
-/* FORM */
+
 
 .input-row{
   display: grid;
@@ -364,8 +358,6 @@ textarea{
   min-height: 140px;
 }
 
-/* BUTTONS */
-
 .save-btn,
 .action-btn{
   height: 54px;
@@ -400,7 +392,6 @@ textarea{
   background: #e68900;
 }
 
-/* RESPONSIVO */
 
 @media(max-width: 1400px){
 

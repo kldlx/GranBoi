@@ -8,10 +8,8 @@
 
   <title>GranBoi - Cadastro de Gado</title>
 
-  <!-- CSS -->
    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
 
-  <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -19,7 +17,6 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- REMIX ICONS -->
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
     rel="stylesheet">
@@ -30,7 +27,6 @@
 
   <div class="dashboard-container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
 
       <div class="logo">
@@ -46,7 +42,6 @@
 
       </div>
 
-      <!-- MENU -->
       <nav class="menu">
 
         <a href="<?= BASE_URL ?>/dashboard" class="menu-item">
@@ -83,10 +78,8 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="main-content">
 
-      <!-- TOPBAR -->
       <header class="topbar">
 
         <button class="menu-toggle" id="menuToggle">
@@ -105,7 +98,6 @@
 
       </header>
 
-      <!-- FORM -->
       <div class="form-container">
 
         <div class="input-row">
@@ -210,7 +202,6 @@
 
   </div>
 
-  <!-- JS -->
   <script src="<?= BASE_URL ?>/public/assets/js/animal/cadastrar.js"></script>
 
 </body>

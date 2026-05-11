@@ -2,11 +2,8 @@ RewriteEngine On
 
 RewriteBase /granboi
 
-# SE NÃO FOR ARQUIVO
 RewriteCond %{REQUEST_FILENAME} !-f
 
-# SE NÃO FOR PASTA
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# REDIRECIONA TUDO PARA index.php
 RewriteRule ^(.*)$ index.php [QSA,L]

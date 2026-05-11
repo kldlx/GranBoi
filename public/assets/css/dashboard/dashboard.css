@@ -15,7 +15,6 @@ body{
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 
 .sidebar{
   width: 280px;
@@ -103,7 +102,6 @@ body{
   font-weight: 700;
 }
 
-/* MAIN */
 
 .main-content{
   flex: 1;
@@ -111,7 +109,6 @@ body{
   padding: 35px;
 }
 
-/* TOPBAR */
 
 .topbar{
   display: flex;
@@ -175,7 +172,6 @@ body{
   font-size: 24px;
 }
 
-/* CARDS */
 
 .cards{
   display: grid;
@@ -234,7 +230,6 @@ body{
   margin-top: 8px;
 }
 
-/* CONTENT */
 
 .content-grid{
   display: grid;
@@ -258,7 +253,6 @@ body{
   font-size: 24px;
 }
 
-/* FAKE CHART */
 
 .fake-chart{
   width: 100%;
@@ -285,7 +279,6 @@ body{
   }
 }
 
-/* TABLE */
 
 table{
   width: 100%;
@@ -330,8 +323,6 @@ td{
   background: rgba(229,57,53,0.12);
   color: #e53935;
 }
-
-/* RESPONSIVO */
 
 @media(max-width: 1400px){
 
@@ -406,7 +397,6 @@ td{
 
 }
 
-/* PAGE SECTION */
 
 .page-section{
   display: none;
@@ -416,7 +406,6 @@ td{
   display: block;
 }
 
-/* FORM SECTION */
 
 .section-header-page{
   display: flex;
@@ -501,7 +490,6 @@ textarea{
   min-height: 140px;
 }
 
-/* PAGE SECTION */
 
 .page-section{
   display: none;
@@ -511,7 +499,6 @@ textarea{
   display: block;
 }
 
-/* FORM SECTION */
 
 .section-header-page{
   display: flex;
@@ -596,7 +583,6 @@ textarea{
   min-height: 140px;
 }
 
-/* RESPONSIVO */
 
 @media(max-width: 768px){
 
@@ -612,7 +598,6 @@ textarea{
 
 }
 
-/* RESPONSIVO */
 
 @media(max-width: 768px){
 

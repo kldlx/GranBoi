@@ -15,7 +15,6 @@ body{
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 
 .sidebar{
   width: 280px;
@@ -101,15 +100,12 @@ body{
   font-weight: 700;
 }
 
-/* MAIN */
-
 .main-content{
   flex: 1;
   margin-left: 280px;
   padding: 35px;
 }
 
-/* TOPBAR */
 
 .topbar{
   display: flex;
@@ -141,7 +137,6 @@ body{
   font-size: 24px;
 }
 
-/* REPORTS GRID */
 
 .reports-grid{
   display: grid;
@@ -208,8 +203,6 @@ body{
 .report-btn:hover{
   background: #093f16;
 }
-
-/* TABLE */
 
 .recent-reports{
   background: white;
@@ -283,8 +276,6 @@ td{
   background: #999;
   cursor: not-allowed;
 }
-
-/* RESPONSIVO */
 
 @media(max-width: 992px){
 

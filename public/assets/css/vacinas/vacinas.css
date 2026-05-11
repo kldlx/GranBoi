@@ -15,7 +15,6 @@ body{
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 
 .sidebar{
   width: 280px;
@@ -101,7 +100,6 @@ body{
   font-weight: 700;
 }
 
-/* MAIN */
 
 .main-content{
   flex: 1;
@@ -109,7 +107,6 @@ body{
   padding: 35px;
 }
 
-/* TOPBAR */
 
 .topbar{
   display: flex;
@@ -140,8 +137,6 @@ body{
 .menu-toggle i{
   font-size: 24px;
 }
-
-/* CARDS */
 
 .cards{
   display: grid;
@@ -195,7 +190,6 @@ body{
   font-size: 34px;
 }
 
-/* TABLE */
 
 .table-container{
   background: white;
@@ -278,7 +272,6 @@ td{
   color: #e53935;
 }
 
-/* RESPONSIVO */
 
 @media(max-width: 992px){
 

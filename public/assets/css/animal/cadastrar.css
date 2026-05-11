@@ -1,5 +1,5 @@
 
-/* BASE PADRÃO */
+
 *{
   margin: 0;
   padding: 0;
@@ -17,7 +17,6 @@ body{
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 .sidebar{
   width: 280px;
   background: linear-gradient(180deg, #0b3d16, #0f5a22);
@@ -26,14 +25,12 @@ body{
   height: 100vh;
 }
 
-/* MAIN */
 .main-content{
   flex: 1;
   margin-left: 280px;
   padding: 35px;
 }
 
-/* TOPBAR */
 .topbar{
   margin-bottom: 40px;
 }
@@ -46,7 +43,6 @@ body{
   color: #666;
 }
 
-/* FORM */
 .form-container{
   background: white;
   padding: 35px;

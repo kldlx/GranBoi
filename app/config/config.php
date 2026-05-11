@@ -1,10 +1,7 @@
 <?php
 
-define('BASE_URL', 'http://localhost/granboi');
-// Senhas de acesso por perfil
-// Cada papel tem uma senha que o usuário precisa informar no cadastro
-// para provar que foi autorizado a usar aquele perfil.
-// Você pode alterar essas senhas a qualquer momento aqui.
+define('BASE_URL', 'http:localhost/granboi');
+
 define('SENHAS_PERFIL', [
     'administrador' => 'admin2026',
     'gestor'        => 'gestor2026',

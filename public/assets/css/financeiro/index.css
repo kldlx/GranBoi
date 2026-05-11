@@ -1,8 +1,3 @@
-
-/* =========================
-   RESET GLOBAL (MESMO PADRÃO)
-========================= */
-
 *{
   margin: 0;
   padding: 0;
@@ -15,18 +10,11 @@ body{
   color: #111;
 }
 
-/* =========================
-   LAYOUT PRINCIPAL
-========================= */
-
 .dashboard-container{
   display: flex;
   min-height: 100vh;
 }
 
-/* =========================
-   SIDEBAR (IGUAL PADRÃO GRANBOI)
-========================= */
 
 .sidebar{
   width: 280px;
@@ -114,9 +102,6 @@ body{
   font-weight: 700;
 }
 
-/* =========================
-   MAIN CONTENT
-========================= */
 
 .main-content{
   flex: 1;
@@ -124,9 +109,6 @@ body{
   padding: 35px;
 }
 
-/* =========================
-   TOPBAR
-========================= */
 
 .topbar{
   display: flex;
@@ -144,9 +126,6 @@ body{
   color: #666;
 }
 
-/* =========================
-   CARDS (MESMO PADRÃO DO SISTEMA)
-========================= */
 
 .cards{
   display: grid;
@@ -193,9 +172,6 @@ body{
   margin-top: 8px;
 }
 
-/* =========================
-   TABELA FINANCEIRO
-========================= */
 
 .finance-table-container{
   background: white;
@@ -235,9 +211,6 @@ body{
   background: #0a4218;
 }
 
-/* =========================
-   TABLE
-========================= */
 
 table{
   width: 100%;
@@ -261,9 +234,6 @@ td{
   font-size: 15px;
 }
 
-/* =========================
-   STATUS (PADRÃO GRANBOI)
-========================= */
 
 .status{
   padding: 8px 14px;
@@ -282,9 +252,6 @@ td{
   color: #e53935;
 }
 
-/* =========================
-   RESPONSIVO
-========================= */
 
 @media(max-width: 1400px){
   .cards{

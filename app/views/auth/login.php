@@ -7,18 +7,16 @@
 
   <title>GranBoi - Login</title>
 
-  <!-- CSS -->
+
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/auth/login.css">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- Remix Icons -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
@@ -26,12 +24,10 @@
 
   <main class="login-container">
 
-    <!-- LEFT SIDE -->
     <section class="login-banner">
 
       <div class="banner-content">
 
-        <!-- LOGO -->
         <div class="logo">
 
           <div class="logo-icon">
@@ -45,7 +41,6 @@
 
         </div>
 
-        <!-- TEXT -->
         <div class="banner-text">
 
           <h1>
@@ -61,7 +56,6 @@
 
         </div>
 
-        <!-- STATS -->
         <div class="stats">
 
           <div class="stat-card">
@@ -85,7 +79,6 @@
 
     </section>
 
-    <!-- RIGHT SIDE -->
     <section class="login-form-section">
 
       <div class="login-box">
@@ -101,7 +94,6 @@
 
         </div>
 
-        <!-- ERRO LOGIN -->
         <?php if(isset($_SESSION['erro'])): ?>
 
           <div class="login-error">
@@ -112,14 +104,13 @@
 
         <?php endif; ?>
 
-        <!-- FORM -->
         <form
           class="login-form"
           method="POST"
           action="<?= BASE_URL ?>/login"
         >
 
-          <!-- EMAIL -->
+
           <div class="input-group">
 
             <label>E-mail</label>
@@ -133,7 +124,6 @@
 
           </div>
 
-          <!-- PASSWORD -->
           <div class="input-group">
 
             <div class="password-label">
@@ -168,7 +158,6 @@
 
           </div>
 
-          <!-- REMEMBER -->
           <div class="remember">
 
             <input
@@ -182,7 +171,6 @@
 
           </div>
 
-          <!-- BUTTON -->
           <button
             type="submit"
             class="login-btn"
@@ -192,7 +180,6 @@
 
         </form>
 
-        <!-- REGISTER -->
         <div class="register-link">
 
           <p>
@@ -210,7 +197,6 @@
 
   </main>
 
-  <!-- JS -->
   <script src="<?= BASE_URL ?>/public/assets/js/auth/login.js"></script>
 
 </body>

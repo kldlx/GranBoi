@@ -4,7 +4,6 @@ document.getElementById('menuToggle');
 const sidebar =
 document.getElementById('sidebar');
 
-/* SIDEBAR */
 
 menuToggle.addEventListener('click', () => {
 
@@ -12,7 +11,6 @@ menuToggle.addEventListener('click', () => {
 
 });
 
-/* CLOSE MOBILE */
 
 document.addEventListener('click', (event) => {
 
@@ -34,7 +32,6 @@ document.addEventListener('click', (event) => {
 
 });
 
-/* MENU */
 
 const menuItems =
 document.querySelectorAll('.menu-item');
@@ -58,12 +55,10 @@ menuItems.forEach(item => {
     const text =
     item.innerText.trim();
 
-    /* RESET */
 
     dashboardSection.classList.remove('active');
     gadoSection.classList.remove('active');
 
-    /* SHOW */
 
     if(text === 'Dashboard'){
 

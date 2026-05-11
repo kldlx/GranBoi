@@ -12,11 +12,9 @@
 
   <title>GranBoi - Dashboard</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/dashboard/dashboard.css">
    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
 
-  <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
@@ -30,7 +28,6 @@
     rel="stylesheet"
   >
 
-  <!-- REMIX ICONS -->
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
     rel="stylesheet"
@@ -42,10 +39,8 @@
 
   <div class="dashboard-container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
 
-      <!-- LOGO -->
       <div class="logo">
 
         <div class="logo-icon">
@@ -59,7 +54,6 @@
 
       </div>
 
-      <!-- MENU -->
       <nav class="menu">
 
         <a
@@ -114,10 +108,8 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="main-content">
 
-      <!-- TOPBAR -->
       <header class="topbar">
 
         <button
@@ -152,7 +144,6 @@
 
       </header>
 
-      <!-- CARDS -->
       <section class="cards">
 
         <div class="card">
@@ -209,10 +200,8 @@
 
       </section>
 
-      <!-- CONTENT -->
       <section class="content-grid">
 
-        <!-- CHART -->
         <div class="chart-box">
 
           <div class="section-header">
@@ -232,7 +221,6 @@
 
         </div>
 
-        <!-- TABLE -->
         <div class="table-box">
 
           <div class="section-header">
@@ -308,7 +296,6 @@
 
   </div>
 
-  <!-- JS -->
   <script src="<?= BASE_URL ?>/public/assets/js/dashboard/dashboard.js"></script>
 
 </body>

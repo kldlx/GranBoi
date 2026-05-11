@@ -4,7 +4,6 @@ document.getElementById('togglePassword');
 const password =
 document.getElementById('password');
 
-/* TOGGLE PASSWORD */
 
 if(togglePassword && password){
 

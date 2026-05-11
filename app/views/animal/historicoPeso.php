@@ -26,7 +26,6 @@
 
   </form>
 
-  <!-- LISTA HISTÓRICO -->
   <table>
 
     <thead>

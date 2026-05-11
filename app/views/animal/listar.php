@@ -14,7 +14,6 @@
 
 <div class="dashboard-container">
 
-  <!-- SIDEBAR (pode reutilizar igual você já fez) -->
   <aside class="sidebar">
     <div class="logo">
       <h2>GranBoi</h2>
@@ -27,7 +26,6 @@
     </nav>
   </aside>
 
-  <!-- MAIN -->
   <main class="main-content">
 
     <header class="topbar">

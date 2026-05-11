@@ -4,7 +4,6 @@ document.getElementById('menuToggle');
 const sidebar =
 document.getElementById('sidebar');
 
-/* SIDEBAR */
 
 menuToggle.addEventListener('click', () => {
 
@@ -12,7 +11,6 @@ menuToggle.addEventListener('click', () => {
 
 });
 
-/* CLOSE MOBILE */
 
 document.addEventListener('click', (event) => {
 
@@ -34,7 +32,6 @@ document.addEventListener('click', (event) => {
 
 });
 
-/* REPORT BUTTONS */
 
 const reportButtons =
 document.querySelectorAll('.report-btn');
@@ -49,7 +46,6 @@ reportButtons.forEach(button => {
 
 });
 
-/* DOWNLOAD BUTTONS */
 
 const downloadButtons =
 document.querySelectorAll('.download-btn');

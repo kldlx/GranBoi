@@ -4,15 +4,12 @@ document.getElementById('menuToggle');
 const sidebar =
 document.getElementById('sidebar');
 
-/* SIDEBAR */
 
 menuToggle.addEventListener('click', () => {
 
   sidebar.classList.toggle('active');
 
 });
-
-/* CLOSE MOBILE */
 
 document.addEventListener('click', (event) => {
 
@@ -34,7 +31,6 @@ document.addEventListener('click', (event) => {
 
 });
 
-/* SAVE BUTTON */
 
 const saveButton =
 document.querySelector('.save-btn');

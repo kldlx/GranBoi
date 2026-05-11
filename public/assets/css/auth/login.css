@@ -16,7 +16,6 @@ body{
   display: flex;
 }
 
-/* LEFT SIDE */
 
 .login-banner{
   width: 50%;
@@ -136,8 +135,6 @@ body{
   color: rgba(255,255,255,0.75);
 }
 
-/* RIGHT SIDE */
-
 .login-form-section{
   width: 50%;
   display: flex;
@@ -166,8 +163,6 @@ body{
   color: #666;
   font-size: 18px;
 }
-
-/* ERRO LOGIN */
 
 .login-error{
   width: 100%;
@@ -284,8 +279,6 @@ body{
   color: #0c5a1d;
   font-weight: 700;
 }
-
-/* RESPONSIVO */
 
 @media(max-width: 1200px){
 
