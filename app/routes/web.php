@@ -42,13 +42,8 @@ $routes = [
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-/*
-|--------------------------------------------------------------------------
-| REMOVE /granboi/granboi DA URL
-|--------------------------------------------------------------------------
-*/
 
-$basePath = '/granboi/granboi';
+$basePath = '/granboi';
 
 $url = str_replace($basePath, '', $url);
 

@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', 'http://localhost/granboi/granboi');
+define('BASE_URL', 'http://localhost/granboi');
 // Senhas de acesso por perfil
 // Cada papel tem uma senha que o usuário precisa informar no cadastro
 // para provar que foi autorizado a usar aquele perfil.

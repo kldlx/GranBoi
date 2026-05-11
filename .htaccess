@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteBase /granboi/granboi/
+RewriteBase /granboi
 
 # SE NÃO FOR ARQUIVO
 RewriteCond %{REQUEST_FILENAME} !-f
