@@ -77,6 +77,16 @@
   text-transform: capitalize;
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
 .status-ativo {
   background: #e8f5e9;
   color: #2e7d32;

@@ -1,73 +1,78 @@
 <?php
-require_once __DIR__ . '/conexao.php';
-// Classe responsável pelo LOGIN do usuário
-// Busca dados em 3 tabelas: usuario, usuario_papel e pessoa
-class Usuario {
+
+require_once ROOT_PATH . '/app/models/conexao.php';
+
+class Usuario
+{
     private $pdo;
 
     public function __construct()
     {
         $this->pdo = Conexao::conectar();
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function logarUsuario($em, $sen)
-{
-    $cmd = $this->pdo->prepare("
-        SELECT *
-        FROM usuario
-        WHERE email = :e
-        LIMIT 1
-    ");
-
-    $cmd->bindValue(":e", $em);
-    $cmd->execute();
-
-    if ($cmd->rowCount() == 0) {
-        return "email_inexistente";
-    }
-
-    $dadosUsuario = $cmd->fetch(PDO::FETCH_ASSOC);
-
-    if (!password_verify($sen, $dadosUsuario['senha'])) {
-        return "senha_nao_confere";
-    }
-
-    $stmt = $this->pdo->prepare("
-        SELECT 
-            usuario_papel.papel_id,
-            papel.nome AS nome_papel
-        FROM usuario_papel
-        INNER JOIN papel ON papel.id = usuario_papel.papel_id
-        WHERE usuario_papel.usuario_id = :id
-        LIMIT 1
-    ");
-
-    $stmt->bindValue(":id", $dadosUsuario['id']);
-    $stmt->execute();
-
-    $dadosPapel = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $dadosPessoa = null;
-
-    if (!empty($dadosUsuario['pessoa_id'])) {
-        $stmt2 = $this->pdo->prepare("
-            SELECT *
-            FROM pessoa
-            WHERE id = :id
+    public function logarUsuario($email, $senha)
+    {
+        $sql = "
+            SELECT 
+                usuario.id,
+                usuario.pessoa_id,
+                usuario.email,
+                usuario.senha,
+                usuario.status,
+                pessoa.nome_completo,
+                papel.id AS papel_id,
+                papel.nome AS papel_nome,
+                papel.slug AS papel_slug
+            FROM usuario
+            INNER JOIN pessoa 
+                ON pessoa.id = usuario.pessoa_id
+            INNER JOIN usuario_papel 
+                ON usuario_papel.usuario_id = usuario.id
+            INNER JOIN papel 
+                ON papel.id = usuario_papel.papel_id
+            WHERE usuario.email = :email
             LIMIT 1
-        ");
+        ";
 
-        $stmt2->bindValue(":id", $dadosUsuario['pessoa_id']);
-        $stmt2->execute();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
 
-        $dadosPessoa = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$usuario) {
+            return [
+                'sucesso' => false,
+                'mensagem' => 'E-mail ou senha inválidos.'
+            ];
+        }
+
+        if ($usuario['status'] !== 'ativo') {
+            return [
+                'sucesso' => false,
+                'mensagem' => 'Usuário inativo ou bloqueado.'
+            ];
+        }
+
+        if (!password_verify($senha, $usuario['senha'])) {
+            return [
+                'sucesso' => false,
+                'mensagem' => 'E-mail ou senha inválidos.'
+            ];
+        }
+
+        return [
+            'sucesso' => true,
+            'usuario' => [
+                'id' => $usuario['id'],
+                'pessoa_id' => $usuario['pessoa_id'],
+                'nome' => $usuario['nome_completo'],
+                'email' => $usuario['email'],
+                'papel_id' => $usuario['papel_id'],
+                'papel' => $usuario['papel_slug'],
+                'papel_nome' => $usuario['papel_nome']
+            ]
+        ];
     }
-
-    return [
-        'usuario' => $dadosUsuario,
-        'papel'   => $dadosPapel,
-        'pessoa'  => $dadosPessoa
-    ];
-}
 }

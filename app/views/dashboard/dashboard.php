@@ -154,7 +154,8 @@
 
         <td>
           <span class="dashboard-status dashboard-status-<?= htmlspecialchars($animal['status']) ?>">
-          <?= htmlspecialchars($animal['status']) ?>
+            <?= ucfirst(htmlspecialchars($animal['status'])) ?>
+          </span>
           </span>
         </td>
 

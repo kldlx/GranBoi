@@ -80,6 +80,13 @@ $routes = [
     'roles' => ['administrador', 'gestor']
     ],
 
+    '/animal/historicoPeso' => [
+    'controller' => 'AnimalController',
+    'method' => 'historicoPeso',
+    'auth' => true,
+    'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
+],
+
     '/peso' => [
     'controller' => 'PesoController',
     'method' => 'index',

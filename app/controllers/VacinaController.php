@@ -4,27 +4,21 @@ class VacinaController extends Controller
 {
     public function listar()
     {
-        $this->requireRole(['administrador', 'veterinario']);
-
-        // futuramente: buscar no model
         $vacinas = [];
 
-        $this->render("vacinas/vacinas", [
-            "vacinas" => $vacinas
+        $this->render('vacinas/vacinas', [
+            'titulo' => 'GranBoi - Vacinação',
+            'vacinas' => $vacinas
         ]);
     }
 
     public function cadastrar()
     {
-        $this->requireRole(['administrador', 'veterinario']);
-
-        // futuro
+        $this->redirect('/vacinas');
     }
 
     public function salvar()
     {
-        $this->requireRole(['administrador', 'veterinario']);
-
-        // futuro
+        $this->redirect('/vacinas');
     }
 }

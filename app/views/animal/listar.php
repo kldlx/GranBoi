@@ -124,7 +124,8 @@
 
               <td>
                 <span class="status-badge status-<?= htmlspecialchars($animal['status']) ?>">
-                  <?= htmlspecialchars($animal['status']) ?>
+                <?= ucfirst(htmlspecialchars($animal['status'])) ?>
+                </span>
                 </span>
               </td>
 

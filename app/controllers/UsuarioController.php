@@ -3,47 +3,36 @@
 class UsuarioController extends Controller
 {
     public function login()
-    {
-        if (isset($_SESSION['user']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: ' . BASE_URL . '/dashboard');
-            exit;
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $email = $_POST['email'] ?? '';
+        $senha = $_POST['senha'] ?? '';
+
+        $usuarioModel = $this->model('Usuario');
+
+        $resultado = $usuarioModel->logarUsuario($email, $senha);
+
+        if ($resultado['sucesso']) {
+
+            $_SESSION['usuario'] = $resultado['usuario'];
+
+            $_SESSION['user'] = [
+                'name' => $resultado['usuario']['nome'],
+                'email' => $resultado['usuario']['email'],
+                'papel' => $resultado['usuario']['papel']
+            ];
+
+            $this->redirect('/dashboard');
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? '';
-            $senha = $_POST['senha'] ?? '';
+        $_SESSION['erro'] = $resultado['mensagem'];
 
-            $usuarioModel = $this->model('Usuario');
-            $resultado = $usuarioModel->logarUsuario($email, $senha);
-
-            if (is_array($resultado)) {
-                $papeis = [
-                    1 => 'administrador',
-                    2 => 'gestor',
-                    3 => 'veterinario',
-                    4 => 'operador',
-                ];
-                $papelId = (int) ($resultado['papel']['papel_id'] ?? 0);
-
-                $_SESSION['user'] = [
-                    'id' => $resultado['usuario']['id'],
-                    'name' => $resultado['usuario']['nome'],
-                    'email' => $resultado['usuario']['email'],
-                    'papel' => $papeis[$papelId] ?? ''
-                ];
-
-                header('Location: ' . BASE_URL . '/dashboard');
-                exit;
-            }
-
-            $_SESSION['erro'] = 'E-mail ou senha invalidos';
-
-            header('Location: ' . BASE_URL . '/login');
-            exit;
-        }
-
-        $this->render('auth/login');
+        $this->redirect('/login');
     }
+
+    $this->renderAuth('auth/login');
+}
 
     public function logout()
     {
@@ -54,9 +43,9 @@ class UsuarioController extends Controller
     }
 
     public function perfil()
-    {
-        $this->requireLogin();
-
-        $this->render('profile/profile');
-    }
+{
+    $this->render('profile/profile', [
+        'titulo' => 'GranBoi - Perfil'
+    ]);
+}
 }
