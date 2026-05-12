@@ -4,13 +4,17 @@ class AnimalController extends Controller
 {
     public function listar()
 {
-    $model = new Animal();
+    $model = $this->model('Animal');
 
     $dados = [
+        'titulo' => 'GranBoi - Gado',
+        'pageCss' => [
+            '/public/assets/css/pages/animal/animal.css'
+        ],
         'animais' => $model->listarTodos()
     ];
 
-    $this->render("animal/animal", $dados);
+    $this->render('animal/listar', $dados);
 }
 
     public function cadastrar()
@@ -25,7 +29,7 @@ class AnimalController extends Controller
 
     public function editar()
 {
-    $model = new Animal();
+    $model = $this->model('Animal');;
 
     $id = $_GET['id'] ?? null;
 
@@ -45,7 +49,7 @@ public function atualizar()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $model = new Animal();
+        $model = $this->model('Animal');;
 
         $dados = [
             'id' => $_POST['id'],
@@ -71,7 +75,7 @@ public function atualizar()
         exit;
     }
 
-    $model = new Animal();
+    $model = $this->model('Animal');;
     $model->softDelete($id);
 
     header("Location: /animal/listar");
@@ -87,7 +91,7 @@ public function atualizar()
 {
     $id = $_GET['id'] ?? null;
 
-    $model = new Animal();
+    $model = $this->model('Animal');;
 
     $historico = $model->getHistoricoPeso($id);
 

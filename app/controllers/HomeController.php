@@ -4,13 +4,14 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-        if (!isset($_SESSION['user'])) {
-
-            header('Location: ' . BASE_URL . '/login');
-            exit;
-
-        }
-
-        $this->render('dashboard/dashboard');
+        $this->render('dashboard/dashboard', [
+            'titulo' => 'GranBoi - Dashboard',
+            'pageCss' => [
+                '/public/assets/css/pages/dashboard/dashboard.css'
+            ],
+            'pageJs' => [
+                '/public/assets/js/pages/dashboard/dashboard.js'
+            ]
+        ]);
     }
 }

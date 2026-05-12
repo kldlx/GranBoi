@@ -4,44 +4,41 @@ class UsuarioController extends Controller
 {
     public function login()
     {
-        // LOGIN
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = $_POST['email'] ?? '';
             $senha = $_POST['senha'] ?? '';
 
-            // LOGIN FAKE
-            if (
-                $email === 'admin@granboi.com'
-                &&
-                $senha === '123456'
-            ) {
+            $usuarioModel = $this->model('Usuario');
+
+            $resultado = $usuarioModel->logarUsuario($email, $senha);
+
+            if ($resultado['sucesso']) {
+
+                $_SESSION['usuario'] = $resultado['usuario'];
 
                 $_SESSION['user'] = [
-                    'name' => 'Administrador',
-                    'email' => $email
+                    'name' => $resultado['usuario']['nome'],
+                    'email' => $resultado['usuario']['email'],
+                    'papel' => $resultado['usuario']['papel']
                 ];
 
-                header('Location: ' . BASE_URL . '/dashboard');
-                exit;
+                $this->redirect('/dashboard');
             }
 
-            $_SESSION['erro'] = 'E-mail ou senha inválidos';
+            $_SESSION['erro'] = $resultado['mensagem'];
 
-            header('Location: ' . BASE_URL . '/login');
-            exit;
+            $this->redirect('/login');
         }
 
-        // VIEW LOGIN
-        $this->render('auth/login');
+        $this->renderAuth('auth/login');
     }
 
     public function logout()
     {
         session_destroy();
 
-        header('Location: ' . BASE_URL . '/login');
-        exit;
+        $this->redirect('/login');
     }
 
     public function perfil()
