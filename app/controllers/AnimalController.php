@@ -1,8 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../models/conexao.php';
-require_once __DIR__ . '/../models/Animal.php';
-
 class AnimalController extends Controller
 {
     public function listar()

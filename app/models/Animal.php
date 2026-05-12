@@ -1,5 +1,7 @@
 <?php
 
+require_once ROOT_PATH . '/app/models/conexao.php';
+
 class Animal
 {
     private $db;
@@ -77,14 +79,21 @@ class Animal
 
     public function countAll()
     {
-        $sql = "SELECT COUNT(*) as total FROM animal WHERE status != 'excluido'";
+        $sql = "SELECT COUNT(*) AS total 
+                FROM animal 
+                WHERE status != 'excluido'";
+
         $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
+
         return $res['total'] ?? 0;
     }
 
     public function getMediaPeso()
     {
-        $sql = "SELECT AVG(peso_entrada) as media FROM animal";
+        $sql = "SELECT AVG(peso_entrada) AS media 
+                FROM animal 
+                WHERE status != 'excluido'";
+
         $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
 
         return round($res['media'] ?? 0);
@@ -94,21 +103,22 @@ class Animal
     {
         $limit = (int) $limit;
 
-        $sql = "SELECT * FROM animal ORDER BY id DESC LIMIT $limit";
+        $sql = "SELECT * 
+                FROM animal 
+                WHERE status != 'excluido' 
+                ORDER BY id DESC 
+                LIMIT {$limit}";
+
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function countVacinasPendentes()
-    {
-        return 0; // futuro módulo
-    }
-
     public function buscarPorId($id)
-{
-    $sql = "SELECT * FROM animal WHERE id = :id LIMIT 1";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
+    {
+        $sql = "SELECT * 
+                FROM animal 
+                WHERE id = :id 
+                AND status != 'excluido'
+                LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
 
@@ -116,14 +126,8 @@ class Animal
             ':id' => $id
         ]);
 
-public function atualizar($dados)
-{
-    $sql = "UPDATE animal 
-            SET brinco_identificador = :brinco,
-                sexo = :sexo,
-                peso_entrada = :peso,
-                status = :status
-            WHERE id = :id";
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function atualizar($dados)
     {
@@ -136,10 +140,7 @@ public function atualizar($dados)
                     observacoes = :observacoes
                 WHERE id = :id";
 
-public function softDelete($id)
-{
-    $sql = "UPDATE animal SET status = 'excluido' WHERE id = :id";
-    $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
             ':id' => $dados['id'],
@@ -152,30 +153,34 @@ public function softDelete($id)
         ]);
     }
 
-public function adicionarPeso($animal_id, $peso)
-{
-    $sql = "INSERT INTO animal_peso_historico (animal_id, peso)
-            VALUES (:animal_id, :peso)";
+    public function softDelete($id)
+    {
+        $sql = "UPDATE animal 
+                SET status = 'excluido' 
+                WHERE id = :id";
 
-    $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
-    return $stmt->execute([
-        ':animal_id' => $animal_id,
-        ':peso' => $peso
-    ]);
-}
+        return $stmt->execute([
+            ':id' => $id
+        ]);
+    }
 
-public function getHistoricoPeso($animal_id)
-{
-    $sql = "SELECT * FROM animal_peso_historico 
-            WHERE animal_id = :id 
-            ORDER BY data_registro DESC";
+    public function adicionarPeso($animal_id, $peso, $observacao = null)
+    {
+        $sql = "INSERT INTO animal_peso_historico 
+                (animal_id, peso, observacao)
+                VALUES 
+                (:animal_id, :peso, :observacao)";
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([':id' => $animal_id]);
+        $stmt = $this->db->prepare($sql);
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $stmt->execute([
+            ':animal_id' => $animal_id,
+            ':peso' => $peso,
+            ':observacao' => $observacao
+        ]);
+    }
 
     public function getHistoricoPeso($animal_id)
     {
