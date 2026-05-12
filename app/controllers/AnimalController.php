@@ -128,18 +128,22 @@ if ($isAjax) {
             $this->redirect('/animal');
 
         } catch (PDOException $e) {
-            $mensagem = 'Erro ao cadastrar animal. Verifique os dados e tente novamente.';
+    $mensagem = 'Erro ao cadastrar animal. Verifique os dados e tente novamente.';
 
-            if ($isAjax) {
-                $this->json([
-                    'sucesso' => false,
-                    'mensagem' => $mensagem
-                ], 500);
-            }
+    if ($e->getCode() === '23000') {
+        $mensagem = 'Já existe um animal cadastrado com esse número de brinco.';
+    }
 
-            $_SESSION['erro'] = $mensagem;
-            $this->redirect('/animal');
-        }
+    if ($isAjax) {
+        $this->json([
+            'sucesso' => false,
+            'mensagem' => $mensagem
+        ], 500);
+    }
+
+    $_SESSION['erro'] = $mensagem;
+    $this->redirect('/animal');
+}
     }
 
     public function editar()

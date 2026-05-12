@@ -61,20 +61,19 @@ class Animal
     }
 
     public function brincoExiste($brinco)
-    {
-        $sql = "SELECT id 
-                FROM animal 
-                WHERE brinco_identificador = :brinco 
-                AND status != 'excluido'
-                LIMIT 1";
+{
+    $sql = "SELECT id 
+            FROM animal 
+            WHERE brinco_identificador = :brinco 
+            LIMIT 1";
 
-        $stmt = $this->db->prepare($sql);
+    $stmt = $this->db->prepare($sql);
 
-        $stmt->execute([
-            ':brinco' => $brinco
-        ]);
+    $stmt->execute([
+        ':brinco' => $brinco
+    ]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
 
     public function countAll()
