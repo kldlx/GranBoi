@@ -91,14 +91,10 @@ $avatar = strtoupper(substr($nomeUsuario, 0, 1));
 
   <div class="dashboard-container">
 
-<<<<<<< HEAD
       <div class="card-info">
         <span>Total de Gado</span>
         <h2><?= htmlspecialchars($totalAnimais ?? 0) ?></h2>
       </div>
-=======
-    <aside class="sidebar" id="sidebar">
->>>>>>> 482ca97a1112a21d09b9c1f3c7cd16a8b918d54b
 
       <div class="logo">
 
@@ -226,7 +222,6 @@ $avatar = strtoupper(substr($nomeUsuario, 0, 1));
 
       </nav>
 
-<<<<<<< HEAD
   <?php if (!empty($ultimosAnimais)): ?>
 
     <?php foreach ($ultimosAnimais as $animal): ?>
@@ -266,45 +261,6 @@ $avatar = strtoupper(substr($nomeUsuario, 0, 1));
   <?php endif; ?>
 
 </tbody>
-=======
-    </aside>
-
-    <main class="main-content">
-
-      <header class="topbar">
-
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-        >
-          <i class="ri-menu-line"></i>
-        </button>
-
-        <div class="topbar-title">
-
-          <h1><?= $dashboard['titulo'] ?></h1>
-
-          <p>
-            <?= $dashboard['descricao'] ?>
-          </p>
-
-        </div>
-
-        <div class="profile">
-
-          <div class="profile-info">
-            <h3><?= htmlspecialchars($nomeUsuario) ?></h3>
-            <span><?= htmlspecialchars($dashboard['fazenda']) ?></span>
-          </div>
-
-          <div class="profile-avatar">
-            <?= htmlspecialchars($avatar) ?>
-          </div>
-
-        </div>
-
-      </header>
->>>>>>> 482ca97a1112a21d09b9c1f3c7cd16a8b918d54b
 
       <section class="cards">
 
