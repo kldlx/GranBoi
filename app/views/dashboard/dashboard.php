@@ -44,7 +44,7 @@
 
       <div class="card-info">
         <span>Total de Gado</span>
-        <h2>3</h2>
+        <h2><?= htmlspecialchars($totalAnimais ?? 0) ?></h2>
       </div>
 
     </div>
@@ -70,7 +70,7 @@
 
       <div class="card-info">
         <span>Peso Médio</span>
-        <h2>416kg</h2>
+        <h2><?= htmlspecialchars($pesoMedio ?? 0) ?>kg</h2>
       </div>
 
     </div>
@@ -83,7 +83,9 @@
 
       <div class="card-info">
         <span>GMD Médio</span>
-        <h2>0,83kg/dia</h2>
+        <h2>
+  <?= $gmdMedio !== null ? htmlspecialchars($gmdMedio) . 'kg/dia' : '-' ?>
+</h2>
       </div>
 
     </div>
@@ -132,49 +134,45 @@
 
         <tbody>
 
-          <tr>
+  <?php if (!empty($ultimosAnimais)): ?>
 
-            <td>#1023</td>
-            <td>Nelore</td>
-            <td>410kg</td>
+    <?php foreach ($ultimosAnimais as $animal): ?>
 
-            <td>
-              <span class="status healthy">
-                Saudável
-              </span>
-            </td>
+      <tr>
 
-          </tr>
+        <td>
+          #<?= htmlspecialchars($animal['brinco_identificador']) ?>
+        </td>
 
-          <tr>
+        <td>
+          <?= htmlspecialchars($animal['raca'] ?? '-') ?>
+        </td>
 
-            <td>#2045</td>
-            <td>Angus</td>
-            <td>450kg</td>
+        <td>
+          <?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>kg
+        </td>
 
-            <td>
-              <span class="status vaccine">
-                Vacina
-              </span>
-            </td>
+        <td>
+          <span class="dashboard-status dashboard-status-<?= htmlspecialchars($animal['status']) ?>">
+          <?= htmlspecialchars($animal['status']) ?>
+          </span>
+        </td>
 
-          </tr>
+      </tr>
 
-          <tr>
+    <?php endforeach; ?>
 
-            <td>#8741</td>
-            <td>Brahman</td>
-            <td>390kg</td>
+  <?php else: ?>
 
-            <td>
-              <span class="status alert">
-                Atenção
-              </span>
-            </td>
+    <tr>
+      <td colspan="4">
+        Nenhum animal cadastrado.
+      </td>
+    </tr>
 
-          </tr>
+  <?php endif; ?>
 
-        </tbody>
+</tbody>
 
       </table>
 

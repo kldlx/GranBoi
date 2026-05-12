@@ -7,7 +7,7 @@
   <p>Brinco: <?= $animal['brinco_identificador'] ?></p>
   <p>Peso: <?= $animal['peso_entrada'] ?>kg</p>
 
-  <a href="/animal/historico?id=<?= $animal['id'] ?>">
+<a href="<?= BASE_URL ?>/animal/historicoPeso?id=<?= $animal['id'] ?>">
     Ver histórico de peso
   </a>
 

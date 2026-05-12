@@ -16,30 +16,65 @@ class Animal
         $sql = "INSERT INTO animal 
             (brinco_identificador, nome, raca, lote, data_nascimento, sexo, peso_entrada, status, observacoes) 
             VALUES 
-            (:brinco, :nome, :raca, :lote, :data_nascimento, :sexo, :peso_entrada, 'ativo', :observacoes)";
+            (:brinco, NULL, :raca, :lote, :data_nascimento, :sexo, :peso_entrada, 'ativo', :observacoes)";
 
         $stmt = $this->db->prepare($sql);
 
-        return $stmt->execute([
+        $stmt->execute([
             ':brinco' => $dados['brinco'],
-            ':nome' => $dados['nome'] ?? null,
-            ':raca' => $dados['raca'] ?? null,
-            ':lote' => $dados['lote'] ?? null,
-            ':data_nascimento' => $dados['data_nascimento'] ?? null,
+            ':raca' => !empty($dados['raca']) ? $dados['raca'] : null,
+            ':lote' => !empty($dados['lote']) ? $dados['lote'] : null,
+            ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
             ':sexo' => $dados['sexo'],
             ':peso_entrada' => $dados['peso_entrada'],
-            ':observacoes' => $dados['observacoes'] ?? null
+            ':observacoes' => !empty($dados['observacoes']) ? $dados['observacoes'] : null
         ]);
+
+        return $this->db->lastInsertId();
     }
 
     public function listarTodos()
     {
-        $sql = "SELECT * 
-                FROM animal 
-                WHERE status != 'excluido' 
-                ORDER BY id DESC";
+        $sql = "
+            SELECT 
+                animal.*,
+                COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
+                ultima_pesagem.data_registro AS data_ultima_pesagem
+            FROM animal
+            LEFT JOIN (
+                SELECT aph1.animal_id, aph1.peso, aph1.data_registro
+                FROM animal_peso_historico aph1
+                INNER JOIN (
+                    SELECT animal_id, MAX(data_registro) AS ultima_data
+                    FROM animal_peso_historico
+                    GROUP BY animal_id
+                ) aph2 
+                    ON aph2.animal_id = aph1.animal_id
+                    AND aph2.ultima_data = aph1.data_registro
+            ) ultima_pesagem
+                ON ultima_pesagem.animal_id = animal.id
+            WHERE animal.status != 'excluido'
+            ORDER BY animal.id DESC
+        ";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function brincoExiste($brinco)
+    {
+        $sql = "SELECT id 
+                FROM animal 
+                WHERE brinco_identificador = :brinco 
+                AND status != 'excluido'
+                LIMIT 1";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':brinco' => $brinco
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
 
     public function countAll()
@@ -86,8 +121,10 @@ class Animal
                 LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
+
+        $stmt->execute([
+            ':id' => $id
+        ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -95,13 +132,10 @@ class Animal
     public function atualizar($dados)
     {
         $sql = "UPDATE animal 
-                SET brinco_identificador = :brinco,
-                    nome = :nome,
-                    raca = :raca,
+                SET raca = :raca,
                     lote = :lote,
                     data_nascimento = :data_nascimento,
                     sexo = :sexo,
-                    peso_entrada = :peso_entrada,
                     status = :status,
                     observacoes = :observacoes
                 WHERE id = :id";
@@ -110,15 +144,12 @@ class Animal
 
         return $stmt->execute([
             ':id' => $dados['id'],
-            ':brinco' => $dados['brinco'],
-            ':nome' => $dados['nome'] ?? null,
-            ':raca' => $dados['raca'] ?? null,
-            ':lote' => $dados['lote'] ?? null,
-            ':data_nascimento' => $dados['data_nascimento'] ?? null,
+            ':raca' => !empty($dados['raca']) ? $dados['raca'] : null,
+            ':lote' => !empty($dados['lote']) ? $dados['lote'] : null,
+            ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
             ':sexo' => $dados['sexo'],
-            ':peso_entrada' => $dados['peso_entrada'],
             ':status' => $dados['status'],
-            ':observacoes' => $dados['observacoes'] ?? null
+            ':observacoes' => !empty($dados['observacoes']) ? $dados['observacoes'] : null
         ]);
     }
 
@@ -159,6 +190,7 @@ class Animal
                 ORDER BY data_registro DESC";
 
         $stmt = $this->db->prepare($sql);
+
         $stmt->execute([
             ':id' => $animal_id
         ]);

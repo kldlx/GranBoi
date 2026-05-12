@@ -24,6 +24,12 @@ $menus = [
         'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
     ],
     [
+    'label' => 'Pesagem',
+    'url' => '/peso',
+    'icon' => 'ri-scales-3-line',
+    'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
+    ],
+    [
         'label' => 'Vacinação',
         'url' => '/vacinas',
         'icon' => 'ri-heart-pulse-line',

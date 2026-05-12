@@ -612,3 +612,33 @@ textarea{
   }
 
 }
+
+.dashboard-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.dashboard-status-ativo {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.dashboard-status-vendido {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.dashboard-status-morto {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.dashboard-status-excluido {
+  background: #eeeeee;
+  color: #616161;
+}

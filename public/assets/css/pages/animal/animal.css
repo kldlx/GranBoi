@@ -110,9 +110,14 @@
   background: #f5f5f5;
   color: var(--dark);
   text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   transition: 0.2s ease;
 }
 
@@ -135,9 +140,105 @@
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .primary-action {
-    width: 100%;
-    justify-content: center;
   }
+
+  .animal-create-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 0 20px;
+
+  background: #0b4f1f !important;
+  color: #ffffff !important;
+
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  box-shadow: 0 8px 18px rgba(11, 79, 31, 0.22);
+  transition: 0.2s ease;
+}
+
+.animal-create-btn i,
+.animal-create-btn span {
+  color: #ffffff !important;
+}
+
+.animal-create-btn:hover {
+  background: #083d18 !important;
+  transform: translateY(-1px);
+}
+
+.animal-create-btn:active {
+  transform: translateY(0);
+}
+
+.animal-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 14px 18px;
+  margin: 18px 0 22px 0;
+
+  border-radius: 14px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.animal-message i {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.animal-message-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.animal-message-error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+@media (max-width: 768px) {
+  .page-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .animal-create-btn {
+    width: 100%;
+  }
+}
+
+.action-btn.pesagem-animal-btn {
+  color: #141313;
+}
+
+.action-btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  color: #999 !important;
+}
+
+.action-btn-disabled:hover {
+  background: #f5f5f5;
+  transform: none;
 }

@@ -4,11 +4,22 @@
 <head>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
   <title>GranBoi - Cadastro de Gado</title>
 
-   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
+  <style>
+  .alert-error {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c2c0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+</style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +60,7 @@
           <span>Dashboard</span>
         </a>
 
-        <a href="<?= BASE_URL ?>/animal/cadastrar" class="menu-item active">
+        <a href="<?= BASE_URL ?>/animal/listar" class="menu-item active">
           <i class="ri-bear-smile-line"></i>
           <span>Gado</span>
         </a>
@@ -82,7 +93,7 @@
 
       <header class="topbar">
 
-        <button class="menu-toggle" id="menuToggle">
+        <button class="menu-toggle" id="menuToggle" type="button">
           <i class="ri-menu-line"></i>
         </button>
 
@@ -97,104 +108,154 @@
         </div>
 
       </header>
+<div class="form-container">
 
-      <div class="form-container">
+  <?php if (isset($_GET['erro']) && $_GET['erro'] === 'brinco_duplicado'): ?>
+  <div class="alert-error">
+    Já existe um animal cadastrado com esse número de brinco.
+  </div>
+<?php endif; ?>
 
-        <div class="input-row">
+<?php if (isset($_GET['erro']) && $_GET['erro'] === 'cadastro'): ?>
+  <div class="alert-error">
+    Não foi possível cadastrar o animal. Verifique se a raça e o lote existem no banco de dados.
+  </div>
+<?php endif; ?>
 
-          <div class="input-group">
+  <form action="<?= BASE_URL ?>/animal/salvar" method="POST">
 
-            <label>Número do Brinco</label>
+          <div class="input-row">
 
-            <input
-              type="text"
-              placeholder="Ex: 1024"
-            >
+            <div class="input-group">
 
-          </div>
+              <label for="brinco">Número do Brinco</label>
 
-          <div class="input-group">
+              <input
+                type="text"
+                id="brinco"
+                name="brinco"
+                placeholder="Ex: 1024"
+                required
+              >
 
-            <label>Nome do Animal</label>
+            </div>
 
-            <input
-              type="text"
-              placeholder="Ex: Trovão"
-            >
+            <div class="input-group">
 
-          </div>
+              <label for="nome_animal">Nome do Animal</label>
 
-        </div>
+              <input
+                type="text"
+                id="nome_animal"
+                name="nome_animal"
+                placeholder="Ex: Trovão"
+              >
 
-        <div class="input-row">
-
-          <div class="input-group">
-
-            <label>Raça</label>
-
-            <select>
-
-              <option>Selecione</option>
-              <option>Nelore</option>
-              <option>Angus</option>
-              <option>Brahman</option>
-
-            </select>
-
-          </div>
-
-          <div class="input-group">
-
-            <label>Sexo</label>
-
-            <select>
-
-              <option>Selecione</option>
-              <option>Macho</option>
-              <option>Fêmea</option>
-
-            </select>
+            </div>
 
           </div>
 
-        </div>
+          <div class="input-row">
 
-        <div class="input-row">
+ <div class="input-group">
 
-          <div class="input-group">
+  <label for="raca">Raça</label>
 
-            <label>Peso Atual</label>
+  <select id="raca" name="raca" required>
+    <option value="">Selecione</option>
+    <option value="1">Nelore</option>
+    <option value="2">Red Angus</option>
+    <option value="3">Angus Mocho</option>
+    <option value="4">Hereford</option>
+    <option value="5">Brahman</option>
+    <option value="6">Guzerá</option>
+    <option value="7">Simental</option>
+    <option value="8">Gir</option>
+    <option value="9">Girolando</option>
+    <option value="10">Jersey</option>
+  </select>
 
-            <input
-              type="number"
-              placeholder="Ex: 420"
-            >
+</div>
+
+      <div class="input-group">
+
+  <label for="lote">Lote</label>
+
+  <select id="lote" name="lote" required>
+    <option value="">Selecione</option>
+    <option value="1">NELORE - 500 ANIMAIS</option>
+    <option value="2">ANGUS - 100 - ANIMAIS PRIMEIRA LINHA</option>
+  </select>
+
+</div>
 
           </div>
 
-          <div class="input-group">
+          <div class="input-row">
 
-            <label>Data de Nascimento</label>
+            <div class="input-group">
 
-            <input type="date">
+              <label for="sexo">Sexo</label>
+
+              <select id="sexo" name="sexo" required>
+                <option value="">Selecione</option>
+                <option value="M">Macho</option>
+                <option value="F">Fêmea</option>
+              </select>
+
+            </div>
+
+            <div class="input-group">
+
+              <label for="peso">Peso Atual</label>
+
+              <input
+                type="number"
+                id="peso"
+                name="peso"
+                placeholder="Ex: 420"
+                min="1"
+                step="0.01"
+                required
+              >
+
+            </div>
 
           </div>
 
-        </div>
+          <div class="input-row">
 
-        <div class="input-group">
+            <div class="input-group">
 
-          <label>Observações</label>
+              <label for="nascimento">Data de Nascimento</label>
 
-          <textarea
-            placeholder="Informações adicionais sobre o animal..."
-          ></textarea>
+              <input
+                type="date"
+                id="nascimento"
+                name="nascimento"
+              >
 
-        </div>
+            </div>
 
-        <button class="save-btn">
-          Salvar Animal
-        </button>
+            <div class="input-group">
+
+              <label for="observacoes">Observações</label>
+
+              <textarea
+                id="observacoes"
+                name="observacoes"
+                placeholder="Informações adicionais sobre o animal..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+          <button type="submit" class="save-btn">
+            Salvar Animal
+          </button>
+
+        </form>
 
       </div>
 
@@ -202,8 +263,7 @@
 
   </div>
 
-  <script src="<?= BASE_URL ?>/public/assets/js/animal/cadastrar.js"></script>
-
+<!-- <script src="<?= BASE_URL ?>/public/assets/js/pages/animal/cadastrar.js"></script> -->
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Editar Animal</title>
-   <link rel="stylesheet" href="../../../public/assets/css/global/style.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 
   <h1>Editar Animal</h1>
 
-  <form action="/animal/atualizar" method="POST">
+<form action="<?= BASE_URL ?>/animal/atualizar" method="POST">
 
     <input type="hidden" name="id" value="<?= $animal['id'] ?>">
 

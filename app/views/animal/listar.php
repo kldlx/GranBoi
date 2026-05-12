@@ -34,6 +34,28 @@
 
   </header>
 
+  <?php if (!empty($_SESSION['sucesso'])): ?>
+
+  <div class="animal-message animal-message-success">
+    <i class="ri-checkbox-circle-line"></i>
+    <span><?= $_SESSION['sucesso'] ?></span>
+  </div>
+
+  <?php unset($_SESSION['sucesso']); ?>
+
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['erro'])): ?>
+
+  <div class="animal-message animal-message-error">
+    <i class="ri-error-warning-line"></i>
+    <span><?= $_SESSION['erro'] ?></span>
+  </div>
+
+  <?php unset($_SESSION['erro']); ?>
+
+<?php endif; ?>
+
   <section class="page-actions">
 
     <div>
@@ -43,13 +65,14 @@
       </p>
     </div>
 
-    <a
-      href="<?= BASE_URL ?>/animal/cadastrar"
-      class="primary-action"
-    >
-      <i class="ri-add-line"></i>
-      Cadastrar Animal
-    </a>
+    <button
+  type="button"
+  class="animal-create-btn"
+  id="abrirModalCadastrarAnimal"
+>
+  <i class="ri-add-line"></i>
+  <span>Cadastrar Animal</span>
+</button>
 
   </section>
 
@@ -62,10 +85,9 @@
         <tr>
           <th>ID</th>
           <th>Brinco</th>
-          <th>Nome</th>
           <th>Raça</th>
           <th>Sexo</th>
-          <th>Peso</th>
+          <th>Peso Atual</th>
           <th>Status</th>
           <th>Ações</th>
         </tr>
@@ -86,9 +108,7 @@
                 #<?= htmlspecialchars($animal['brinco_identificador']) ?>
               </td>
 
-              <td>
-                <?= htmlspecialchars($animal['nome'] ?? '-') ?>
-              </td>
+              
 
               <td>
                 <?= htmlspecialchars($animal['raca'] ?? '-') ?>
@@ -99,7 +119,7 @@
               </td>
 
               <td>
-                <?= htmlspecialchars($animal['peso_entrada']) ?> kg
+                <?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?> kg
               </td>
 
               <td>
@@ -112,29 +132,75 @@
 
                 <div class="actions">
 
-                  <a
-                    href="<?= BASE_URL ?>/animal/detalhes?id=<?= $animal['id'] ?>"
-                    class="action-btn"
-                    title="Ver detalhes"
-                  >
-                    <i class="ri-eye-line"></i>
-                  </a>
+                  <button
+  type="button"
+  class="action-btn detalhes-animal-btn"
+  title="Ver detalhes"
+  data-id="<?= htmlspecialchars($animal['id']) ?>"
+  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+  data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
+  data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
+  data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
+  data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
+  data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
+  data-status="<?= htmlspecialchars($animal['status']) ?>"
+  data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
+>
+  <i class="ri-eye-line"></i>
+</button>
 
-                  <a
-                    href="<?= BASE_URL ?>/animal/editar?id=<?= $animal['id'] ?>"
-                    class="action-btn"
-                    title="Editar animal"
-                  >
-                    <i class="ri-edit-line"></i>
-                  </a>
+                  <button
+  type="button"
+  class="action-btn editar-animal-btn"
+  title="Editar animal"
+  data-id="<?= htmlspecialchars($animal['id']) ?>"
+  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+  data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
+  data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
+  data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
+  data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
+  data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
+  data-status="<?= htmlspecialchars($animal['status']) ?>"
+  data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
+>
+  <i class="ri-edit-line"></i>
+</button>
 
-                  <a
-                    href="<?= BASE_URL ?>/animal/excluir?id=<?= $animal['id'] ?>"
-                    class="action-btn danger"
-                    title="Excluir animal"
-                  >
-                    <i class="ri-delete-bin-line"></i>
-                  </a>
+<?php if ($animal['status'] === 'ativo'): ?>
+
+  <a
+    href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
+    class="action-btn pesagem-animal-btn"
+    title="Controle de pesagem"
+  >
+    <i class="ri-scales-3-line"></i>
+  </a>
+
+<?php else: ?>
+
+  <button
+    type="button"
+    class="action-btn action-btn-disabled"
+    title="Pesagem indisponível para animal <?= htmlspecialchars($animal['status']) ?>"
+    disabled
+  >
+    <i class="ri-scales-3-line"></i>
+  </button>
+
+<?php endif; ?>
+
+
+                  <button
+  type="button"
+  class="action-btn danger excluir-animal-btn"
+  title="Excluir animal"
+  data-id="<?= htmlspecialchars($animal['id']) ?>"
+  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+>
+  <i class="ri-delete-bin-line"></i>
+</button>
+
+
 
                 </div>
 
@@ -159,5 +225,13 @@
     </table>
 
   </section>
+
+  <?php require_once ROOT_PATH . '/app/views/components/modals/animal/modal-cadastrar-animal.php'; ?>
+
+  <?php require_once ROOT_PATH . '/app/views/components/modals/animal/modal-editar-animal.php'; ?>
+
+  <?php require_once ROOT_PATH . '/app/views/components/modals/animal/modal-excluir-animal.php'; ?>
+
+  <?php require_once ROOT_PATH . '/app/views/components/modals/animal/modal-detalhes-animal.php'; ?>
 
 </main>
