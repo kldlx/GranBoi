@@ -1,0 +1,168 @@
+#modalCadastrarVacinacao .modal-container {
+  width: min(820px, calc(100% - 32px));
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+#modalCadastrarVacinacao .modal-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid #eee;
+}
+
+#modalCadastrarVacinacao .modal-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+#modalCadastrarVacinacao .modal-header p {
+  font-size: 14px;
+  color: #777;
+}
+
+#modalCadastrarVacinacao .close-modal {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--dark);
+}
+
+#modalCadastrarVacinacao .close-modal:hover {
+  background: #f5f5f5;
+}
+
+.vacinacao-modal-body {
+  padding: 24px 28px;
+  max-height: 58vh;
+  overflow-y: auto;
+}
+
+.vacinacao-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.vacinacao-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vacinacao-form-full {
+  grid-column: 1 / -1;
+}
+
+.vacinacao-form-group label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.vacinacao-form-group input,
+.vacinacao-form-group select,
+.vacinacao-form-group textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--dark);
+  background: #fff;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.vacinacao-form-group textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.vacinacao-form-group input:focus,
+.vacinacao-form-group select:focus,
+.vacinacao-form-group textarea:focus {
+  border-color: #0b4f1f;
+  box-shadow: 0 0 0 3px rgba(11, 79, 31, 0.12);
+}
+
+.vacinacao-modal-message {
+  margin: 18px 28px 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.vacinacao-modal-message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.vacinacao-modal-message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+#modalCadastrarVacinacao .modal-footer {
+  padding: 18px 28px 24px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+#modalCadastrarVacinacao .btn-cancelar,
+#modalCadastrarVacinacao .btn-salvar {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+}
+
+#modalCadastrarVacinacao .btn-cancelar {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+#modalCadastrarVacinacao .btn-salvar {
+  background: #0b4f1f;
+  color: #fff;
+}
+
+#modalCadastrarVacinacao .btn-salvar:hover {
+  background: #083d18;
+}
+
+#modalCadastrarVacinacao .btn-salvar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .vacinacao-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #modalCadastrarVacinacao .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  #modalCadastrarVacinacao .btn-cancelar,
+  #modalCadastrarVacinacao .btn-salvar {
+    width: 100%;
+  }
+}

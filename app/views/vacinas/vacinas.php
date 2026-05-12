@@ -1,388 +1,155 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<main class="main-content">
 
-<head>
+  <header class="topbar">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+    >
+      <i class="ri-menu-line"></i>
+    </button>
 
-  <title>GranBoi - Vacinação</title>
+    <div class="topbar-title">
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/vacinas/vacinas.css">
+      <h1>Controle de Vacinação</h1>
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/components/modal.css">
+      <p>
+        Registre e acompanhe as vacinações dos animais
+      </p>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    </div>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    <div class="profile">
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-    rel="stylesheet">
-
-</head>
-
-<body>
-
-  <div class="dashboard-container">
-
-    <aside class="sidebar" id="sidebar">
-
-      <div class="logo">
-
-        <div class="logo-icon">
-          <i class="ri-leaf-line"></i>
-        </div>
-
-        <div class="logo-text">
-          <h2>GranBoi</h2>
-          <span>Gestão Inteligente</span>
-        </div>
-
+      <div class="profile-info">
+        <h3><?= $_SESSION['usuario']['nome'] ?? 'Usuário' ?></h3>
+        <span><?= $_SESSION['usuario']['papel_nome'] ?? 'Perfil' ?></span>
       </div>
 
-      <nav class="menu">
+      <div class="profile-avatar">
+        <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
+      </div>
 
-        <a
-          href="<?= BASE_URL ?>/dashboard"
-          class="menu-item"
-        >
-          <i class="ri-dashboard-line"></i>
-          <span>Dashboard</span>
-        </a>
+    </div>
 
-        <a
-          href="<?= BASE_URL ?>/animal/cadastrar"
-          class="menu-item"
-        >
-          <i class="ri-bear-smile-line"></i>
-          <span>Gado</span>
-        </a>
+  </header>
 
-        <a
-          href="<?= BASE_URL ?>/vacinas"
-          class="menu-item active"
-        >
-          <i class="ri-heart-pulse-line"></i>
-          <span>Vacinação</span>
-        </a>
+  <?php if (!empty($_SESSION['sucesso'])): ?>
 
-        <a
-          href="<?= BASE_URL ?>/financeiro"
-          class="menu-item"
-        >
-          <i class="ri-line-chart-line"></i>
-          <span>Financeiro</span>
-        </a>
+    <div class="vacinacao-message vacinacao-message-success">
+      <i class="ri-checkbox-circle-line"></i>
+      <span><?= $_SESSION['sucesso'] ?></span>
+    </div>
 
-        <a
-          href="<?= BASE_URL ?>/relatorios"
-          class="menu-item"
-        >
-          <i class="ri-file-chart-line"></i>
-          <span>Relatórios</span>
-        </a>
+    <?php unset($_SESSION['sucesso']); ?>
 
-        <a
-          href="<?= BASE_URL ?>/profile"
-          class="menu-item"
-        >
-          <i class="ri-user-line"></i>
-          <span>Perfil</span>
-        </a>
+  <?php endif; ?>
 
-      </nav>
+  <?php if (!empty($_SESSION['erro'])): ?>
 
-    </aside>
+    <div class="vacinacao-message vacinacao-message-error">
+      <i class="ri-error-warning-line"></i>
+      <span><?= $_SESSION['erro'] ?></span>
+    </div>
 
-    <main class="main-content">
+    <?php unset($_SESSION['erro']); ?>
 
-      <header class="topbar">
+  <?php endif; ?>
 
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-        >
-          <i class="ri-menu-line"></i>
-        </button>
+  <section class="vacinacao-page-actions">
 
-        <div class="topbar-title">
+    <div>
+      <h2>Histórico de Vacinação</h2>
+      <p>Vacinas registradas no sistema</p>
+    </div>
 
-          <h1>Controle de Vacinação</h1>
+    <button
+      type="button"
+      class="vacinacao-create-btn"
+      id="abrirModalCadastrarVacinacao"
+    >
+      <i class="ri-add-line"></i>
+      <span>Registrar Vacinação</span>
+    </button>
 
-          <p>
-            Gerencie vacinas e imunizações do rebanho
-          </p>
+  </section>
 
-        </div>
+  <section class="vacinacao-table-container">
 
-      </header>
+    <table class="vacinacao-table">
 
-      <section class="cards">
+      <thead>
 
-        <div class="card">
+        <tr>
+          <th>Animal</th>
+          <th>Vacina</th>
+          <th>Aplicação</th>
+          <th>Próxima Dose</th>
+          <th>Responsável</th>
+          <th>Via</th>
+          <th>Status</th>
+        </tr>
 
-          <div class="card-icon blue">
-            <i class="ri-syringe-line"></i>
-          </div>
+      </thead>
 
-          <div class="card-info">
-            <span>Vacinas Aplicadas</span>
-            <h2>2.430</h2>
-          </div>
+      <tbody>
 
-        </div>
+        <?php if (!empty($vacinacoes)): ?>
 
-        <div class="card">
-
-          <div class="card-icon orange">
-            <i class="ri-alarm-warning-line"></i>
-          </div>
-
-          <div class="card-info">
-            <span>Pendentes</span>
-            <h2>124</h2>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="card-icon green">
-            <i class="ri-shield-check-line"></i>
-          </div>
-
-          <div class="card-info">
-            <span>Imunizados</span>
-            <h2>95%</h2>
-          </div>
-
-        </div>
-
-      </section>
-
-      <section class="table-container">
-
-        <div class="table-header">
-
-          <div>
-
-            <h2>Próximas Vacinações</h2>
-
-            <p>
-              Controle das vacinas agendadas
-            </p>
-
-          </div>
-
-          <button
-            class="new-vaccine-btn"
-            id="abrirModalVacinacao"
-          >
-            Nova Vacinação
-          </button>
-
-        </div>
-
-        <table>
-
-          <thead>
+          <?php foreach ($vacinacoes as $vacinacao): ?>
 
             <tr>
-              <th>Brinco</th>
-              <th>Vacina</th>
-              <th>Data</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <tr
-              data-id="1"
-              data-animal="#1023"
-              data-vacina="Febre Aftosa"
-              data-data-aplicacao="2026-05-12"
-              data-proxima-dose="2026-11-12"
-              data-responsavel="Carlos Silva"
-              data-lote="AFT-2026"
-              data-quantidade="5ml"
-              data-via-aplicacao="Subcutânea"
-              data-observacoes="Vacinação sem reações."
-              data-status="Pendente"
-            >
-
-              <td>#1023</td>
-              <td>Febre Aftosa</td>
-              <td>12/05/2026</td>
 
               <td>
-                <span class="status pending">
-                  Pendente
+                #<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>
+              </td>
+
+              <td>
+                <?= htmlspecialchars($vacinacao['vacina']) ?>
+              </td>
+
+              <td>
+                <?= date('d/m/Y', strtotime($vacinacao['data_aplicacao'])) ?>
+              </td>
+
+              <td>
+                <?= !empty($vacinacao['proxima_dose']) ? date('d/m/Y', strtotime($vacinacao['proxima_dose'])) : '-' ?>
+              </td>
+
+              <td>
+                <?= htmlspecialchars($vacinacao['responsavel'] ?? '-') ?>
+              </td>
+
+              <td>
+                <?= htmlspecialchars($vacinacao['via_aplicacao'] ?? '-') ?>
+              </td>
+
+              <td>
+                <span class="vacinacao-status vacinacao-status-<?= htmlspecialchars($vacinacao['status']) ?>">
+                  <?= ucfirst(htmlspecialchars($vacinacao['status'])) ?>
                 </span>
               </td>
 
-              <td>
-
-                <div class="actions">
-
-                  <button
-                    class="action-btn view-btn"
-                    data-action="view"
-                  >
-                    <i class="ri-eye-line"></i>
-                  </button>
-
-                  <button
-                    class="action-btn edit-btn"
-                    data-action="edit"
-                  >
-                    <i class="ri-edit-line"></i>
-                  </button>
-
-                  <button
-                    class="action-btn delete-btn"
-                    data-action="delete"
-                  >
-                    <i class="ri-delete-bin-line"></i>
-                  </button>
-
-                </div>
-
-              </td>
-
             </tr>
 
-            <tr
-              data-id="2"
-              data-animal="#2045"
-              data-vacina="Brucelose"
-              data-data-aplicacao="2026-05-15"
-              data-proxima-dose="2026-11-15"
-              data-responsavel="Marcos Oliveira"
-              data-lote="BRU-9921"
-              data-quantidade="3ml"
-              data-via-aplicacao="Intramuscular"
-              data-observacoes="Aplicação realizada normalmente."
-              data-status="Aplicada"
-            >
+          <?php endforeach; ?>
 
-              <td>#2045</td>
-              <td>Brucelose</td>
-              <td>15/05/2026</td>
+        <?php else: ?>
 
-              <td>
-                <span class="status done">
-                  Aplicada
-                </span>
-              </td>
+          <tr>
+            <td colspan="7" class="vacinacao-empty">
+              Nenhuma vacinação registrada.
+            </td>
+          </tr>
 
-              <td>
+        <?php endif; ?>
 
-                <div class="actions">
+      </tbody>
 
-                  <button
-                    class="action-btn view-btn"
-                    data-action="view"
-                  >
-                    <i class="ri-eye-line"></i>
-                  </button>
+    </table>
 
-                  <button
-                    class="action-btn edit-btn"
-                    data-action="edit"
-                  >
-                    <i class="ri-edit-line"></i>
-                  </button>
+  </section>
 
-                  <button
-                    class="action-btn delete-btn"
-                    data-action="delete"
-                  >
-                    <i class="ri-delete-bin-line"></i>
-                  </button>
+  <?php require_once ROOT_PATH . '/app/views/components/modals/vacinacao/modal-cadastrar-vacinacao.php'; ?>
 
-                </div>
-
-              </td>
-
-            </tr>
-
-            <tr
-              data-id="3"
-              data-animal="#8741"
-              data-vacina="Raiva"
-              data-data-aplicacao="2026-05-18"
-              data-proxima-dose="2026-11-18"
-              data-responsavel="Fernanda Costa"
-              data-lote="RAV-4412"
-              data-quantidade="4ml"
-              data-via-aplicacao="Oral"
-              data-observacoes="Vacinação atrasada devido ao manejo."
-              data-status="Atrasada"
-            >
-
-              <td>#8741</td>
-              <td>Raiva</td>
-              <td>18/05/2026</td>
-
-              <td>
-                <span class="status warning">
-                  Atrasada
-                </span>
-              </td>
-
-              <td>
-
-                <div class="actions">
-
-                  <button
-                    class="action-btn view-btn"
-                    data-action="view"
-                  >
-                    <i class="ri-eye-line"></i>
-                  </button>
-
-                  <button
-                    class="action-btn edit-btn"
-                    data-action="edit"
-                  >
-                    <i class="ri-edit-line"></i>
-                  </button>
-
-                  <button
-                    class="action-btn delete-btn"
-                    data-action="delete"
-                  >
-                    <i class="ri-delete-bin-line"></i>
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </section>
-
-    </main>
-
-  </div>
-
-  <?php require_once 'app/components/modals/modal-vacinacao.php'; ?>
-
-  <script src="<?= BASE_URL ?>/public/assets/js/pages/vacinas/vacinas.js"></script>
-
-</body>
-
-</html>
+</main>

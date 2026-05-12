@@ -22,6 +22,7 @@ class HomeController extends Controller
 
             'pesoMedio' => $dashboardModel->pesoMedioAtual(),
             'gmdMedio' => $dashboardModel->gmdMedio(),
+            'vacinasPendentes' => $dashboardModel->vacinasPendentes(),
 
             'ultimosAnimais' => $dashboardModel->ultimosAnimais(5),
             'ultimasPesagens' => $dashboardModel->ultimasPesagens(5)

@@ -212,4 +212,22 @@ public function ultimasPesagens($limit = 5)
 
     return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function vacinasPendentes()
+{
+    $sql = "
+        SELECT COUNT(*) AS total
+        FROM vacinacao
+        INNER JOIN animal 
+            ON animal.id = vacinacao.animal_id
+        WHERE vacinacao.proxima_dose IS NOT NULL
+        AND vacinacao.proxima_dose <= CURDATE()
+        AND vacinacao.status != 'cancelada'
+        AND animal.status = 'ativo'
+    ";
+
+    $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
+
+    return $res['total'] ?? 0;
+}
 }

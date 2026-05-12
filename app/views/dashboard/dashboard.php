@@ -51,16 +51,16 @@
 
   <div class="card">
 
-    <div class="card-icon blue">
-      <i class="ri-checkbox-circle-line"></i>
-    </div>
-
-    <div class="card-info">
-      <span>Animais Ativos</span>
-      <h2><?= htmlspecialchars($totalAtivos ?? 0) ?></h2>
-    </div>
-
+  <div class="card-icon blue">
+    <i class="ri-heart-pulse-line"></i>
   </div>
+
+  <div class="card-info">
+    <span>Vacinas Pendentes</span>
+    <h2><?= htmlspecialchars($vacinasPendentes ?? 0) ?></h2>
+  </div>
+
+</div>
 
   <div class="card">
 
