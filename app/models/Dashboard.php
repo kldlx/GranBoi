@@ -172,4 +172,44 @@ class Dashboard
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function totalPorStatus($status)
+{
+    $sql = "SELECT COUNT(*) AS total 
+            FROM animal 
+            WHERE status = :status";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([
+        ':status' => $status
+    ]);
+
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $res['total'] ?? 0;
+}
+
+public function ultimasPesagens($limit = 5)
+{
+    $limit = (int) $limit;
+
+    $sql = "
+        SELECT 
+            animal_peso_historico.id,
+            animal_peso_historico.animal_id,
+            animal_peso_historico.peso,
+            animal_peso_historico.data_registro,
+            animal.brinco_identificador,
+            animal.raca
+        FROM animal_peso_historico
+        INNER JOIN animal 
+            ON animal.id = animal_peso_historico.animal_id
+        WHERE animal.status != 'excluido'
+        ORDER BY animal_peso_historico.data_registro DESC
+        LIMIT {$limit}
+    ";
+
+    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 }

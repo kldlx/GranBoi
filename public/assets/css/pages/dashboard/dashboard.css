@@ -642,3 +642,33 @@ textarea{
   background: #eeeeee;
   color: #616161;
 }
+
+.dashboard-status-summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.dashboard-status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #f9fafb;
+  border: 1px solid #eef0f2;
+  border-radius: 14px;
+
+  padding: 16px 18px;
+}
+
+.dashboard-status-item span {
+  font-size: 14px;
+  font-weight: 800;
+  color: #555;
+}
+
+.dashboard-status-item strong {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--dark);
+}

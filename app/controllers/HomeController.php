@@ -14,10 +14,17 @@ class HomeController extends Controller
             'pageJs' => [
                 '/public/assets/js/pages/dashboard/dashboard.js'
             ],
+
             'totalAnimais' => $dashboardModel->totalAnimais(),
+            'totalAtivos' => $dashboardModel->totalPorStatus('ativo'),
+            'totalVendidos' => $dashboardModel->totalPorStatus('vendido'),
+            'totalMortos' => $dashboardModel->totalPorStatus('morto'),
+
             'pesoMedio' => $dashboardModel->pesoMedioAtual(),
             'gmdMedio' => $dashboardModel->gmdMedio(),
-            'ultimosAnimais' => $dashboardModel->ultimosAnimais(5)
+
+            'ultimosAnimais' => $dashboardModel->ultimosAnimais(5),
+            'ultimasPesagens' => $dashboardModel->ultimasPesagens(5)
         ]);
     }
 }

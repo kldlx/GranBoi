@@ -36,82 +36,90 @@
 
   <section class="cards">
 
-    <div class="card">
+  <div class="card">
 
-      <div class="card-icon green">
-        <i class="ri-bear-smile-line"></i>
-      </div>
-
-      <div class="card-info">
-        <span>Total de Gado</span>
-        <h2><?= htmlspecialchars($totalAnimais ?? 0) ?></h2>
-      </div>
-
+    <div class="card-icon green">
+      <i class="ri-bear-smile-line"></i>
     </div>
 
-    <div class="card">
-
-      <div class="card-icon blue">
-        <i class="ri-heart-pulse-line"></i>
-      </div>
-
-      <div class="card-info">
-        <span>Vacinas Pendentes</span>
-        <h2>1</h2>
-      </div>
-
+    <div class="card-info">
+      <span>Total de Gado</span>
+      <h2><?= htmlspecialchars($totalAnimais ?? 0) ?></h2>
     </div>
 
-    <div class="card">
+  </div>
 
-      <div class="card-icon orange">
-        <i class="ri-scales-3-line"></i>
-      </div>
+  <div class="card">
 
-      <div class="card-info">
-        <span>Peso Médio</span>
-        <h2><?= htmlspecialchars($pesoMedio ?? 0) ?>kg</h2>
-      </div>
-
+    <div class="card-icon blue">
+      <i class="ri-checkbox-circle-line"></i>
     </div>
 
-    <div class="card">
-
-      <div class="card-icon red">
-        <i class="ri-line-chart-line"></i>
-      </div>
-
-      <div class="card-info">
-        <span>GMD Médio</span>
-        <h2>
-  <?= $gmdMedio !== null ? htmlspecialchars($gmdMedio) . 'kg/dia' : '-' ?>
-</h2>
-      </div>
-
+    <div class="card-info">
+      <span>Animais Ativos</span>
+      <h2><?= htmlspecialchars($totalAtivos ?? 0) ?></h2>
     </div>
 
-  </section>
+  </div>
+
+  <div class="card">
+
+    <div class="card-icon orange">
+      <i class="ri-scales-3-line"></i>
+    </div>
+
+    <div class="card-info">
+      <span>Peso Médio</span>
+      <h2><?= htmlspecialchars($pesoMedio ?? 0) ?>kg</h2>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-icon red">
+      <i class="ri-line-chart-line"></i>
+    </div>
+
+    <div class="card-info">
+      <span>GMD Médio</span>
+      <h2>
+        <?= $gmdMedio !== null ? htmlspecialchars($gmdMedio) . 'kg/dia' : '-' ?>
+      </h2>
+    </div>
+
+  </div>
+
+</section>
 
   <section class="content-grid">
 
     <div class="chart-box">
 
-      <div class="section-header">
-        <h2>Evolução do Rebanho</h2>
-      </div>
+  <div class="section-header">
+    <h2>Status do Rebanho</h2>
+  </div>
 
-      <div class="fake-chart">
+  <div class="dashboard-status-summary">
 
-        <div class="bar" style="height: 60%;"></div>
-        <div class="bar" style="height: 90%;"></div>
-        <div class="bar" style="height: 75%;"></div>
-        <div class="bar" style="height: 100%;"></div>
-        <div class="bar" style="height: 80%;"></div>
-        <div class="bar" style="height: 65%;"></div>
-
-      </div>
-
+    <div class="dashboard-status-item">
+      <span>Ativos</span>
+      <strong><?= htmlspecialchars($totalAtivos ?? 0) ?></strong>
     </div>
+
+    <div class="dashboard-status-item">
+      <span>Vendidos</span>
+      <strong><?= htmlspecialchars($totalVendidos ?? 0) ?></strong>
+    </div>
+
+    <div class="dashboard-status-item">
+      <span>Mortos</span>
+      <strong><?= htmlspecialchars($totalMortos ?? 0) ?></strong>
+    </div>
+
+  </div>
+
+</div>
 
     <div class="table-box">
 
