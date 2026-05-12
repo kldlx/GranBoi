@@ -1,5 +1,5 @@
 <?php
-require_once 'Conexao.php';
+require_once __DIR__ . '/conexao.php';
 
 // Classe com métodos para cadastro e gerenciamento de usuários
 // Trabalha com 3 tabelas: pessoa, usuario e usuario_papel

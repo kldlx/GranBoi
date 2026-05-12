@@ -1,12 +1,8 @@
-</div>
+<hr>
 
-<script src="<?= BASE_URL ?>/public/assets/js/core/sidebar.js"></script>
-
-<?php if (!empty($pageJs)): ?>
-    <?php foreach ($pageJs as $js): ?>
-        <script src="<?= BASE_URL . $js ?>"></script>
-    <?php endforeach; ?>
-<?php endif; ?>
+<footer>
+    <p>GranBoi - <?= date('Y') ?></p>
+</footer>
 
 </body>
 </html>
