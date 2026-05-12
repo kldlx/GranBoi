@@ -6,11 +6,7 @@ class RelatorioController extends Controller
 {
     public function index()
     {
-        // proteção de sessão (igual dashboard)
-        if (!isset($_SESSION['user'])) {
-            header('Location: ' . BASE_URL . '/login');
-            exit;
-        }
+        $this->requireRole(['administrador', 'gestor']);
 
         return $this->render("relatorios/relatorios");
     }

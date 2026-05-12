@@ -4,6 +4,8 @@ class VacinaController extends Controller
 {
     public function listar()
     {
+        $this->requireRole(['administrador', 'veterinario']);
+
         // futuramente: buscar no model
         $vacinas = [];
 
@@ -14,11 +16,15 @@ class VacinaController extends Controller
 
     public function cadastrar()
     {
+        $this->requireRole(['administrador', 'veterinario']);
+
         // futuro
     }
 
     public function salvar()
     {
+        $this->requireRole(['administrador', 'veterinario']);
+
         // futuro
     }
 }

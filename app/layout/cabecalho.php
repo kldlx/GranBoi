@@ -1,38 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title><?= $titulo ?? 'GranBoi' ?></title>
-
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-
-    <?php if (!empty($pageCss)): ?>
-        <?php foreach ($pageCss as $css): ?>
-            <link rel="stylesheet" href="<?= BASE_URL . $css ?>">
-        <?php endforeach; ?>
-    <?php endif; ?>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-        rel="stylesheet"
-    >
-
 </head>
 
 <body>
 
-<div class="dashboard-container">
+<nav>
+    <a href="<?= BASE_URL ?>/dashboard">Home</a>
 
-    <?php require_once ROOT_PATH . '/app/layout/sidebar.php'; ?>
+    <!-- Usuário deslogado -->
+    <?php if (!isset($_SESSION['user'])): ?>
+
+        | <a href="<?= BASE_URL ?>/login">Login</a>
+
+    <?php endif; ?>
+
+
+    <!-- Usuário logado -->
+    <?php if (isset($_SESSION['user'])): ?>
+
+        <?php $papel = $_SESSION['user']['papel'] ?? ''; ?>
+
+        <!-- Administrador -->
+        <?php if ($papel === 'administrador'): ?>
+            | <a href="<?= BASE_URL ?>/animal">Ver bois</a>
+            | <a href="<?= BASE_URL ?>/animal/cadastrar">Cadastrar boi</a>
+            | <a href="<?= BASE_URL ?>/vacinas">Vacinas</a>
+            | <a href="<?= BASE_URL ?>/financeiro">Financeiro</a>
+            | <a href="<?= BASE_URL ?>/relatorios">Relatórios</a>
+            | <a href="<?= BASE_URL ?>/profile">Meus Dados</a>
+        <?php endif; ?>
+
+
+        <!-- Gestor -->
+        <?php if ($papel === 'gestor'): ?>
+            | <a href="<?= BASE_URL ?>/animal">Ver bois</a>
+            | <a href="<?= BASE_URL ?>/animal/cadastrar">Cadastrar boi</a>
+            | <a href="<?= BASE_URL ?>/financeiro">Financeiro</a>
+            | <a href="<?= BASE_URL ?>/relatorios">Relatórios</a>
+            | <a href="<?= BASE_URL ?>/profile">Meus Dados</a>
+        <?php endif; ?>
+
+
+        <!-- Veterinário -->
+        <?php if ($papel === 'veterinario'): ?>
+            | <a href="<?= BASE_URL ?>/animal">Ver bois</a>
+            | <a href="<?= BASE_URL ?>/vacinas">Vacinas</a>
+            | <a href="<?= BASE_URL ?>/profile">Meus Dados</a>
+        <?php endif; ?>
+
+
+        <!-- Operador -->
+        <?php if ($papel === 'operador'): ?>
+            | <a href="<?= BASE_URL ?>/animal">Ver bois</a>
+            | <a href="<?= BASE_URL ?>/animal/cadastrar">Cadastrar boi</a>
+            | <a href="<?= BASE_URL ?>/profile">Meus Dados</a>
+        <?php endif; ?>
+
+
+        | <a href="<?= BASE_URL ?>/logout">Logout</a>
+
+    <?php endif; ?>
+</nav>
+
+<hr>

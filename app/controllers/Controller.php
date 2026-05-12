@@ -2,65 +2,50 @@
 
 class Controller
 {
-    protected function render($view, $dados = [])
-    {
-        $viewPath = ROOT_PATH . "/app/views/{$view}.php";
+   protected function render($view, $dados = [])
+{
+    $viewPath = __DIR__ . "/../views/{$view}.php";
 
-        if (!file_exists($viewPath)) {
-            die("View não encontrada: {$view}");
+    if (!file_exists($viewPath)) {
+        die("View não encontrada: {$view}");
+    }
+
+    extract($dados);
+
+    require_once __DIR__ . "/../layout/cabecalho.php";
+    require_once $viewPath;
+    require_once __DIR__ . "/../layout/rodape.php";
+}
+
+    protected function view($view, $dados = [])
+    {
+        return $this->render($view, $dados);
+    }
+
+    protected function requireLogin()
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: ' . BASE_URL . '/login');
+            exit;
         }
-
-        extract($dados);
-
-        require_once ROOT_PATH . "/app/layout/cabecalho.php";
-        require_once $viewPath;
-        require_once ROOT_PATH . "/app/layout/rodape.php";
     }
 
-    protected function renderAuth($view, $dados = [])
+    protected function requireRole($roles)
     {
-        $viewPath = ROOT_PATH . "/app/views/{$view}.php";
+        $this->requireLogin();
 
-        if (!file_exists($viewPath)) {
-            die("View de autenticação não encontrada: {$view}");
+        $roles = (array) $roles;
+        $papel = $_SESSION['user']['papel'] ?? '';
+
+        if (!in_array($papel, $roles, true)) {
+            header('Location: ' . BASE_URL . '/dashboard');
+            exit;
         }
-
-        extract($dados);
-
-        require_once $viewPath;
-    }
-
-    protected function renderPartial($view, $dados = [])
-    {
-        $viewPath = ROOT_PATH . "/app/views/{$view}.php";
-
-        if (!file_exists($viewPath)) {
-            die("Partial não encontrada: {$view}");
-        }
-
-        extract($dados);
-
-        require_once $viewPath;
-    }
-
-    protected function json($dados, $statusCode = 200)
-    {
-        http_response_code($statusCode);
-        header('Content-Type: application/json; charset=utf-8');
-
-        echo json_encode($dados, JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-
-    protected function redirect($rota)
-    {
-        header('Location: ' . BASE_URL . $rota);
-        exit;
     }
 
     protected function model($model)
     {
-        $modelPath = ROOT_PATH . "/app/models/{$model}.php";
+        $modelPath = __DIR__ . "/../models/{$model}.php";
 
         if (!file_exists($modelPath)) {
             die("Model não encontrado: {$model}");

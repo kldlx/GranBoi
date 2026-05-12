@@ -1,49 +1,32 @@
 <?php
 
-require_once ROOT_PATH . '/app/Core/Middleware.php';
-
 $routes = [
 
-    '/' => [
-        'controller' => 'UsuarioController',
-        'method' => 'login',
-        'auth' => false,
-        'guest' => true
-    ],
+  '/' => ['UsuarioController', 'login'],
+  '/login' => ['UsuarioController', 'login'],
+  '/logout' => ['UsuarioController', 'logout'],
 
-    '/login' => [
-        'controller' => 'UsuarioController',
-        'method' => 'login',
-        'auth' => false,
-        'guest' => true
-    ],
+  '/dashboard' => ['HomeController', 'dashboard'],
+  
+'/animal' => ['AnimalController', 'listar'],
+'/animal/listar' => ['AnimalController', 'listar'],
+'/animal/cadastrar' => ['AnimalController', 'cadastrar'],
+'/animal/salvar' => ['AnimalController', 'salvar'],
+'/animal/detalhes' => ['AnimalController', 'detalhes'],
+'/animal/editar' => ['AnimalController', 'editar'],
+'/animal/atualizar' => ['AnimalController', 'atualizar'],
+'/animal/excluir' => ['AnimalController', 'excluir'],
+'/animal/adicionarPeso' => ['AnimalController', 'adicionarPeso'],
+'/animal/historicoPeso' => ['AnimalController', 'historicoPeso'],
 
-    '/logout' => [
-        'controller' => 'UsuarioController',
-        'method' => 'logout',
-        'auth' => true
-    ],
 
-    '/dashboard' => [
-        'controller' => 'HomeController',
-        'method' => 'dashboard',
-        'auth' => true,
-        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
-    ],
+  '/vacinas' => ['VacinaController', 'listar'],
+  '/vacinas/cadastrar' => ['VacinaController', 'cadastrar'],
+  '/vacinas/salvar' => ['VacinaController', 'salvar'],
 
-    '/animal' => [
-        'controller' => 'AnimalController',
-        'method' => 'listar',
-        'auth' => true,
-        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
-    ],
+  '/financeiro' => ['FinanceiroController', 'index'],
 
-    '/animal/cadastrar' => [
-        'controller' => 'AnimalController',
-        'method' => 'cadastrar',
-        'auth' => true,
-        'roles' => ['administrador', 'gestor', 'operador']
-    ],
+  '/relatorios' => ['RelatorioController', 'index'],
 
     '/animal/salvar' => [
         'controller' => 'AnimalController',
@@ -147,7 +130,8 @@ $routes = [
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$basePath = parse_url(BASE_URL, PHP_URL_PATH);
+
+$basePath = '/granboi';
 
 $url = str_replace($basePath, '', $url);
 
@@ -155,37 +139,27 @@ if ($url === '') {
     $url = '/';
 }
 
+
 if (!isset($routes[$url])) {
     die("Rota não encontrada: {$url}");
 }
 
-$route = $routes[$url];
 
-if (!empty($route['guest'])) {
-    Middleware::guest();
-}
+[$controller, $method] = $routes[$url];
 
-if (!empty($route['auth'])) {
-    Middleware::auth();
-}
 
-if (!empty($route['roles'])) {
-    Middleware::role($route['roles']);
-}
-
-$controller = $route['controller'];
-$method = $route['method'];
-
-$controllerFile = ROOT_PATH . "/app/controllers/{$controller}.php";
+$controllerFile = __DIR__ . "/../controllers/{$controller}.php";
 
 if (!file_exists($controllerFile)) {
     die("Controller não encontrado: {$controller}");
 }
 
-require_once ROOT_PATH . '/app/controllers/Controller.php';
+require_once __DIR__ . '/../controllers/Controller.php';
 require_once $controllerFile;
 
+
 $controllerInstance = new $controller();
+
 
 if (!method_exists($controllerInstance, $method)) {
     die("Método não encontrado: {$method}");

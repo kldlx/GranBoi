@@ -1,38 +1,40 @@
-<main class="main-content">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-  <header class="topbar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-    >
-      <i class="ri-menu-line"></i>
-    </button>
+  <title>GranBoi - Listar Gado</title>
 
-    <div class="topbar-title">
+   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
+</head>
 
-      <h1>Gestão de Gado</h1>
+<body>
 
-      <p>
-        Consulte, cadastre e gerencie os animais do rebanho
-      </p>
+<div class="dashboard-container">
 
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>GranBoi</h2>
     </div>
 
-    <div class="profile">
+    <nav class="menu">
+      <a href="<?= BASE_URL ?>/dashboard">Dashboard</a>
+      <a href="<?= BASE_URL ?>/animal/listar" class="active">Gado</a>
+      <a href="<?= BASE_URL ?>/animal/cadastrar">Cadastrar</a>
+    </nav>
+  </aside>
 
-      <div class="profile-info">
-        <h3><?= $_SESSION['usuario']['nome'] ?? 'Usuário' ?></h3>
-        <span><?= $_SESSION['usuario']['papel_nome'] ?? 'Perfil' ?></span>
-      </div>
+  <main class="main-content">
 
-      <div class="profile-avatar">
-        <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
-      </div>
+    <header class="topbar">
+      <h1>Lista de Gado</h1>
+    </header>
 
-    </div>
+    <section class="table-container">
 
-  </header>
+      <table>
 
   <?php if (!empty($_SESSION['sucesso'])): ?>
 
@@ -97,12 +99,14 @@
       <tbody>
 
         <?php if (!empty($animais)): ?>
-
           <?php foreach ($animais as $animal): ?>
-
             <tr>
 
-              <td><?= htmlspecialchars($animal['id']) ?></td>
+              <td><?= $animal['id'] ?></td>
+              <td><?= $animal['brinco_identificador'] ?></td>
+              <td><?= $animal['sexo'] ?></td>
+              <td><?= $animal['peso_entrada'] ?> kg</td>
+              <td><?= $animal['status'] ?></td>
 
               <td>
                 #<?= htmlspecialchars($animal['brinco_identificador']) ?>
@@ -207,24 +211,18 @@
               </td>
 
             </tr>
-
           <?php endforeach; ?>
-
         <?php else: ?>
-
           <tr>
-            <td colspan="8" class="empty-message">
-              Nenhum animal cadastrado.
-            </td>
+            <td colspan="6">Nenhum animal cadastrado</td>
           </tr>
-
         <?php endif; ?>
 
-      </tbody>
+        </tbody>
 
-    </table>
+      </table>
 
-  </section>
+    </section>
 
   <?php require_once ROOT_PATH . '/app/views/components/modals/animal/modal-cadastrar-animal.php'; ?>
 
