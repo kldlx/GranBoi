@@ -27,90 +27,102 @@
       id="formCadastrarAnimal"
     >
 
-    <div
-  class="animal-modal-message"
-  id="animalModalMessage"
-  hidden
-></div>
+      <div
+        class="animal-modal-message"
+        id="animalModalMessage"
+        hidden
+      ></div>
 
       <div class="modal-body animal-modal-body">
 
-  <div class="animal-form-grid">
+        <div class="animal-form-grid">
 
-    <div class="animal-form-group">
-      <label for="brinco">Número do Brinco</label>
-      <input
-        type="text"
-        id="brinco"
-        name="brinco"
-        placeholder="Ex: 1024"
-        required
-      >
-    </div>
+          <div class="animal-form-group">
+            <label for="brinco">Número do Brinco</label>
+            <input
+              type="text"
+              id="brinco"
+              name="brinco"
+              placeholder="Ex: 1024"
+              required
+            >
+          </div>
 
-    <div class="animal-form-group">
-      <label for="raca">Raça</label>
-      <input
-        type="text"
-        id="raca"
-        name="raca"
-        placeholder="Ex: Nelore"
-      >
-    </div>
+          <div class="animal-form-group">
+            <label for="raca">Raça</label>
+            <select id="raca" name="raca" required>
+              <option value="">Selecione uma raça</option>
 
-    <div class="animal-form-group">
-      <label for="lote">Lote</label>
-      <input
-        type="text"
-        id="lote"
-        name="lote"
-        placeholder="Ex: Lote A"
-      >
-    </div>
+              <?php if (!empty($racas)): ?>
+                <?php foreach ($racas as $raca): ?>
+                  <option value="<?= htmlspecialchars($raca['id']) ?>">
+                    <?= htmlspecialchars($raca['nome_raca']) ?>
+                  </option>
+                <?php endforeach; ?>
+              <?php endif; ?>
 
-    <div class="animal-form-group">
-      <label for="sexo">Sexo</label>
-      <select id="sexo" name="sexo" required>
-        <option value="">Selecione</option>
-        <option value="Macho">Macho</option>
-        <option value="Fêmea">Fêmea</option>
-      </select>
-    </div>
+            </select>
+          </div>
 
-    <div class="animal-form-group">
-      <label for="peso_entrada">Peso de Entrada</label>
-      <input
-        type="number"
-        step="0.01"
-        id="peso_entrada"
-        name="peso_entrada"
-        placeholder="Ex: 420"
-        required
-      >
-    </div>
+          <div class="animal-form-group">
+            <label for="lote">Lote</label>
+            <select id="lote" name="lote" required>
+              <option value="">Selecione um lote</option>
 
-    <div class="animal-form-group">
-      <label for="data_nascimento">Data de Nascimento</label>
-      <input
-        type="date"
-        id="data_nascimento"
-        name="data_nascimento"
-      >
-    </div>
+              <?php if (!empty($lotes)): ?>
+                <?php foreach ($lotes as $lote): ?>
+                  <option value="<?= htmlspecialchars($lote['id']) ?>">
+                    <?= htmlspecialchars($lote['nome_lote']) ?>
+                  </option>
+                <?php endforeach; ?>
+              <?php endif; ?>
 
-    <div class="animal-form-group animal-form-full">
-      <label for="observacoes">Observações</label>
-      <textarea
-        id="observacoes"
-        name="observacoes"
-        rows="4"
-        placeholder="Informações adicionais..."
-      ></textarea>
-    </div>
+            </select>
+          </div>
 
-  </div>
+          <div class="animal-form-group">
+            <label for="sexo">Sexo</label>
+            <select id="sexo" name="sexo" required>
+              <option value="">Selecione</option>
+              <option value="M">Macho</option>
+              <option value="F">Fêmea</option>
+            </select>
+          </div>
 
-</div>
+          <div class="animal-form-group">
+            <label for="peso_entrada">Peso de Entrada</label>
+            <input
+              type="number"
+              step="0.01"
+              id="peso_entrada"
+              name="peso_entrada"
+              placeholder="Ex: 420"
+              required
+            >
+          </div>
+
+          <div class="animal-form-group">
+            <label for="data_nascimento">Data de Nascimento</label>
+            <input
+              type="date"
+              id="data_nascimento"
+              name="data_nascimento"
+            >
+          </div>
+
+          <div class="animal-form-group">
+            <label for="chip">Chip</label>
+            <input
+              type="text"
+              id="chip"
+              name="chip"
+              placeholder="Código do chip, se houver"
+            >
+          </div>
+
+        </div>
+
+      </div>
 
       <div class="modal-footer">
 

@@ -32,15 +32,15 @@ class Dashboard
                     COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual
                 FROM animal
                 LEFT JOIN (
-                    SELECT aph1.animal_id, aph1.peso, aph1.data_registro
-                    FROM animal_peso_historico aph1
+                    SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                    FROM pesagem p1
                     INNER JOIN (
-                        SELECT animal_id, MAX(data_registro) AS ultima_data
-                        FROM animal_peso_historico
+                        SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                        FROM pesagem
                         GROUP BY animal_id
-                    ) aph2 
-                        ON aph2.animal_id = aph1.animal_id
-                        AND aph2.ultima_data = aph1.data_registro
+                    ) p2 
+                        ON p2.animal_id = p1.animal_id
+                        AND p2.ultima_data = p1.data_pesagem
                 ) ultima_pesagem
                     ON ultima_pesagem.animal_id = animal.id
                 WHERE animal.status != 'excluido'
@@ -59,19 +59,25 @@ class Dashboard
         $sql = "
             SELECT 
                 animal.*,
+                raca.nome_raca,
+                lote.nome_lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
-                ultima_pesagem.data_registro AS data_ultima_pesagem
+                ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
+            LEFT JOIN raca 
+                ON raca.id = animal.raca_id
+            LEFT JOIN lote 
+                ON lote.id = animal.lote_id
             LEFT JOIN (
-                SELECT aph1.animal_id, aph1.peso, aph1.data_registro
-                FROM animal_peso_historico aph1
+                SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                FROM pesagem p1
                 INNER JOIN (
-                    SELECT animal_id, MAX(data_registro) AS ultima_data
-                    FROM animal_peso_historico
+                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    FROM pesagem
                     GROUP BY animal_id
-                ) aph2 
-                    ON aph2.animal_id = aph1.animal_id
-                    AND aph2.ultima_data = aph1.data_registro
+                ) p2 
+                    ON p2.animal_id = p1.animal_id
+                    AND p2.ultima_data = p1.data_pesagem
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
             WHERE animal.status != 'excluido'
@@ -85,7 +91,7 @@ class Dashboard
     public function gmdMedio()
     {
         $sql = "SELECT DISTINCT animal_id 
-                FROM animal_peso_historico";
+                FROM pesagem";
 
         $animais = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -125,8 +131,8 @@ class Dashboard
             return null;
         }
 
-        $dataInicial = new DateTime($primeira['data_registro']);
-        $dataFinal = new DateTime($ultima['data_registro']);
+        $dataInicial = new DateTime($primeira['data_pesagem']);
+        $dataFinal = new DateTime($ultima['data_pesagem']);
 
         $dias = $dataInicial->diff($dataFinal)->days;
 
@@ -142,9 +148,9 @@ class Dashboard
     private function buscarPrimeiraPesagem($animalId)
     {
         $sql = "SELECT *
-                FROM animal_peso_historico
+                FROM pesagem
                 WHERE animal_id = :animal_id
-                ORDER BY data_registro ASC
+                ORDER BY data_pesagem ASC, id ASC
                 LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
@@ -159,9 +165,9 @@ class Dashboard
     private function buscarUltimaPesagem($animalId)
     {
         $sql = "SELECT *
-                FROM animal_peso_historico
+                FROM pesagem
                 WHERE animal_id = :animal_id
-                ORDER BY data_registro DESC
+                ORDER BY data_pesagem DESC, id DESC
                 LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
@@ -174,60 +180,61 @@ class Dashboard
     }
 
     public function totalPorStatus($status)
-{
-    $sql = "SELECT COUNT(*) AS total 
-            FROM animal 
-            WHERE status = :status";
+    {
+        $sql = "SELECT COUNT(*) AS total 
+                FROM animal 
+                WHERE status = :status";
 
-    $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
-    $stmt->execute([
-        ':status' => $status
-    ]);
+        $stmt->execute([
+            ':status' => $status
+        ]);
 
-    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $res['total'] ?? 0;
-}
+        return $res['total'] ?? 0;
+    }
 
-public function ultimasPesagens($limit = 5)
-{
-    $limit = (int) $limit;
+    public function ultimasPesagens($limit = 5)
+    {
+        $limit = (int) $limit;
 
-    $sql = "
-        SELECT 
-            animal_peso_historico.id,
-            animal_peso_historico.animal_id,
-            animal_peso_historico.peso,
-            animal_peso_historico.data_registro,
-            animal.brinco_identificador,
-            animal.raca
-        FROM animal_peso_historico
-        INNER JOIN animal 
-            ON animal.id = animal_peso_historico.animal_id
-        WHERE animal.status != 'excluido'
-        ORDER BY animal_peso_historico.data_registro DESC
-        LIMIT {$limit}
-    ";
+        $sql = "
+            SELECT 
+                pesagem.id,
+                pesagem.animal_id,
+                pesagem.peso,
+                pesagem.data_pesagem AS data_registro,
+                animal.brinco_identificador,
+                raca.nome_raca AS raca
+            FROM pesagem
+            INNER JOIN animal 
+                ON animal.id = pesagem.animal_id
+            LEFT JOIN raca 
+                ON raca.id = animal.raca_id
+            WHERE animal.status != 'excluido'
+            ORDER BY pesagem.data_pesagem DESC, pesagem.id DESC
+            LIMIT {$limit}
+        ";
 
-    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-public function vacinasPendentes()
-{
-    $sql = "
-        SELECT COUNT(*) AS total
-        FROM vacinacao
-        INNER JOIN animal 
-            ON animal.id = vacinacao.animal_id
-        WHERE vacinacao.proxima_dose IS NOT NULL
-        AND vacinacao.proxima_dose <= CURDATE()
-        AND vacinacao.status != 'cancelada'
-        AND animal.status = 'ativo'
-    ";
+    public function vacinasPendentes()
+    {
+        $sql = "
+            SELECT COUNT(*) AS total
+            FROM historico_sanitario
+            INNER JOIN animal 
+                ON animal.id = historico_sanitario.animal_id
+            WHERE historico_sanitario.proxima_dose IS NOT NULL
+            AND historico_sanitario.proxima_dose <= CURDATE()
+            AND animal.status = 'ativo'
+        ";
 
-    $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
+        $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
 
-    return $res['total'] ?? 0;
-}
+        return $res['total'] ?? 0;
+    }
 }

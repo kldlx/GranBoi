@@ -14,20 +14,20 @@ class Animal
     public function salvar($dados)
     {
         $sql = "INSERT INTO animal 
-            (brinco_identificador, nome, raca, lote, data_nascimento, sexo, peso_entrada, status, observacoes) 
+            (brinco_identificador, raca_id, lote_id, data_nascimento, sexo, peso_entrada, chip, status) 
             VALUES 
-            (:brinco, NULL, :raca, :lote, :data_nascimento, :sexo, :peso_entrada, 'ativo', :observacoes)";
+            (:brinco, :raca_id, :lote_id, :data_nascimento, :sexo, :peso_entrada, :chip, 'ativo')";
 
         $stmt = $this->db->prepare($sql);
 
         $stmt->execute([
             ':brinco' => $dados['brinco'],
-            ':raca' => !empty($dados['raca']) ? $dados['raca'] : null,
-            ':lote' => !empty($dados['lote']) ? $dados['lote'] : null,
+            ':raca_id' => !empty($dados['raca']) ? $dados['raca'] : null,
+            ':lote_id' => !empty($dados['lote']) ? $dados['lote'] : null,
             ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
-            ':sexo' => $dados['sexo'],
-            ':peso_entrada' => $dados['peso_entrada'],
-            ':observacoes' => !empty($dados['observacoes']) ? $dados['observacoes'] : null
+            ':sexo' => !empty($dados['sexo']) ? $dados['sexo'] : null,
+            ':peso_entrada' => !empty($dados['peso_entrada']) ? $dados['peso_entrada'] : null,
+            ':chip' => !empty($dados['chip']) ? $dados['chip'] : null
         ]);
 
         return $this->db->lastInsertId();
@@ -38,22 +38,28 @@ class Animal
         $sql = "
             SELECT 
                 animal.*,
+                raca.nome_raca AS raca,
+                lote.nome_lote AS lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
-                ultima_pesagem.data_registro AS data_ultima_pesagem
+                ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
+            LEFT JOIN raca 
+                ON raca.id = animal.raca_id
+            LEFT JOIN lote 
+                ON lote.id = animal.lote_id
             LEFT JOIN (
-                SELECT aph1.animal_id, aph1.peso, aph1.data_registro
-                FROM animal_peso_historico aph1
+                SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                FROM pesagem p1
                 INNER JOIN (
-                    SELECT animal_id, MAX(data_registro) AS ultima_data
-                    FROM animal_peso_historico
+                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    FROM pesagem
                     GROUP BY animal_id
-                ) aph2 
-                    ON aph2.animal_id = aph1.animal_id
-                    AND aph2.ultima_data = aph1.data_registro
+                ) p2 
+                    ON p2.animal_id = p1.animal_id
+                    AND p2.ultima_data = p1.data_pesagem
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
-            WHERE animal.status != 'excluido'
+            WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
             ORDER BY animal.id DESC
         ";
 
@@ -61,26 +67,27 @@ class Animal
     }
 
     public function brincoExiste($brinco)
-{
-    $sql = "SELECT id 
-            FROM animal 
-            WHERE brinco_identificador = :brinco 
-            LIMIT 1";
+    {
+        $sql = "SELECT id 
+                FROM animal 
+                WHERE brinco_identificador = :brinco
+                AND LOWER(COALESCE(status, '')) != 'excluido'
+                LIMIT 1";
 
-    $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
-    $stmt->execute([
-        ':brinco' => $brinco
-    ]);
+        $stmt->execute([
+            ':brinco' => $brinco
+        ]);
 
-    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
 
     public function countAll()
     {
         $sql = "SELECT COUNT(*) AS total 
                 FROM animal 
-                WHERE status != 'excluido'";
+                WHERE LOWER(COALESCE(status, '')) != 'excluido'";
 
         $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
 
@@ -89,9 +96,28 @@ class Animal
 
     public function getMediaPeso()
     {
-        $sql = "SELECT AVG(peso_entrada) AS media 
-                FROM animal 
-                WHERE status != 'excluido'";
+        $sql = "
+            SELECT AVG(peso_atual) AS media
+            FROM (
+                SELECT 
+                    animal.id,
+                    COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual
+                FROM animal
+                LEFT JOIN (
+                    SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                    FROM pesagem p1
+                    INNER JOIN (
+                        SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                        FROM pesagem
+                        GROUP BY animal_id
+                    ) p2 
+                        ON p2.animal_id = p1.animal_id
+                        AND p2.ultima_data = p1.data_pesagem
+                ) ultima_pesagem
+                    ON ultima_pesagem.animal_id = animal.id
+                WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
+            ) pesos
+        ";
 
         $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
 
@@ -102,22 +128,70 @@ class Animal
     {
         $limit = (int) $limit;
 
-        $sql = "SELECT * 
-                FROM animal 
-                WHERE status != 'excluido' 
-                ORDER BY id DESC 
-                LIMIT {$limit}";
+        $sql = "
+            SELECT 
+                animal.*,
+                raca.nome_raca AS raca,
+                lote.nome_lote AS lote,
+                COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
+                ultima_pesagem.data_pesagem AS data_ultima_pesagem
+            FROM animal
+            LEFT JOIN raca 
+                ON raca.id = animal.raca_id
+            LEFT JOIN lote 
+                ON lote.id = animal.lote_id
+            LEFT JOIN (
+                SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                FROM pesagem p1
+                INNER JOIN (
+                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    FROM pesagem
+                    GROUP BY animal_id
+                ) p2 
+                    ON p2.animal_id = p1.animal_id
+                    AND p2.ultima_data = p1.data_pesagem
+            ) ultima_pesagem
+                ON ultima_pesagem.animal_id = animal.id
+            WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
+            ORDER BY animal.id DESC
+            LIMIT {$limit}
+        ";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function buscarPorId($id)
     {
-        $sql = "SELECT * 
-                FROM animal 
-                WHERE id = :id 
-                AND status != 'excluido'
-                LIMIT 1";
+        $sql = "
+            SELECT 
+                animal.*,
+                animal.raca_id AS raca,
+                animal.lote_id AS lote,
+                raca.nome_raca,
+                lote.nome_lote,
+                COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
+                ultima_pesagem.data_pesagem AS data_ultima_pesagem
+            FROM animal
+            LEFT JOIN raca 
+                ON raca.id = animal.raca_id
+            LEFT JOIN lote 
+                ON lote.id = animal.lote_id
+            LEFT JOIN (
+                SELECT p1.animal_id, p1.peso, p1.data_pesagem
+                FROM pesagem p1
+                INNER JOIN (
+                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    FROM pesagem
+                    GROUP BY animal_id
+                ) p2 
+                    ON p2.animal_id = p1.animal_id
+                    AND p2.ultima_data = p1.data_pesagem
+            ) ultima_pesagem
+                ON ultima_pesagem.animal_id = animal.id
+            WHERE animal.id = :id 
+            AND LOWER(COALESCE(animal.status, '')) != 'excluido'
+            LIMIT 1
+        ";
 
         $stmt = $this->db->prepare($sql);
 
@@ -131,32 +205,36 @@ class Animal
     public function atualizar($dados)
     {
         $sql = "UPDATE animal 
-                SET raca = :raca,
-                    lote = :lote,
+                SET brinco_identificador = :brinco,
+                    raca_id = :raca_id,
+                    lote_id = :lote_id,
                     data_nascimento = :data_nascimento,
                     sexo = :sexo,
                     status = :status,
-                    observacoes = :observacoes
+                    chip = :chip
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
             ':id' => $dados['id'],
-            ':raca' => !empty($dados['raca']) ? $dados['raca'] : null,
-            ':lote' => !empty($dados['lote']) ? $dados['lote'] : null,
+            ':brinco' => $dados['brinco'],
+            ':raca_id' => !empty($dados['raca']) ? $dados['raca'] : null,
+            ':lote_id' => !empty($dados['lote']) ? $dados['lote'] : null,
             ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
-            ':sexo' => $dados['sexo'],
-            ':status' => $dados['status'],
-            ':observacoes' => !empty($dados['observacoes']) ? $dados['observacoes'] : null
+            ':sexo' => !empty($dados['sexo']) ? $dados['sexo'] : null,
+            ':status' => !empty($dados['status']) ? $dados['status'] : 'ativo',
+            ':chip' => !empty($dados['chip']) ? $dados['chip'] : null
         ]);
     }
 
     public function softDelete($id)
     {
         $sql = "UPDATE animal 
-                SET status = 'excluido' 
-                WHERE id = :id";
+                SET status = 'excluido',
+                    brinco_identificador = CONCAT('EXCLUIDO_', id, '_', brinco_identificador)
+                WHERE id = :id
+                AND LOWER(COALESCE(status, '')) != 'excluido'";
 
         $stmt = $this->db->prepare($sql);
 
@@ -165,28 +243,51 @@ class Animal
         ]);
     }
 
-    public function adicionarPeso($animal_id, $peso, $observacao = null)
+    public function adicionarPeso($animal_id, $peso, $observacao = null, $pessoa_id = null)
     {
-        $sql = "INSERT INTO animal_peso_historico 
-                (animal_id, peso, observacao)
+        if ($pessoa_id === null) {
+            if (isset($_SESSION['usuario']['pessoa_id'])) {
+                $pessoa_id = $_SESSION['usuario']['pessoa_id'];
+            } elseif (isset($_SESSION['pessoa_id'])) {
+                $pessoa_id = $_SESSION['pessoa_id'];
+            }
+        }
+
+        if (empty($pessoa_id)) {
+            throw new Exception('Não foi possível identificar a pessoa responsável pela pesagem.');
+        }
+
+        $sql = "INSERT INTO pesagem 
+                (animal_id, peso, data_pesagem, observacao, pessoa_id)
                 VALUES 
-                (:animal_id, :peso, :observacao)";
+                (:animal_id, :peso, CURDATE(), :observacao, :pessoa_id)";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
             ':animal_id' => $animal_id,
             ':peso' => $peso,
-            ':observacao' => $observacao
+            ':observacao' => $observacao,
+            ':pessoa_id' => $pessoa_id
         ]);
     }
 
     public function getHistoricoPeso($animal_id)
     {
-        $sql = "SELECT * 
-                FROM animal_peso_historico 
-                WHERE animal_id = :id 
-                ORDER BY data_registro DESC";
+        $sql = "SELECT 
+                    pesagem.id,
+                    pesagem.animal_id,
+                    pesagem.peso,
+                    pesagem.data_pesagem,
+                    pesagem.data_pesagem AS data_registro,
+                    pesagem.observacao,
+                    pesagem.pessoa_id,
+                    pessoa.nome_completo AS responsavel
+                FROM pesagem
+                LEFT JOIN pessoa
+                    ON pessoa.id = pesagem.pessoa_id
+                WHERE pesagem.animal_id = :id 
+                ORDER BY pesagem.data_pesagem DESC, pesagem.id DESC";
 
         $stmt = $this->db->prepare($sql);
 

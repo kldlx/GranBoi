@@ -8,7 +8,7 @@
 
     <title><?= $titulo ?? 'GranBoi' ?></title>
 
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
+   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css?v=2">
 
     <?php if (!empty($pageCss)): ?>
         <?php foreach ($pageCss as $css): ?>
@@ -33,6 +33,220 @@
 
 <body>
 
-<div class="dashboard-container">
+<?php
 
-    <?php require_once ROOT_PATH . '/app/layout/sidebar.php'; ?>
+$papelUsuario = $_SESSION['usuario']['papel'] ?? '';
+
+$urlAtual = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$basePath = parse_url(BASE_URL, PHP_URL_PATH);
+$urlAtual = str_replace($basePath, '', $urlAtual);
+
+if ($urlAtual === '') {
+    $urlAtual = '/';
+}
+
+function menuAtivoCabecalho($urlAtual, $url)
+{
+    return $urlAtual === $url ? 'active' : '';
+}
+
+?>
+
+<header class="main-header">
+
+    <div class="main-header-logo">
+
+        <div class="logo-icon">
+            <i class="ri-leaf-line"></i>
+        </div>
+
+        <div class="logo-text">
+            <h2>GranBoi</h2>
+            <span>Gestão Inteligente</span>
+        </div>
+
+    </div>
+
+    <button
+        type="button"
+        class="main-header-toggle"
+        id="menuToggle"
+        aria-label="Abrir ou fechar menu"
+    >
+        <i class="ri-menu-line"></i>
+    </button>
+
+    <nav class="main-header-menu" id="mainHeaderMenu">
+
+        <?php if ($papelUsuario === 'administrador'): ?>
+
+            <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/animal" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/animal') ?>">
+                <i class="ri-bear-smile-line"></i>
+                <span>Gado</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/peso" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/peso') ?>">
+                <i class="ri-scales-3-line"></i>
+                <span>Pesagem</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/racas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/racas') ?>">
+                <i class="ri-dna-line"></i>
+                <span>Raças</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/lotes" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/lotes') ?>">
+                <i class="ri-stack-line"></i>
+                <span>Lotes</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
+                <i class="ri-heart-pulse-line"></i>
+                <span>Vacinação</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/financeiro" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/financeiro') ?>">
+                <i class="ri-line-chart-line"></i>
+                <span>Financeiro</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/relatorios" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/relatorios') ?>">
+                <i class="ri-file-chart-line"></i>
+                <span>Relatórios</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
+
+        <?php elseif ($papelUsuario === 'gestor'): ?>
+
+            <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/animal" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/animal') ?>">
+                <i class="ri-bear-smile-line"></i>
+                <span>Gado</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/peso" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/peso') ?>">
+                <i class="ri-scales-3-line"></i>
+                <span>Pesagem</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/racas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/racas') ?>">
+                <i class="ri-dna-line"></i>
+                <span>Raças</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/lotes" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/lotes') ?>">
+                <i class="ri-stack-line"></i>
+                <span>Lotes</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
+                <i class="ri-heart-pulse-line"></i>
+                <span>Vacinação</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/relatorios" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/relatorios') ?>">
+                <i class="ri-file-chart-line"></i>
+                <span>Relatórios</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
+
+        <?php elseif ($papelUsuario === 'veterinario'): ?>
+
+            <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/animal" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/animal') ?>">
+                <i class="ri-bear-smile-line"></i>
+                <span>Gado</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/peso" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/peso') ?>">
+                <i class="ri-scales-3-line"></i>
+                <span>Pesagem</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
+                <i class="ri-heart-pulse-line"></i>
+                <span>Vacinação</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
+
+        <?php elseif ($papelUsuario === 'operador'): ?>
+
+            <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/animal" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/animal') ?>">
+                <i class="ri-bear-smile-line"></i>
+                <span>Gado</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/peso" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/peso') ?>">
+                <i class="ri-scales-3-line"></i>
+                <span>Pesagem</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
+
+        <?php else: ?>
+
+            <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
+
+        <?php endif; ?>
+
+    </nav>
+
+    <div class="main-header-profile">
+
+        <div class="profile-info">
+            <h3><?= htmlspecialchars($_SESSION['usuario']['nome'] ?? 'Usuário') ?></h3>
+            <span><?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? 'Perfil') ?></span>
+        </div>
+
+        <div class="profile-avatar">
+            <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
+        </div>
+
+        <a href="<?= BASE_URL ?>/logout" class="main-header-logout" title="Sair">
+            <i class="ri-logout-box-line"></i>
+        </a>
+
+    </div>
+
+</header>

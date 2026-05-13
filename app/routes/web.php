@@ -67,46 +67,102 @@ $routes = [
     ],
 
     '/animal/atualizar' => [
-    'controller' => 'AnimalController',
-    'method' => 'atualizar',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor', 'operador']
+        'controller' => 'AnimalController',
+        'method' => 'atualizar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor', 'operador']
     ],
 
     '/animal/excluir' => [
-    'controller' => 'AnimalController',
-    'method' => 'excluir',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor']
+        'controller' => 'AnimalController',
+        'method' => 'excluir',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/animal/historicoPeso' => [
-    'controller' => 'AnimalController',
-    'method' => 'historicoPeso',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
-],
+        'controller' => 'AnimalController',
+        'method' => 'historicoPeso',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
+    ],
 
     '/peso' => [
-    'controller' => 'PesoController',
-    'method' => 'index',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
-],
+        'controller' => 'PesoController',
+        'method' => 'index',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
+    ],
 
     '/peso/salvar' => [
-    'controller' => 'PesoController',
-    'method' => 'salvar',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor', 'operador']
-],
+        'controller' => 'PesoController',
+        'method' => 'salvar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor', 'operador']
+    ],
 
-'/peso/historico' => [
-    'controller' => 'PesoController',
-    'method' => 'historico',
-    'auth' => true,
-    'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
-],
+    '/peso/historico' => [
+        'controller' => 'PesoController',
+        'method' => 'historico',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
+    ],
+
+    '/racas' => [
+        'controller' => 'RacaController',
+        'method' => 'index',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/racas/salvar' => [
+        'controller' => 'RacaController',
+        'method' => 'salvar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/racas/atualizar' => [
+        'controller' => 'RacaController',
+        'method' => 'atualizar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/racas/excluir' => [
+        'controller' => 'RacaController',
+        'method' => 'excluir',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
+
+    '/lotes' => [
+        'controller' => 'LoteController',
+        'method' => 'index',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/lotes/salvar' => [
+        'controller' => 'LoteController',
+        'method' => 'salvar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/lotes/atualizar' => [
+        'controller' => 'LoteController',
+        'method' => 'atualizar',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
+    '/lotes/excluir' => [
+        'controller' => 'LoteController',
+        'method' => 'excluir',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
 
     '/vacinas' => [
         'controller' => 'VacinaController',
@@ -133,7 +189,7 @@ $routes = [
         'controller' => 'FinanceiroController',
         'method' => 'index',
         'auth' => true,
-        'roles' => ['administrador', 'gestor']
+        'roles' => ['administrador']
     ],
 
     '/relatorios' => [

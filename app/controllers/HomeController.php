@@ -8,9 +8,6 @@ class HomeController extends Controller
 
         $this->render('dashboard/dashboard', [
             'titulo' => 'GranBoi - Dashboard',
-            'pageCss' => [
-                '/public/assets/css/pages/dashboard/dashboard.css'
-            ],
             'pageJs' => [
                 '/public/assets/js/pages/dashboard/dashboard.js'
             ],

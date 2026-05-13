@@ -5,6 +5,8 @@ class AnimalController extends Controller
     public function listar()
     {
         $model = $this->model('Animal');
+        $racaModel = $this->model('Raca');
+        $loteModel = $this->model('Lote');
 
         $dados = [
             'titulo' => 'GranBoi - Gado',
@@ -14,14 +16,16 @@ class AnimalController extends Controller
                 '/public/assets/css/pages/animal/animal.css'
             ],
             'pageJs' => [
-    '/public/assets/js/validations/animal/animalValidation.js',
-    '/public/assets/js/modals/animal/cadastrarAnimalModal.js',
-    '/public/assets/js/modals/animal/editarAnimalModal.js',
-    '/public/assets/js/modals/animal/excluirAnimalModal.js',
-    '/public/assets/js/modals/animal/detalhesAnimalModal.js',
-    '/public/assets/js/pages/animal/animalPage.js'
-],
-            'animais' => $model->listarTodos()
+                '/public/assets/js/validations/animal/animalValidation.js',
+                '/public/assets/js/modals/animal/cadastrarAnimalModal.js',
+                '/public/assets/js/modals/animal/editarAnimalModal.js',
+                '/public/assets/js/modals/animal/excluirAnimalModal.js',
+                '/public/assets/js/modals/animal/detalhesAnimalModal.js',
+                '/public/assets/js/pages/animal/animalPage.js'
+            ],
+            'animais' => $model->listarTodos(),
+            'racas' => $racaModel->listarTodos(),
+            'lotes' => $loteModel->listarTodos()
         ];
 
         $this->render('animal/listar', $dados);
@@ -53,9 +57,9 @@ class AnimalController extends Controller
             'raca' => trim($_POST['raca'] ?? ''),
             'lote' => trim($_POST['lote'] ?? ''),
             'data_nascimento' => $_POST['data_nascimento'] ?? null,
-            'sexo' => $_POST['sexo'] ?? '',
+            'sexo' => $this->normalizarSexo($_POST['sexo'] ?? ''),
             'peso_entrada' => $_POST['peso_entrada'] ?? '',
-            'observacoes' => trim($_POST['observacoes'] ?? '')
+            'chip' => trim($_POST['chip'] ?? '')
         ];
 
         $erro = null;
@@ -72,8 +76,16 @@ class AnimalController extends Controller
             $erro = 'O peso de entrada deve ser maior que zero.';
         }
 
-        if (!$erro && !in_array($dados['sexo'], ['Macho', 'Fêmea'])) {
+        if (!$erro && !in_array($dados['sexo'], ['M', 'F'])) {
             $erro = 'Selecione um sexo válido.';
+        }
+
+        if (!$erro && !empty($dados['raca']) && !ctype_digit((string) $dados['raca'])) {
+            $erro = 'Selecione uma raça válida.';
+        }
+
+        if (!$erro && !empty($dados['lote']) && !ctype_digit((string) $dados['lote'])) {
+            $erro = 'Selecione um lote válido.';
         }
 
         if (!$erro && !empty($dados['data_nascimento'])) {
@@ -109,41 +121,48 @@ class AnimalController extends Controller
         try {
             $animalId = $model->salvar($dados);
 
-$pesagemModel = $this->model('Pesagem');
+            $model->adicionarPeso(
+                $animalId,
+                $dados['peso_entrada'],
+                'Peso inicial registrado no cadastro do animal.'
+            );
 
-$pesagemModel->registrar([
-    'animal_id' => $animalId,
-    'peso' => $dados['peso_entrada'],
-    'observacao' => 'Peso inicial registrado no cadastro do animal.'
-]);
-
-if ($isAjax) {
-    $this->json([
-        'sucesso' => true,
-        'mensagem' => 'Animal cadastrado com sucesso.'
-    ]);
-}
+            if ($isAjax) {
+                $this->json([
+                    'sucesso' => true,
+                    'mensagem' => 'Animal cadastrado com sucesso.'
+                ]);
+            }
 
             $_SESSION['sucesso'] = 'Animal cadastrado com sucesso.';
             $this->redirect('/animal');
 
         } catch (PDOException $e) {
-    $mensagem = 'Erro ao cadastrar animal. Verifique os dados e tente novamente.';
+            $mensagem = $this->mensagemErroCadastroAnimal($e);
 
-    if ($e->getCode() === '23000') {
-        $mensagem = 'Já existe um animal cadastrado com esse número de brinco.';
-    }
+            if ($isAjax) {
+                $this->json([
+                    'sucesso' => false,
+                    'mensagem' => $mensagem
+                ], 500);
+            }
 
-    if ($isAjax) {
-        $this->json([
-            'sucesso' => false,
-            'mensagem' => $mensagem
-        ], 500);
-    }
+            $_SESSION['erro'] = $mensagem;
+            $this->redirect('/animal');
 
-    $_SESSION['erro'] = $mensagem;
-    $this->redirect('/animal');
-}
+        } catch (Exception $e) {
+            $mensagem = $e->getMessage();
+
+            if ($isAjax) {
+                $this->json([
+                    'sucesso' => false,
+                    'mensagem' => $mensagem
+                ], 500);
+            }
+
+            $_SESSION['erro'] = $mensagem;
+            $this->redirect('/animal');
+        }
     }
 
     public function editar()
@@ -173,10 +192,9 @@ if ($isAjax) {
             'raca' => trim($_POST['raca'] ?? ''),
             'lote' => trim($_POST['lote'] ?? ''),
             'data_nascimento' => $_POST['data_nascimento'] ?? null,
-            'sexo' => $_POST['sexo'] ?? '',
-            'peso_entrada' => $_POST['peso_entrada'] ?? '',
-            'status' => $_POST['status'] ?? 'ativo',
-            'observacoes' => trim($_POST['observacoes'] ?? '')
+            'sexo' => $this->normalizarSexo($_POST['sexo'] ?? ''),
+            'status' => $this->normalizarStatus($_POST['status'] ?? 'ativo'),
+            'chip' => trim($_POST['chip'] ?? '')
         ];
 
         $erro = null;
@@ -190,13 +208,20 @@ if ($isAjax) {
             $erro = 'Preencha os campos obrigatórios: brinco, sexo e status.';
         }
 
-
-        if (!$erro && !in_array($dados['sexo'], ['Macho', 'Fêmea'])) {
+        if (!$erro && !in_array($dados['sexo'], ['M', 'F'])) {
             $erro = 'Selecione um sexo válido.';
         }
 
         if (!$erro && !in_array($dados['status'], ['ativo', 'vendido', 'morto'])) {
             $erro = 'Selecione um status válido.';
+        }
+
+        if (!$erro && !empty($dados['raca']) && !ctype_digit((string) $dados['raca'])) {
+            $erro = 'Selecione uma raça válida.';
+        }
+
+        if (!$erro && !empty($dados['lote']) && !ctype_digit((string) $dados['lote'])) {
+            $erro = 'Selecione um lote válido.';
         }
 
         if (!$erro && !empty($dados['data_nascimento'])) {
@@ -239,7 +264,7 @@ if ($isAjax) {
             $this->redirect('/animal');
 
         } catch (PDOException $e) {
-            $mensagem = 'Erro ao atualizar animal. Verifique os dados e tente novamente.';
+            $mensagem = $this->mensagemErroAtualizarAnimal($e);
 
             if ($isAjax) {
                 $this->json([
@@ -333,13 +358,96 @@ if ($isAjax) {
     }
 
     public function historicoPeso()
-{
-    $id = $_GET['id'] ?? $_GET['animal_id'] ?? null;
+    {
+        $id = $_GET['id'] ?? $_GET['animal_id'] ?? null;
 
-    if ($id) {
-        $this->redirect('/peso?animal_id=' . $id);
+        if ($id) {
+            $this->redirect('/peso?animal_id=' . $id);
+        }
+
+        $this->redirect('/peso');
     }
 
-    $this->redirect('/peso');
-}
+    private function normalizarSexo($sexo)
+    {
+        $sexo = trim($sexo);
+
+        if ($sexo === 'M' || $sexo === 'Macho' || $sexo === 'macho') {
+            return 'M';
+        }
+
+        if ($sexo === 'F' || $sexo === 'Fêmea' || $sexo === 'Femea' || $sexo === 'fêmea' || $sexo === 'femea') {
+            return 'F';
+        }
+
+        return $sexo;
+    }
+
+    private function normalizarStatus($status)
+    {
+        $status = trim($status);
+        $status = mb_strtolower($status, 'UTF-8');
+
+        if ($status === 'ativo' || $status === 'ativa') {
+            return 'ativo';
+        }
+
+        if ($status === 'vendido' || $status === 'vendida') {
+            return 'vendido';
+        }
+
+        if ($status === 'morto' || $status === 'morta') {
+            return 'morto';
+        }
+
+        return $status;
+    }
+
+    private function mensagemErroCadastroAnimal(PDOException $e)
+    {
+        if ($this->erroBrincoDuplicado($e)) {
+            return 'Já existe um animal cadastrado com esse número de brinco.';
+        }
+
+        if ($this->erroChaveEstrangeira($e)) {
+            return 'Não foi possível cadastrar o animal. Verifique se a raça, o lote e o usuário responsável pela pesagem existem no banco de dados.';
+        }
+
+        return 'Erro ao cadastrar animal. Verifique os dados e tente novamente.';
+    }
+
+    private function mensagemErroAtualizarAnimal(PDOException $e)
+    {
+        if ($this->erroBrincoDuplicado($e)) {
+            return 'Já existe um animal cadastrado com esse número de brinco.';
+        }
+
+        if ($this->erroChaveEstrangeira($e)) {
+            return 'Não foi possível atualizar o animal. Verifique se a raça e o lote existem no banco de dados.';
+        }
+
+        return 'Erro ao atualizar animal. Verifique os dados e tente novamente.';
+    }
+
+    private function erroBrincoDuplicado(PDOException $e)
+    {
+        $mensagem = $e->getMessage();
+
+        return strpos($mensagem, '1062') !== false ||
+            strpos($mensagem, 'Duplicate entry') !== false ||
+            strpos($mensagem, 'brinco_UNIQUE') !== false ||
+            (
+                strpos($mensagem, 'brinco_identificador') !== false &&
+                strpos($mensagem, 'Duplicate') !== false
+            );
+    }
+
+    private function erroChaveEstrangeira(PDOException $e)
+    {
+        $mensagem = $e->getMessage();
+
+        return strpos($mensagem, '1452') !== false ||
+            strpos($mensagem, 'foreign key constraint fails') !== false ||
+            strpos($mensagem, 'Cannot add or update a child row') !== false;
+    }
 }

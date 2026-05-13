@@ -16,17 +16,16 @@ class Usuario
         $sql = "
             SELECT 
                 usuario.id,
-                usuario.pessoa_id,
                 usuario.email,
                 usuario.senha,
-                usuario.status,
+                usuario.nome,
+                pessoa.id AS pessoa_id,
                 pessoa.nome_completo,
                 papel.id AS papel_id,
-                papel.nome AS papel_nome,
-                papel.slug AS papel_slug
+                papel.nome AS papel_nome
             FROM usuario
             INNER JOIN pessoa 
-                ON pessoa.id = usuario.pessoa_id
+                ON pessoa.usuario_id = usuario.id
             INNER JOIN usuario_papel 
                 ON usuario_papel.usuario_id = usuario.id
             INNER JOIN papel 
@@ -48,13 +47,6 @@ class Usuario
             ];
         }
 
-        if ($usuario['status'] !== 'ativo') {
-            return [
-                'sucesso' => false,
-                'mensagem' => 'Usuário inativo ou bloqueado.'
-            ];
-        }
-
         if (!password_verify($senha, $usuario['senha'])) {
             return [
                 'sucesso' => false,
@@ -70,9 +62,24 @@ class Usuario
                 'nome' => $usuario['nome_completo'],
                 'email' => $usuario['email'],
                 'papel_id' => $usuario['papel_id'],
-                'papel' => $usuario['papel_slug'],
+                'papel' => $this->normalizarPapel($usuario['papel_nome']),
                 'papel_nome' => $usuario['papel_nome']
             ]
         ];
+    }
+
+    private function normalizarPapel($papelNome)
+    {
+        $papelNome = mb_strtolower($papelNome, 'UTF-8');
+
+        $mapa = [
+            'administrador' => 'administrador',
+            'gestor' => 'gestor',
+            'veterinário' => 'veterinario',
+            'veterinario' => 'veterinario',
+            'operador' => 'operador'
+        ];
+
+        return $mapa[$papelNome] ?? $papelNome;
     }
 }
