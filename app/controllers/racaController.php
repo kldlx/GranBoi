@@ -14,6 +14,9 @@ class RacaController extends Controller
             'pageCss' => [
                 '/public/assets/css/pages/cadastros/cadastros.css'
             ],
+            'pageJs' => [
+                '/public/assets/js/pages/cadastros/cadastrosPage.js'
+            ],
             'racas' => $racaModel->listarTodos(),
             'lotes' => $loteModel->listarTodos()
         ];
