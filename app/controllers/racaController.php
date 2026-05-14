@@ -9,8 +9,11 @@ class RacaController extends Controller
 
         $dados = [
             'titulo' => 'GranBoi - Cadastros',
-            'tituloPagina' => 'Raças e Lotes',
+            'tituloPagina' => 'Cadastros',
             'subtituloPagina' => 'Gerencie as raças e os lotes cadastrados no sistema',
+            'pageCss' => [
+                '/public/assets/css/pages/cadastros/cadastros.css'
+            ],
             'racas' => $racaModel->listarTodos(),
             'lotes' => $loteModel->listarTodos()
         ];
