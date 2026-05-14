@@ -21,7 +21,7 @@ function validarPesoAnimal(peso) {
     return 'O peso é obrigatório.';
   }
 
-  if (Number(peso) <= 0) {
+  if (isNaN(peso) || Number(peso) <= 0) {
     return 'O peso de entrada deve ser maior que zero.';
   }
 
@@ -32,6 +32,12 @@ function validarCadastroAnimal() {
   const brinco =
     document.getElementById('brinco')?.value.trim();
 
+  const raca =
+    document.getElementById('raca')?.value;
+
+  const lote =
+    document.getElementById('lote')?.value;
+
   const sexo =
     document.getElementById('sexo')?.value;
 
@@ -41,8 +47,8 @@ function validarCadastroAnimal() {
   const dataNascimento =
     document.getElementById('data_nascimento')?.value;
 
-  if (!brinco || !sexo || !peso) {
-    return 'Preencha os campos obrigatórios: brinco, sexo e peso.';
+  if (!brinco || !raca || !lote || !sexo || !peso) {
+    return 'Preencha os campos obrigatórios: brinco, raça, lote, sexo e peso.';
   }
 
   const erroPeso =
@@ -70,7 +76,7 @@ function validarEdicaoAnimal() {
     document.getElementById('editar_sexo')?.value;
 
   const peso =
-  document.getElementById('editar_peso_entrada_hidden')?.value;
+    document.getElementById('editar_peso_entrada_hidden')?.value;
 
   const status =
     document.getElementById('editar_status')?.value;

@@ -3,19 +3,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const formEditarAnimal = document.getElementById('formEditarAnimal');
 
   function abrirModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
+
     modal.classList.add('active');
   }
 
   function fecharModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
+
     modal.classList.remove('active');
   }
 
   function mostrarMensagemEditarModal(tipo, mensagem) {
     const messageBox = document.getElementById('editarAnimalModalMessage');
 
-    if (!messageBox) return;
+    if (!messageBox) {
+      return;
+    }
 
     messageBox.hidden = false;
     messageBox.className = `animal-modal-message ${tipo}`;
@@ -25,31 +33,48 @@ document.addEventListener('DOMContentLoaded', () => {
   function limparMensagemEditarModal() {
     const messageBox = document.getElementById('editarAnimalModalMessage');
 
-    if (!messageBox) return;
+    if (!messageBox) {
+      return;
+    }
 
     messageBox.hidden = true;
     messageBox.className = 'animal-modal-message';
     messageBox.innerText = '';
   }
 
+  function preencherCampo(id, valor) {
+    const campo = document.getElementById(id);
+
+    if (!campo) {
+      return;
+    }
+
+    campo.value = valor || '';
+  }
+
   document.querySelectorAll('.editar-animal-btn').forEach((button) => {
     button.addEventListener('click', () => {
       limparMensagemEditarModal();
 
-      document.getElementById('editar_id').value = button.dataset.id || '';
-      document.getElementById('editar_brinco').value = button.dataset.brinco || '';
-      document.getElementById('editar_brinco_hidden').value = button.dataset.brinco || '';
-      document.getElementById('editar_raca').value = button.dataset.raca || '';
-      document.getElementById('editar_lote').value = button.dataset.lote || '';
-      document.getElementById('editar_sexo').value = button.dataset.sexo || '';
-      document.getElementById('editar_peso_entrada').value =
-        button.dataset.peso ? `${button.dataset.peso} kg` : '';
+      preencherCampo('editar_id', button.dataset.id);
+      preencherCampo('editar_brinco', button.dataset.brinco);
+      preencherCampo('editar_brinco_hidden', button.dataset.brinco);
 
-    document.getElementById('editar_peso_entrada_hidden').value =
-        button.dataset.peso || '';
-      document.getElementById('editar_data_nascimento').value = button.dataset.dataNascimento || '';
-      document.getElementById('editar_status').value = button.dataset.status || 'ativo';
-      document.getElementById('editar_observacoes').value = button.dataset.observacoes || '';
+      preencherCampo('editar_raca', button.dataset.racaId);
+      preencherCampo('editar_lote', button.dataset.loteId);
+
+      preencherCampo('editar_sexo', button.dataset.sexo);
+      preencherCampo('editar_data_nascimento', button.dataset.dataNascimento);
+      preencherCampo('editar_status', button.dataset.status || 'ativo');
+      preencherCampo('editar_chip', button.dataset.chip);
+
+      const pesoVisivel = document.getElementById('editar_peso_entrada');
+
+      if (pesoVisivel) {
+        pesoVisivel.value = button.dataset.peso ? `${button.dataset.peso} kg` : '';
+      }
+
+      preencherCampo('editar_peso_entrada_hidden', button.dataset.peso);
 
       abrirModal(modalEditarAnimal);
     });
@@ -102,17 +127,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         if (!data.sucesso) {
-          mostrarMensagemEditarModal('error', data.mensagem || 'Erro ao atualizar animal.');
+          mostrarMensagemEditarModal(
+            'error',
+            data.mensagem || 'Erro ao atualizar animal.'
+          );
           return;
         }
 
-        mostrarMensagemEditarModal('success', data.mensagem || 'Animal atualizado com sucesso.');
+        mostrarMensagemEditarModal(
+          'success',
+          data.mensagem || 'Animal atualizado com sucesso.'
+        );
 
         setTimeout(() => {
           window.location.reload();
         }, 700);
+
       } catch (error) {
-        mostrarMensagemEditarModal('error', 'Erro de comunicação com o servidor. Tente novamente.');
+        mostrarMensagemEditarModal(
+          'error',
+          'Erro de comunicação com o servidor. Tente novamente.'
+        );
       } finally {
         if (submitButton) {
           submitButton.disabled = false;

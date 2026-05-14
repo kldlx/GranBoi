@@ -2,12 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalDetalhesAnimal = document.getElementById('modalDetalhesAnimal');
 
   function abrirModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
+
     modal.classList.add('active');
   }
 
   function fecharModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
+
     modal.classList.remove('active');
   }
 
@@ -25,6 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
   }
 
+  function formatarSexo(sexo) {
+    if (sexo === 'M') {
+      return 'Macho';
+    }
+
+    if (sexo === 'F') {
+      return 'Fêmea';
+    }
+
+    return sexo || '-';
+  }
+
+  function formatarStatus(status) {
+    if (!status) {
+      return '-';
+    }
+
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  }
+
   function preencherTexto(id, valor) {
     const elemento = document.getElementById(id);
 
@@ -37,15 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.detalhes-animal-btn').forEach((button) => {
     button.addEventListener('click', () => {
-      preencherTexto('detalhes_id', button.dataset.id);
       preencherTexto('detalhes_brinco', `#${button.dataset.brinco || '-'}`);
       preencherTexto('detalhes_raca', button.dataset.raca);
       preencherTexto('detalhes_lote', button.dataset.lote);
-      preencherTexto('detalhes_sexo', button.dataset.sexo);
+      preencherTexto('detalhes_sexo', formatarSexo(button.dataset.sexo));
       preencherTexto('detalhes_peso', button.dataset.peso ? `${button.dataset.peso} kg` : '-');
-      preencherTexto('detalhes_status', button.dataset.status);
+      preencherTexto('detalhes_status', formatarStatus(button.dataset.status));
       preencherTexto('detalhes_data_nascimento', formatarData(button.dataset.dataNascimento));
-      preencherTexto('detalhes_observacoes', button.dataset.observacoes);
+      preencherTexto('detalhes_chip', button.dataset.chip);
 
       abrirModal(modalDetalhesAnimal);
     });

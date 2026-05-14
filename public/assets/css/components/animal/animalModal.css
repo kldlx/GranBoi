@@ -1,46 +1,58 @@
 #modalCadastrarAnimal .modal-container,
 #modalEditarAnimal .modal-container {
-  width: min(760px, calc(100% - 32px));
+  width: min(820px, calc(100% - 32px));
   max-height: 90vh;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
 }
 
 #modalCadastrarAnimal .modal-header,
 #modalEditarAnimal .modal-header {
-  padding: 24px 28px;
-  border-bottom: 1px solid #eee;
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid #eef0ee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 #modalCadastrarAnimal .modal-header h2,
 #modalEditarAnimal .modal-header h2 {
   font-size: 24px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 4px;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 6px 0;
 }
 
 #modalCadastrarAnimal .modal-header p,
 #modalEditarAnimal .modal-header p {
   font-size: 14px;
-  color: #777;
+  color: #666;
+  margin: 0;
 }
 
 #modalCadastrarAnimal .close-modal,
 #modalEditarAnimal .close-modal {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: transparent;
-  border-radius: 10px;
+  background: #f3f5f3;
+  border-radius: 13px;
   cursor: pointer;
-  font-size: 22px;
-  color: var(--dark);
+  font-size: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
 }
 
 #modalCadastrarAnimal .close-modal:hover,
 #modalEditarAnimal .close-modal:hover {
-  background: #f5f5f5;
+  background: #e8ece8;
 }
 
 .animal-modal-body {
@@ -52,13 +64,13 @@
 .animal-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 20px;
+  gap: 22px 24px;
 }
 
 .animal-form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .animal-form-full {
@@ -68,174 +80,183 @@
 .animal-form-group label {
   font-size: 14px;
   font-weight: 700;
-  color: #374151;
+  color: #222;
 }
 
 .animal-form-group input,
 .animal-form-group select,
 .animal-form-group textarea {
   width: 100%;
-  min-height: 44px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  padding: 10px 12px;
+  height: 52px;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  padding: 0 16px;
   font-family: inherit;
-  font-size: 14px;
-  color: var(--dark);
-  background: #fff;
+  font-size: 15px;
+  color: #222;
+  background: #ffffff;
   outline: none;
-  transition: 0.2s ease;
+  transition: 0.25s;
 }
 
 .animal-form-group textarea {
-  resize: vertical;
   min-height: 96px;
+  height: auto;
+  padding: 14px 16px;
+  resize: vertical;
 }
 
 .animal-form-group input:focus,
 .animal-form-group select:focus,
 .animal-form-group textarea:focus {
-  border-color: #0b4f1f;
-  box-shadow: 0 0 0 3px rgba(11, 79, 31, 0.12);
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
 }
 
 #editar_brinco:disabled,
 #editar_peso_entrada:disabled {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: #f3f5f3;
+  color: #777;
   cursor: not-allowed;
+}
+
+.animal-modal-message {
+  margin: 18px 28px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.animal-modal-message.error {
+  background: #ffebee;
+  color: #8a1f1f;
+  border: 1px solid #ffcdd2;
+}
+
+.animal-modal-message.success {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #c8e6c9;
 }
 
 #modalCadastrarAnimal .modal-footer,
 #modalEditarAnimal .modal-footer {
-  padding: 18px 28px 24px;
-  border-top: 1px solid #eee;
+  padding: 20px 28px 28px;
+  border-top: 1px solid #eef0ee;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
 }
 
 #modalCadastrarAnimal .btn-cancelar,
 #modalCadastrarAnimal .btn-salvar,
 #modalEditarAnimal .btn-cancelar,
 #modalEditarAnimal .btn-salvar {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 18px;
-  border-radius: 10px;
+  border-radius: 14px;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   border: none;
+  transition: 0.25s;
 }
 
 #modalCadastrarAnimal .btn-cancelar,
 #modalEditarAnimal .btn-cancelar {
-  background: #f3f4f6;
-  color: #374151;
+  background: #eef1ee;
+  color: #333;
+}
+
+#modalCadastrarAnimal .btn-cancelar:hover,
+#modalEditarAnimal .btn-cancelar:hover {
+  background: #dde3dd;
 }
 
 #modalCadastrarAnimal .btn-salvar,
 #modalEditarAnimal .btn-salvar {
-  background: #0b4f1f;
-  color: #fff;
+  background: #0f5a22;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(15, 90, 34, 0.18);
 }
 
 #modalCadastrarAnimal .btn-salvar:hover,
 #modalEditarAnimal .btn-salvar:hover {
-  background: #083d18;
+  background: #0a4218;
 }
 
 #modalCadastrarAnimal .btn-salvar:disabled,
 #modalEditarAnimal .btn-salvar:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-.animal-modal-message {
-  margin: 18px 28px 0;
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.animal-modal-message.error {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
-}
-
-.animal-modal-message.success {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-@media (max-width: 768px) {
-  .animal-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  #modalCadastrarAnimal .modal-footer,
-  #modalEditarAnimal .modal-footer {
-    flex-direction: column-reverse;
-  }
-
-  #modalCadastrarAnimal .btn-cancelar,
-  #modalCadastrarAnimal .btn-salvar,
-  #modalEditarAnimal .btn-cancelar,
-  #modalEditarAnimal .btn-salvar {
-    width: 100%;
-  }
-}
+/* =========================
+   MODAL EXCLUIR ANIMAL
+========================= */
 
 #modalExcluirAnimal .modal-container {
   width: min(460px, calc(100% - 32px));
-  border-radius: 18px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
 }
 
 #modalExcluirAnimal .modal-header {
-  padding: 22px 24px;
-  border-bottom: 1px solid #eee;
+  padding: 26px 28px 20px;
+  border-bottom: 1px solid #eef0ee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 #modalExcluirAnimal .modal-header h2 {
   font-size: 22px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 4px;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 6px 0;
 }
 
 #modalExcluirAnimal .modal-header p {
   font-size: 14px;
-  color: #777;
+  color: #666;
+  margin: 0;
 }
 
 #modalExcluirAnimal .close-modal {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: transparent;
-  border-radius: 10px;
+  background: #f3f5f3;
+  border-radius: 13px;
   cursor: pointer;
-  font-size: 22px;
-  color: var(--dark);
+  font-size: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
 }
 
 #modalExcluirAnimal .close-modal:hover {
-  background: #f5f5f5;
+  background: #e8ece8;
 }
 
 #modalExcluirAnimal .animal-modal-body {
-  padding: 22px 24px;
+  padding: 24px 28px;
 }
 
 .delete-message {
   font-size: 15px;
   font-weight: 700;
-  color: var(--dark);
-  line-height: 1.5;
+  color: #222;
+  line-height: 1.6;
   margin-bottom: 10px;
 }
 
@@ -250,32 +271,38 @@
 }
 
 #modalExcluirAnimal .modal-footer {
-  padding: 18px 24px 22px;
-  border-top: 1px solid #eee;
+  padding: 20px 28px 28px;
+  border-top: 1px solid #eef0ee;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
 }
 
 #modalExcluirAnimal .btn-cancelar,
 #modalExcluirAnimal .btn-excluir {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 18px;
-  border-radius: 10px;
+  border-radius: 14px;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   border: none;
+  transition: 0.25s;
 }
 
 #modalExcluirAnimal .btn-cancelar {
-  background: #f3f4f6;
-  color: #374151;
+  background: #eef1ee;
+  color: #333;
+}
+
+#modalExcluirAnimal .btn-cancelar:hover {
+  background: #dde3dd;
 }
 
 #modalExcluirAnimal .btn-excluir {
   background: #c62828;
-  color: #fff;
+  color: #ffffff;
 }
 
 #modalExcluirAnimal .btn-excluir:hover {
@@ -287,68 +314,88 @@
   cursor: not-allowed;
 }
 
+/* =========================
+   MODAL DETALHES ANIMAL
+========================= */
+
 #modalDetalhesAnimal .modal-container {
-  width: min(760px, calc(100% - 32px));
-  border-radius: 18px;
+  width: min(680px, calc(100% - 32px));
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
 }
 
 #modalDetalhesAnimal .modal-header {
-  padding: 24px 28px;
-  border-bottom: 1px solid #eee;
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid #eef0ee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 #modalDetalhesAnimal .modal-header h2 {
   font-size: 24px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 4px;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 6px 0;
 }
 
 #modalDetalhesAnimal .modal-header p {
   font-size: 14px;
-  color: #777;
+  color: #666;
+  margin: 0;
 }
 
 #modalDetalhesAnimal .close-modal {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: transparent;
-  border-radius: 10px;
+  background: #f3f5f3;
+  border-radius: 13px;
   cursor: pointer;
-  font-size: 22px;
-  color: var(--dark);
+  font-size: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
 }
 
 #modalDetalhesAnimal .close-modal:hover {
-  background: #f5f5f5;
+  background: #e8ece8;
 }
 
 .animal-details-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .animal-detail-item {
-  background: #f9fafb;
-  border: 1px solid #eef0f2;
-  border-radius: 14px;
+  background: #f8faf8;
+  border: 1px solid #eef0ee;
+  border-radius: 16px;
   padding: 14px 16px;
 }
 
 .animal-detail-item span {
   display: block;
-  color: #777;
-  font-size: 13px;
-  font-weight: 700;
+  color: #4d5a50;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   margin-bottom: 6px;
 }
 
 .animal-detail-item strong {
-  color: var(--dark);
+  display: block;
+  color: #222;
   font-size: 15px;
   font-weight: 800;
+  line-height: 1.4;
   word-break: break-word;
 }
 
@@ -357,26 +404,82 @@
 }
 
 #modalDetalhesAnimal .modal-footer {
-  padding: 18px 28px 24px;
-  border-top: 1px solid #eee;
+  padding: 20px 28px 28px;
+  border-top: 1px solid #eef0ee;
   display: flex;
   justify-content: flex-end;
 }
 
 #modalDetalhesAnimal .btn-cancelar {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 18px;
-  border-radius: 10px;
+  border-radius: 14px;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   border: none;
-  background: #f3f4f6;
-  color: #374151;
+  background: #eef1ee;
+  color: #333;
+  transition: 0.25s;
 }
 
+#modalDetalhesAnimal .btn-cancelar:hover {
+  background: #dde3dd;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
 @media (max-width: 768px) {
+  #modalCadastrarAnimal .modal-container,
+#modalEditarAnimal .modal-container {
+  width: min(100% - 24px, 820px);
+  border-radius: 20px;
+}
+
+#modalDetalhesAnimal .modal-container {
+  width: min(100% - 24px, 680px);
+  border-radius: 20px;
+}
+
+  #modalExcluirAnimal .modal-container {
+    width: min(100% - 24px, 460px);
+    border-radius: 20px;
+  }
+
+  #modalCadastrarAnimal .modal-header,
+  #modalEditarAnimal .modal-header,
+  #modalDetalhesAnimal .modal-header,
+  #modalExcluirAnimal .modal-header,
+  .animal-modal-body,
+  #modalCadastrarAnimal .modal-footer,
+  #modalEditarAnimal .modal-footer,
+  #modalDetalhesAnimal .modal-footer,
+  #modalExcluirAnimal .modal-footer {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .animal-form-grid,
   .animal-details-grid {
     grid-template-columns: 1fr;
+  }
+
+  #modalCadastrarAnimal .modal-footer,
+  #modalEditarAnimal .modal-footer,
+  #modalExcluirAnimal .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  #modalCadastrarAnimal .btn-cancelar,
+  #modalCadastrarAnimal .btn-salvar,
+  #modalEditarAnimal .btn-cancelar,
+  #modalEditarAnimal .btn-salvar,
+  #modalExcluirAnimal .btn-cancelar,
+  #modalExcluirAnimal .btn-excluir,
+  #modalDetalhesAnimal .btn-cancelar {
+    width: 100%;
   }
 }

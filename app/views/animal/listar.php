@@ -2,10 +2,7 @@
 
   <header class="topbar">
 
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-    >
+    <button class="menu-toggle" id="menuToggle">
       <i class="ri-menu-line"></i>
     </button>
 
@@ -65,11 +62,7 @@
       </p>
     </div>
 
-    <button
-      type="button"
-      class="animal-create-btn"
-      id="abrirModalCadastrarAnimal"
-    >
+    <button type="button" class="animal-create-btn" id="abrirModalCadastrarAnimal">
       <i class="ri-add-line"></i>
       <span>Cadastrar Animal</span>
     </button>
@@ -81,45 +74,25 @@
     <div class="animal-search-box">
       <i class="ri-search-line"></i>
 
-      <input
-        type="text"
-        id="pesquisaAnimal"
-        placeholder="Pesquisar por brinco, raça, sexo, peso ou status..."
-        autocomplete="off"
-      >
+      <input type="text" id="pesquisaAnimal" placeholder="Pesquisar por brinco, raça, sexo, peso ou status..."
+        autocomplete="off">
     </div>
 
     <div class="animal-status-filters">
 
-      <button
-        type="button"
-        class="animal-filter-btn active"
-        data-status-filter="todos"
-      >
+      <button type="button" class="animal-filter-btn active" data-status-filter="todos">
         Todos
       </button>
 
-      <button
-        type="button"
-        class="animal-filter-btn"
-        data-status-filter="ativo"
-      >
+      <button type="button" class="animal-filter-btn" data-status-filter="ativo">
         Ativos
       </button>
 
-      <button
-        type="button"
-        class="animal-filter-btn"
-        data-status-filter="vendido"
-      >
+      <button type="button" class="animal-filter-btn" data-status-filter="vendido">
         Vendidos
       </button>
 
-      <button
-        type="button"
-        class="animal-filter-btn"
-        data-status-filter="morto"
-      >
+      <button type="button" class="animal-filter-btn" data-status-filter="morto">
         Mortos
       </button>
 
@@ -151,13 +124,10 @@
           <?php foreach ($animais as $animal): ?>
 
             <?php
-              $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+            $statusAnimal = strtolower(trim($animal['status'] ?? ''));
             ?>
 
-            <tr
-              class="animal-row"
-              data-status="<?= htmlspecialchars($statusAnimal) ?>"
-            >
+            <tr class="animal-row" data-status="<?= htmlspecialchars($statusAnimal) ?>">
 
               <td>
                 #<?= htmlspecialchars($animal['brinco_identificador']) ?>
@@ -168,7 +138,13 @@
               </td>
 
               <td>
-                <?= htmlspecialchars($animal['sexo']) ?>
+                <?php if ($animal['sexo'] === 'M'): ?>
+                  Macho
+                <?php elseif ($animal['sexo'] === 'F'): ?>
+                  Fêmea
+                <?php else: ?>
+                  -
+                <?php endif; ?>
               </td>
 
               <td>
@@ -185,10 +161,7 @@
 
                 <div class="actions animal-actions">
 
-                  <button
-                    type="button"
-                    class="action-btn detalhes-animal-btn"
-                    title="Ver detalhes"
+                  <button type="button" class="action-btn detalhes-animal-btn" title="Ver detalhes"
                     data-id="<?= htmlspecialchars($animal['id']) ?>"
                     data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
                     data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
@@ -197,58 +170,46 @@
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
                     data-status="<?= htmlspecialchars($statusAnimal) ?>"
-                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
-                  >
+                    data-chip="<?= htmlspecialchars($animal['chip'] ?? '') ?>"
+                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>">
                     <i class="ri-eye-line"></i>
                   </button>
 
-                  <button
-                    type="button"
-                    class="action-btn editar-animal-btn"
-                    title="Editar animal"
+                  <button type="button" class="action-btn editar-animal-btn" title="Editar animal"
                     data-id="<?= htmlspecialchars($animal['id']) ?>"
                     data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+                    data-raca-id="<?= htmlspecialchars($animal['raca_id'] ?? '') ?>"
+                    data-lote-id="<?= htmlspecialchars($animal['lote_id'] ?? '') ?>"
                     data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
                     data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
                     data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
                     data-status="<?= htmlspecialchars($statusAnimal) ?>"
-                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
-                  >
+                    data-chip="<?= htmlspecialchars($animal['chip'] ?? '') ?>"
+                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>">
                     <i class="ri-edit-line"></i>
                   </button>
 
                   <?php if ($statusAnimal === 'ativo'): ?>
 
-                    <a
-                      href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
-                      class="action-btn pesagem-animal-btn"
-                      title="Controle de pesagem"
-                    >
+                    <a href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
+                      class="action-btn pesagem-animal-btn" title="Controle de pesagem">
                       <i class="ri-scales-3-line"></i>
                     </a>
 
                   <?php else: ?>
 
-                    <button
-                      type="button"
-                      class="action-btn action-btn-disabled"
-                      title="Pesagem indisponível para animal <?= htmlspecialchars($statusAnimal) ?>"
-                      disabled
-                    >
+                    <button type="button" class="action-btn action-btn-disabled"
+                      title="Pesagem indisponível para animal <?= htmlspecialchars($statusAnimal) ?>" disabled>
                       <i class="ri-scales-3-line"></i>
                     </button>
 
                   <?php endif; ?>
 
-                  <button
-                    type="button"
-                    class="action-btn danger excluir-animal-btn"
-                    title="Excluir animal"
+                  <button type="button" class="action-btn danger excluir-animal-btn" title="Excluir animal"
                     data-id="<?= htmlspecialchars($animal['id']) ?>"
-                    data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
-                  >
+                    data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>">
                     <i class="ri-delete-bin-line"></i>
                   </button>
 

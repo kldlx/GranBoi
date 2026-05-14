@@ -39,7 +39,7 @@
         class="animal-status-warning"
         id="editarAnimalStatusWarning"
         hidden
-    ></div>
+      ></div>
 
       <div class="modal-body animal-modal-body">
 
@@ -47,64 +47,91 @@
 
           <div class="animal-form-group">
             <label for="editar_brinco">Número do Brinco — não editável</label>
-            <input
-  type="text"
-  id="editar_brinco"
-  disabled
->
 
-<input
-  type="hidden"
-  id="editar_brinco_hidden"
-  name="brinco"
->
+            <input
+              type="text"
+              id="editar_brinco"
+              disabled
+            >
+
+            <input
+              type="hidden"
+              id="editar_brinco_hidden"
+              name="brinco"
+            >
           </div>
 
           <div class="animal-form-group">
             <label for="editar_raca">Raça</label>
-            <input
-              type="text"
-              id="editar_raca"
-              name="raca"
-            >
-          </div>
 
-          <div class="animal-form-group">
-            <label for="editar_lote">Lote</label>
-            <input
-              type="text"
-              id="editar_lote"
-              name="lote"
-            >
-          </div>
+            <select id="editar_raca" name="raca">
+              <option value="">Selecione uma raça</option>
 
-          <div class="animal-form-group">
-            <label for="editar_sexo">Sexo</label>
-            <select id="editar_sexo" name="sexo" required>
-              <option value="">Selecione</option>
-              <option value="Macho">Macho</option>
-              <option value="Fêmea">Fêmea</option>
+              <?php if (!empty($racas)): ?>
+
+                <?php foreach ($racas as $raca): ?>
+
+                  <option value="<?= htmlspecialchars($raca['id']) ?>">
+                    <?= htmlspecialchars($raca['nome_raca']) ?>
+                  </option>
+
+                <?php endforeach; ?>
+
+              <?php endif; ?>
+
             </select>
           </div>
 
           <div class="animal-form-group">
-  <label for="editar_peso_entrada">Peso atual — alterado somente em Pesagem</label>
+            <label for="editar_lote">Lote</label>
 
-  <input
-    type="text"
-    id="editar_peso_entrada"
-    disabled
-  >
+            <select id="editar_lote" name="lote">
+              <option value="">Selecione um lote</option>
 
-  <input
-    type="hidden"
-    id="editar_peso_entrada_hidden"
-    name="peso_entrada"
-  >
-</div>
+              <?php if (!empty($lotes)): ?>
+
+                <?php foreach ($lotes as $lote): ?>
+
+                  <option value="<?= htmlspecialchars($lote['id']) ?>">
+                    <?= htmlspecialchars($lote['nome_lote']) ?>
+                  </option>
+
+                <?php endforeach; ?>
+
+              <?php endif; ?>
+
+            </select>
+          </div>
+
+          <div class="animal-form-group">
+            <label for="editar_sexo">Sexo</label>
+
+            <select id="editar_sexo" name="sexo" required>
+              <option value="">Selecione</option>
+              <option value="M">Macho</option>
+              <option value="F">Fêmea</option>
+            </select>
+          </div>
+
+          <div class="animal-form-group">
+            <label for="editar_peso_entrada">Peso atual — alterado somente em Pesagem</label>
+
+            <input
+              type="text"
+              id="editar_peso_entrada"
+              disabled
+            >
+
+            <input
+              type="hidden"
+              id="editar_peso_entrada_hidden"
+              name="peso_entrada"
+            >
+          </div>
 
           <div class="animal-form-group">
             <label for="editar_data_nascimento">Data de Nascimento</label>
+
             <input
               type="date"
               id="editar_data_nascimento"
@@ -114,6 +141,7 @@
 
           <div class="animal-form-group">
             <label for="editar_status">Status</label>
+
             <select id="editar_status" name="status" required>
               <option value="ativo">Ativo</option>
               <option value="vendido">Vendido</option>
@@ -121,13 +149,15 @@
             </select>
           </div>
 
-          <div class="animal-form-group animal-form-full">
-            <label for="editar_observacoes">Observações</label>
-            <textarea
-              id="editar_observacoes"
-              name="observacoes"
-              rows="4"
-            ></textarea>
+          <div class="animal-form-group">
+            <label for="editar_chip">Chip</label>
+
+            <input
+              type="text"
+              id="editar_chip"
+              name="chip"
+              placeholder="Código do chip, se houver"
+            >
           </div>
 
         </div>

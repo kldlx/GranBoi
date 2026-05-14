@@ -43,7 +43,8 @@
         </p>
 
         <p class="delete-warning">
-          Essa ação não apagará o histórico do banco, apenas marcará o animal como excluído.
+          O animal deixará de aparecer na listagem, mas seu histórico continuará preservado no sistema.
+          Esse brinco continuará reservado e não poderá ser usado em outro animal.
         </p>
 
       </div>

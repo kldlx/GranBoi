@@ -32,11 +32,6 @@
       <div class="animal-details-grid">
 
         <div class="animal-detail-item">
-          <span>ID</span>
-          <strong id="detalhes_id">-</strong>
-        </div>
-
-        <div class="animal-detail-item">
           <span>Brinco</span>
           <strong id="detalhes_brinco">-</strong>
         </div>
@@ -57,7 +52,7 @@
         </div>
 
         <div class="animal-detail-item">
-          <span>Peso de Entrada</span>
+          <span>Peso Atual</span>
           <strong id="detalhes_peso">-</strong>
         </div>
 
@@ -71,9 +66,9 @@
           <strong id="detalhes_data_nascimento">-</strong>
         </div>
 
-        <div class="animal-detail-item animal-detail-full">
-          <span>Observações</span>
-          <strong id="detalhes_observacoes">-</strong>
+        <div class="animal-detail-item">
+          <span>Chip</span>
+          <strong id="detalhes_chip">-</strong>
         </div>
 
       </div>
