@@ -74,6 +74,21 @@
 
   </section>
 
+  <section class="vacinacao-search-container">
+
+    <div class="vacinacao-search-box">
+      <i class="ri-search-line"></i>
+
+      <input
+        type="text"
+        id="pesquisaVacinacao"
+        placeholder="Pesquisar por animal, vacina, responsável, via ou status..."
+        autocomplete="off"
+      >
+    </div>
+
+  </section>
+
   <section class="vacinacao-table-container">
 
     <table class="vacinacao-table">
@@ -92,13 +107,13 @@
 
       </thead>
 
-      <tbody>
+      <tbody id="tabelaVacinacaoBody">
 
         <?php if (!empty($vacinacoes)): ?>
 
           <?php foreach ($vacinacoes as $vacinacao): ?>
 
-            <tr>
+            <tr class="vacinacao-row">
 
               <td>
                 #<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>
@@ -133,6 +148,12 @@
             </tr>
 
           <?php endforeach; ?>
+
+          <tr id="vacinacaoSearchEmpty" style="display: none;">
+            <td colspan="7" class="vacinacao-empty">
+              Nenhum resultado encontrado para a pesquisa.
+            </td>
+          </tr>
 
         <?php else: ?>
 

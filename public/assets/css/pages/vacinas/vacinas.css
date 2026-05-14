@@ -7,94 +7,116 @@
 }
 
 .vacinacao-page-actions h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 900;
-  color: var(--dark);
-  margin-bottom: 4px;
+  color: #111;
+  margin-bottom: 6px;
 }
 
 .vacinacao-page-actions p {
-  color: #777;
-  font-size: 14px;
+  color: #666;
+  font-size: 15px;
 }
 
 .vacinacao-create-btn {
+  min-height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 16px;
+  background: #0f5a22;
+  color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-
-  min-height: 44px;
-  padding: 0 20px;
-
-  background: #0b4f1f;
-  color: #fff;
-
-  border: none;
-  border-radius: 12px;
-
+  gap: 9px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 800;
-
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(11, 79, 31, 0.22);
+  box-shadow: 0 8px 18px rgba(15, 90, 34, 0.22);
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.vacinacao-create-btn i {
+  font-size: 20px;
 }
 
 .vacinacao-create-btn:hover {
-  background: #083d18;
+  background: #0a4218;
+  transform: translateY(-1px);
 }
 
 .vacinacao-table-container {
   background: #fff;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eef0ee;
   overflow-x: auto;
 }
 
 .vacinacao-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.vacinacao-table thead {
+  background: #f4f7f4;
 }
 
 .vacinacao-table th {
   text-align: left;
+  padding: 16px;
   font-size: 13px;
-  color: #555;
-  padding: 14px 12px;
-  border-bottom: 1px solid #eee;
-  background: #f7f7f7;
+  color: #4d5a50;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #e8ece8;
+  white-space: nowrap;
 }
 
 .vacinacao-table td {
-  padding: 16px 12px;
-  border-bottom: 1px solid #f1f1f1;
+  padding: 16px;
+  border-bottom: 1px solid #f0f1f0;
   font-size: 14px;
-  color: var(--dark);
+  color: #222;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
-.vacinacao-table tr:last-child td {
+.vacinacao-table tbody tr:last-child td {
   border-bottom: none;
+}
+
+.vacinacao-table tbody tr:hover {
+  background: #fbfdfb;
 }
 
 .vacinacao-empty {
   text-align: center;
   color: #777;
-  padding: 26px;
+  padding: 28px !important;
+  white-space: normal !important;
 }
 
 .vacinacao-message {
   display: flex;
   align-items: center;
   gap: 10px;
-
   padding: 14px 16px;
   border-radius: 14px;
   margin-bottom: 22px;
-
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
+}
+
+.vacinacao-message i {
+  font-size: 20px;
 }
 
 .vacinacao-message-success {
@@ -112,12 +134,12 @@
 .vacinacao-status {
   display: inline-flex;
   align-items: center;
-
-  padding: 6px 12px;
+  justify-content: center;
+  min-width: 88px;
+  padding: 7px 13px;
   border-radius: 999px;
-
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: capitalize;
 }
 
@@ -141,7 +163,7 @@
   color: #616161;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .vacinacao-page-actions {
     flex-direction: column;
     align-items: flex-start;
@@ -149,5 +171,125 @@
 
   .vacinacao-create-btn {
     width: 100%;
+  }
+
+  .vacinacao-search-container {
+  margin-bottom: 24px;
+}
+
+.vacinacao-search-box {
+  width: 100%;
+  max-width: 520px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: 0.25s;
+}
+
+.vacinacao-search-box:focus-within {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.vacinacao-search-box i {
+  color: #0f5a22;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.vacinacao-search-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.vacinacao-search-box input::placeholder {
+  color: #888;
+}
+
+  .vacinacao-table-container {
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .vacinacao-page-actions h2 {
+    font-size: 24px;
+  }
+
+  .vacinacao-page-actions p {
+    font-size: 14px;
+  }
+
+  .vacinacao-table th,
+  .vacinacao-table td {
+    padding: 14px 12px;
+  }
+
+  .vacinacao-search-box {
+  max-width: 100%;
+}
+}
+
+.vacinacao-search-container {
+  margin-bottom: 24px;
+}
+
+.vacinacao-search-box {
+  width: 100%;
+  max-width: 520px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: 0.25s;
+}
+
+.vacinacao-search-box:focus-within {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.vacinacao-search-box i {
+  color: #0f5a22;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.vacinacao-search-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.vacinacao-search-box input::placeholder {
+  color: #888;
+}
+
+@media (max-width: 900px) {
+  .vacinacao-search-box {
+    max-width: 100%;
   }
 }
