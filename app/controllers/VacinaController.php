@@ -50,11 +50,7 @@ class VacinaController extends Controller
             'vacina' => trim($_POST['vacina'] ?? ''),
             'data_aplicacao' => $_POST['data_aplicacao'] ?? '',
             'proxima_dose' => $_POST['proxima_dose'] ?? null,
-            'responsavel' => trim($_POST['responsavel'] ?? ''),
-            'lote_vacina' => trim($_POST['lote_vacina'] ?? ''),
-            'quantidade' => trim($_POST['quantidade'] ?? ''),
-            'via_aplicacao' => $_POST['via_aplicacao'] ?? '',
-            'observacoes' => trim($_POST['observacoes'] ?? '')
+            'quantidade' => trim($_POST['quantidade'] ?? '')
         ];
 
         $erro = null;
@@ -67,6 +63,17 @@ class VacinaController extends Controller
             $erro = 'Preencha os campos obrigatórios: animal, vacina e data de aplicação.';
         }
 
+        if (!$erro && $dados['quantidade'] === '') {
+            $erro = 'Informe a quantidade/dose aplicada.';
+        }
+
+        if (
+            !$erro &&
+            (!is_numeric($dados['quantidade']) || (float) $dados['quantidade'] <= 0)
+        ) {
+            $erro = 'Informe uma quantidade/dose maior que zero.';
+        }
+
         if (!$erro && !empty($dados['data_aplicacao']) && $dados['data_aplicacao'] > date('Y-m-d')) {
             $erro = 'A data de aplicação não pode ser futura.';
         }
@@ -77,14 +84,6 @@ class VacinaController extends Controller
             $dados['proxima_dose'] < $dados['data_aplicacao']
         ) {
             $erro = 'A próxima dose não pode ser anterior à data de aplicação.';
-        }
-
-        if (
-            !$erro &&
-            !empty($dados['via_aplicacao']) &&
-            !in_array($dados['via_aplicacao'], ['subcutanea', 'intramuscular', 'oral'])
-        ) {
-            $erro = 'Selecione uma via de aplicação válida.';
         }
 
         $animalModel = $this->model('Animal');

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     messageBox.hidden = false;
     messageBox.className = `vacinacao-modal-message ${tipo}`;
-    messageBox.innerText = mensagem;
+    messageBox.textContent = mensagem;
   }
 
   function limparMensagemModal() {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     messageBox.hidden = true;
     messageBox.className = 'vacinacao-modal-message';
-    messageBox.innerText = '';
+    messageBox.textContent = '';
   }
 
   if (abrirModalCadastrarVacinacao && modalCadastrarVacinacao) {
@@ -62,11 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.querySelectorAll('[data-close-modal="modalCadastrarVacinacao"]').forEach((elemento) => {
-    elemento.addEventListener('click', () => {
-      fecharModal(modalCadastrarVacinacao);
+  document
+    .querySelectorAll('[data-close-modal="modalCadastrarVacinacao"]')
+    .forEach((elemento) => {
+      elemento.addEventListener('click', () => {
+        fecharModal(modalCadastrarVacinacao);
+      });
     });
-  });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
@@ -80,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       limparMensagemModal();
 
+      if (typeof validarCadastroVacinacao !== 'function') {
+        mostrarMensagemModal(
+          'error',
+          'Não foi possível validar o formulário. Atualize a página e tente novamente.'
+        );
+        return;
+      }
+
       const erroValidacao =
         validarCadastroVacinacao();
 
@@ -92,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
         formCadastrarVacinacao.querySelector('button[type="submit"]');
 
       const textoOriginalBotao =
-        submitButton ? submitButton.innerText : '';
+        submitButton ? submitButton.textContent : '';
 
       if (submitButton) {
         submitButton.disabled = true;
-        submitButton.innerText = 'Salvando...';
+        submitButton.textContent = 'Salvando...';
       }
 
       try {
@@ -140,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } finally {
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.innerText = textoOriginalBotao;
+          submitButton.textContent = textoOriginalBotao;
         }
       }
     });

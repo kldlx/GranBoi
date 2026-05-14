@@ -32,10 +32,12 @@ class Vacinacao
 
                 pessoa.nome_completo AS responsavel,
 
-                NULL AS lote_vacina,
-                NULL AS via_aplicacao,
-                NULL AS observacoes,
-                'aplicada' AS status
+                CASE
+                    WHEN historico_sanitario.proxima_dose IS NULL THEN 'aplicada'
+                    WHEN historico_sanitario.proxima_dose < CURDATE() THEN 'atrasada'
+                    WHEN historico_sanitario.proxima_dose = CURDATE() THEN 'pendente'
+                    ELSE 'aplicada'
+                END AS status
 
             FROM historico_sanitario
 
@@ -96,7 +98,7 @@ class Vacinacao
             ':animal_id' => $dados['animal_id'],
             ':vacina_id' => $vacinaId,
             ':data_aplicacao' => $dados['data_aplicacao'],
-            ':dose' => !empty($dados['quantidade']) ? $dados['quantidade'] : null,
+            ':dose' => $dados['quantidade'],
             ':proxima_dose' => !empty($dados['proxima_dose']) ? $dados['proxima_dose'] : null,
             ':preco_custo_sanitario' => $precoCustoSanitario,
             ':pessoa_id_veterinario' => $pessoaIdVeterinario
@@ -119,10 +121,12 @@ class Vacinacao
 
                 pessoa.nome_completo AS responsavel,
 
-                NULL AS lote_vacina,
-                NULL AS via_aplicacao,
-                NULL AS observacoes,
-                'aplicada' AS status
+                CASE
+                    WHEN historico_sanitario.proxima_dose IS NULL THEN 'aplicada'
+                    WHEN historico_sanitario.proxima_dose < CURDATE() THEN 'atrasada'
+                    WHEN historico_sanitario.proxima_dose = CURDATE() THEN 'pendente'
+                    ELSE 'aplicada'
+                END AS status
 
             FROM historico_sanitario
 
@@ -154,7 +158,7 @@ class Vacinacao
             SELECT COUNT(*) AS total
             FROM historico_sanitario
             WHERE proxima_dose IS NOT NULL
-              AND proxima_dose < CURDATE()
+              AND proxima_dose = CURDATE()
         ";
 
         $res = $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);

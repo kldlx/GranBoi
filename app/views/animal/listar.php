@@ -36,25 +36,25 @@
 
   <?php if (!empty($_SESSION['sucesso'])): ?>
 
-  <div class="animal-message animal-message-success">
-    <i class="ri-checkbox-circle-line"></i>
-    <span><?= $_SESSION['sucesso'] ?></span>
-  </div>
+    <div class="animal-message animal-message-success">
+      <i class="ri-checkbox-circle-line"></i>
+      <span><?= $_SESSION['sucesso'] ?></span>
+    </div>
 
-  <?php unset($_SESSION['sucesso']); ?>
+    <?php unset($_SESSION['sucesso']); ?>
 
-<?php endif; ?>
+  <?php endif; ?>
 
-<?php if (!empty($_SESSION['erro'])): ?>
+  <?php if (!empty($_SESSION['erro'])): ?>
 
-  <div class="animal-message animal-message-error">
-    <i class="ri-error-warning-line"></i>
-    <span><?= $_SESSION['erro'] ?></span>
-  </div>
+    <div class="animal-message animal-message-error">
+      <i class="ri-error-warning-line"></i>
+      <span><?= $_SESSION['erro'] ?></span>
+    </div>
 
-  <?php unset($_SESSION['erro']); ?>
+    <?php unset($_SESSION['erro']); ?>
 
-<?php endif; ?>
+  <?php endif; ?>
 
   <section class="page-actions">
 
@@ -66,13 +66,13 @@
     </div>
 
     <button
-  type="button"
-  class="animal-create-btn"
-  id="abrirModalCadastrarAnimal"
->
-  <i class="ri-add-line"></i>
-  <span>Cadastrar Animal</span>
-</button>
+      type="button"
+      class="animal-create-btn"
+      id="abrirModalCadastrarAnimal"
+    >
+      <i class="ri-add-line"></i>
+      <span>Cadastrar Animal</span>
+    </button>
 
   </section>
 
@@ -83,7 +83,6 @@
       <thead>
 
         <tr>
-          <th>ID</th>
           <th>Brinco</th>
           <th>Raça</th>
           <th>Sexo</th>
@@ -102,13 +101,9 @@
 
             <tr>
 
-              <td><?= htmlspecialchars($animal['id']) ?></td>
-
               <td>
                 #<?= htmlspecialchars($animal['brinco_identificador']) ?>
               </td>
-
-              
 
               <td>
                 <?= htmlspecialchars($animal['raca'] ?? '-') ?>
@@ -124,8 +119,7 @@
 
               <td>
                 <span class="status-badge status-<?= htmlspecialchars($animal['status']) ?>">
-                <?= ucfirst(htmlspecialchars($animal['status'])) ?>
-                </span>
+                  <?= ucfirst(htmlspecialchars($animal['status'])) ?>
                 </span>
               </td>
 
@@ -134,74 +128,71 @@
                 <div class="actions">
 
                   <button
-  type="button"
-  class="action-btn detalhes-animal-btn"
-  title="Ver detalhes"
-  data-id="<?= htmlspecialchars($animal['id']) ?>"
-  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
-  data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
-  data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
-  data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
-  data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
-  data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-  data-status="<?= htmlspecialchars($animal['status']) ?>"
-  data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
->
-  <i class="ri-eye-line"></i>
-</button>
+                    type="button"
+                    class="action-btn detalhes-animal-btn"
+                    title="Ver detalhes"
+                    data-id="<?= htmlspecialchars($animal['id']) ?>"
+                    data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+                    data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
+                    data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
+                    data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
+                    data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
+                    data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
+                    data-status="<?= htmlspecialchars($animal['status']) ?>"
+                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
+                  >
+                    <i class="ri-eye-line"></i>
+                  </button>
 
                   <button
-  type="button"
-  class="action-btn editar-animal-btn"
-  title="Editar animal"
-  data-id="<?= htmlspecialchars($animal['id']) ?>"
-  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
-  data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
-  data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
-  data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
-  data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
-  data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-  data-status="<?= htmlspecialchars($animal['status']) ?>"
-  data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
->
-  <i class="ri-edit-line"></i>
-</button>
+                    type="button"
+                    class="action-btn editar-animal-btn"
+                    title="Editar animal"
+                    data-id="<?= htmlspecialchars($animal['id']) ?>"
+                    data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+                    data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
+                    data-lote="<?= htmlspecialchars($animal['lote'] ?? '') ?>"
+                    data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
+                    data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
+                    data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
+                    data-status="<?= htmlspecialchars($animal['status']) ?>"
+                    data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
+                  >
+                    <i class="ri-edit-line"></i>
+                  </button>
 
-<?php if ($animal['status'] === 'ativo'): ?>
+                  <?php if (strtolower($animal['status']) === 'ativo'): ?>
 
-  <a
-    href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
-    class="action-btn pesagem-animal-btn"
-    title="Controle de pesagem"
-  >
-    <i class="ri-scales-3-line"></i>
-  </a>
+                    <a
+                      href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
+                      class="action-btn pesagem-animal-btn"
+                      title="Controle de pesagem"
+                    >
+                      <i class="ri-scales-3-line"></i>
+                    </a>
 
-<?php else: ?>
+                  <?php else: ?>
 
-  <button
-    type="button"
-    class="action-btn action-btn-disabled"
-    title="Pesagem indisponível para animal <?= htmlspecialchars($animal['status']) ?>"
-    disabled
-  >
-    <i class="ri-scales-3-line"></i>
-  </button>
+                    <button
+                      type="button"
+                      class="action-btn action-btn-disabled"
+                      title="Pesagem indisponível para animal <?= htmlspecialchars($animal['status']) ?>"
+                      disabled
+                    >
+                      <i class="ri-scales-3-line"></i>
+                    </button>
 
-<?php endif; ?>
-
+                  <?php endif; ?>
 
                   <button
-  type="button"
-  class="action-btn danger excluir-animal-btn"
-  title="Excluir animal"
-  data-id="<?= htmlspecialchars($animal['id']) ?>"
-  data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
->
-  <i class="ri-delete-bin-line"></i>
-</button>
-
-
+                    type="button"
+                    class="action-btn danger excluir-animal-btn"
+                    title="Excluir animal"
+                    data-id="<?= htmlspecialchars($animal['id']) ?>"
+                    data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
+                  >
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
 
                 </div>
 
@@ -214,7 +205,7 @@
         <?php else: ?>
 
           <tr>
-            <td colspan="8" class="empty-message">
+            <td colspan="6" class="empty-message">
               Nenhum animal cadastrado.
             </td>
           </tr>

@@ -60,7 +60,7 @@
 
     <div>
       <h2>Histórico de Vacinação</h2>
-      <p>Vacinas registradas no sistema</p>
+      <p>Últimas vacinações registradas no sistema</p>
     </div>
 
     <button
@@ -74,7 +74,7 @@
 
   </section>
 
-  <section class="vacinacao-search-container">
+  <section class="vacinacao-filtros-container">
 
     <div class="vacinacao-search-box">
       <i class="ri-search-line"></i>
@@ -82,9 +82,45 @@
       <input
         type="text"
         id="pesquisaVacinacao"
-        placeholder="Pesquisar por animal, vacina, responsável, via ou status..."
+        placeholder="Pesquisar por animal, vacina, dose, responsável ou status..."
         autocomplete="off"
       >
+    </div>
+
+    <div class="vacinacao-status-filters">
+
+      <button
+        type="button"
+        class="vacinacao-filter-btn active"
+        data-status-filter="todos"
+      >
+        Todas
+      </button>
+
+      <button
+        type="button"
+        class="vacinacao-filter-btn"
+        data-status-filter="aplicada"
+      >
+        Aplicadas
+      </button>
+
+      <button
+        type="button"
+        class="vacinacao-filter-btn"
+        data-status-filter="pendente"
+      >
+        Pendentes
+      </button>
+
+      <button
+        type="button"
+        class="vacinacao-filter-btn"
+        data-status-filter="atrasada"
+      >
+        Atrasadas
+      </button>
+
     </div>
 
   </section>
@@ -98,10 +134,10 @@
         <tr>
           <th>Animal</th>
           <th>Vacina</th>
+          <th>Dose</th>
           <th>Aplicação</th>
           <th>Próxima Dose</th>
           <th>Responsável</th>
-          <th>Via</th>
           <th>Status</th>
         </tr>
 
@@ -113,7 +149,10 @@
 
           <?php foreach ($vacinacoes as $vacinacao): ?>
 
-            <tr class="vacinacao-row">
+            <tr
+              class="vacinacao-row"
+              data-status="<?= htmlspecialchars($vacinacao['status']) ?>"
+            >
 
               <td>
                 #<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>
@@ -121,6 +160,10 @@
 
               <td>
                 <?= htmlspecialchars($vacinacao['vacina']) ?>
+              </td>
+
+              <td>
+                <?= !empty($vacinacao['quantidade']) ? number_format((float) $vacinacao['quantidade'], 2, ',', '.') . ' ml' : '-' ?>
               </td>
 
               <td>
@@ -136,10 +179,6 @@
               </td>
 
               <td>
-                <?= htmlspecialchars($vacinacao['via_aplicacao'] ?? '-') ?>
-              </td>
-
-              <td>
                 <span class="vacinacao-status vacinacao-status-<?= htmlspecialchars($vacinacao['status']) ?>">
                   <?= ucfirst(htmlspecialchars($vacinacao['status'])) ?>
                 </span>
@@ -151,7 +190,7 @@
 
           <tr id="vacinacaoSearchEmpty" style="display: none;">
             <td colspan="7" class="vacinacao-empty">
-              Nenhum resultado encontrado para a pesquisa.
+              Nenhum resultado encontrado para a pesquisa ou filtro selecionado.
             </td>
           </tr>
 

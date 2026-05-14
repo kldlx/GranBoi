@@ -3,10 +3,18 @@ function validarCadastroVacinacao() {
   const vacina = document.getElementById('vacina')?.value.trim();
   const dataAplicacao = document.getElementById('data_aplicacao')?.value;
   const proximaDose = document.getElementById('proxima_dose')?.value;
-  const viaAplicacao = document.getElementById('via_aplicacao')?.value;
+  const quantidade = document.getElementById('quantidade')?.value.trim();
 
   if (!animalId || !vacina || !dataAplicacao) {
     return 'Preencha os campos obrigatórios: animal, vacina e data de aplicação.';
+  }
+
+  if (!quantidade) {
+    return 'Informe a quantidade/dose aplicada.';
+  }
+
+  if (isNaN(quantidade) || Number(quantidade) <= 0) {
+    return 'Informe uma quantidade/dose maior que zero.';
   }
 
   const hoje = new Date();
@@ -24,13 +32,6 @@ function validarCadastroVacinacao() {
     if (proximaDoseObj < dataAplicacaoObj) {
       return 'A próxima dose não pode ser anterior à data de aplicação.';
     }
-  }
-
-  if (
-    viaAplicacao &&
-    !['subcutanea', 'intramuscular', 'oral'].includes(viaAplicacao)
-  ) {
-    return 'Selecione uma via de aplicação válida.';
   }
 
   return null;

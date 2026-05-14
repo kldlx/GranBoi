@@ -1,40 +1,52 @@
 #modalCadastrarVacinacao .modal-container {
-  width: min(820px, calc(100% - 32px));
+  width: min(560px, calc(100% - 32px));
   max-height: 90vh;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
 }
 
 #modalCadastrarVacinacao .modal-header {
-  padding: 24px 28px;
-  border-bottom: 1px solid #eee;
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid #eef0ee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 #modalCadastrarVacinacao .modal-header h2 {
   font-size: 24px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 4px;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 6px 0;
 }
 
 #modalCadastrarVacinacao .modal-header p {
   font-size: 14px;
-  color: #777;
+  color: #666;
+  margin: 0;
 }
 
 #modalCadastrarVacinacao .close-modal {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: transparent;
-  border-radius: 10px;
+  background: #f3f5f3;
+  border-radius: 13px;
   cursor: pointer;
-  font-size: 22px;
-  color: var(--dark);
+  font-size: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
 }
 
 #modalCadastrarVacinacao .close-modal:hover {
-  background: #f5f5f5;
+  background: #e8ece8;
 }
 
 .vacinacao-modal-body {
@@ -45,116 +57,125 @@
 
 .vacinacao-form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 20px;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .vacinacao-form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .vacinacao-form-full {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 
 .vacinacao-form-group label {
   font-size: 14px;
   font-weight: 700;
-  color: #374151;
+  color: #222;
 }
 
 .vacinacao-form-group input,
-.vacinacao-form-group select,
-.vacinacao-form-group textarea {
+.vacinacao-form-group select {
   width: 100%;
-  min-height: 44px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  padding: 10px 12px;
+  height: 52px;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  padding: 0 16px;
   font-family: inherit;
-  font-size: 14px;
-  color: var(--dark);
-  background: #fff;
+  font-size: 15px;
+  color: #222;
+  background: #ffffff;
   outline: none;
-  transition: 0.2s ease;
-}
-
-.vacinacao-form-group textarea {
-  resize: vertical;
-  min-height: 96px;
+  transition: 0.25s;
 }
 
 .vacinacao-form-group input:focus,
-.vacinacao-form-group select:focus,
-.vacinacao-form-group textarea:focus {
-  border-color: #0b4f1f;
-  box-shadow: 0 0 0 3px rgba(11, 79, 31, 0.12);
+.vacinacao-form-group select:focus {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
 }
 
 .vacinacao-modal-message {
   margin: 18px 28px 0;
-  padding: 12px 14px;
-  border-radius: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.4;
 }
 
 .vacinacao-modal-message.error {
   background: #ffebee;
-  color: #c62828;
+  color: #8a1f1f;
   border: 1px solid #ffcdd2;
 }
 
 .vacinacao-modal-message.success {
   background: #e8f5e9;
-  color: #2e7d32;
+  color: #1b5e20;
   border: 1px solid #c8e6c9;
 }
 
 #modalCadastrarVacinacao .modal-footer {
-  padding: 18px 28px 24px;
-  border-top: 1px solid #eee;
+  padding: 20px 28px 28px;
+  border-top: 1px solid #eef0ee;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
 }
 
 #modalCadastrarVacinacao .btn-cancelar,
 #modalCadastrarVacinacao .btn-salvar {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 18px;
-  border-radius: 10px;
+  border-radius: 14px;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   border: none;
+  transition: 0.25s;
 }
 
 #modalCadastrarVacinacao .btn-cancelar {
-  background: #f3f4f6;
-  color: #374151;
+  background: #eef1ee;
+  color: #333;
+}
+
+#modalCadastrarVacinacao .btn-cancelar:hover {
+  background: #dde3dd;
 }
 
 #modalCadastrarVacinacao .btn-salvar {
-  background: #0b4f1f;
-  color: #fff;
+  background: #0f5a22;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(15, 90, 34, 0.18);
 }
 
 #modalCadastrarVacinacao .btn-salvar:hover {
-  background: #083d18;
+  background: #0a4218;
 }
 
 #modalCadastrarVacinacao .btn-salvar:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
-  .vacinacao-form-grid {
-    grid-template-columns: 1fr;
+  #modalCadastrarVacinacao .modal-container {
+    width: min(100% - 24px, 560px);
+    border-radius: 20px;
+  }
+
+  #modalCadastrarVacinacao .modal-header,
+  .vacinacao-modal-body,
+  #modalCadastrarVacinacao .modal-footer {
+    padding-left: 22px;
+    padding-right: 22px;
   }
 
   #modalCadastrarVacinacao .modal-footer {
