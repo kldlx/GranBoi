@@ -1,4 +1,4 @@
-<main class="main-content">
+<main class="main-content animal-page">
 
   <header class="topbar">
 
@@ -56,7 +56,7 @@
 
   <?php endif; ?>
 
-  <section class="page-actions">
+  <section class="page-actions animal-page-actions">
 
     <div>
       <h2>Lista de Gado</h2>
@@ -76,9 +76,60 @@
 
   </section>
 
-  <section class="table-container">
+  <section class="animal-filtros-container">
 
-    <table>
+    <div class="animal-search-box">
+      <i class="ri-search-line"></i>
+
+      <input
+        type="text"
+        id="pesquisaAnimal"
+        placeholder="Pesquisar por brinco, raça, sexo, peso ou status..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="animal-status-filters">
+
+      <button
+        type="button"
+        class="animal-filter-btn active"
+        data-status-filter="todos"
+      >
+        Todos
+      </button>
+
+      <button
+        type="button"
+        class="animal-filter-btn"
+        data-status-filter="ativo"
+      >
+        Ativos
+      </button>
+
+      <button
+        type="button"
+        class="animal-filter-btn"
+        data-status-filter="vendido"
+      >
+        Vendidos
+      </button>
+
+      <button
+        type="button"
+        class="animal-filter-btn"
+        data-status-filter="morto"
+      >
+        Mortos
+      </button>
+
+    </div>
+
+  </section>
+
+  <section class="table-container animal-table-container">
+
+    <table class="animal-table">
 
       <thead>
 
@@ -93,13 +144,20 @@
 
       </thead>
 
-      <tbody>
+      <tbody id="tabelaAnimalBody">
 
         <?php if (!empty($animais)): ?>
 
           <?php foreach ($animais as $animal): ?>
 
-            <tr>
+            <?php
+              $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+            ?>
+
+            <tr
+              class="animal-row"
+              data-status="<?= htmlspecialchars($statusAnimal) ?>"
+            >
 
               <td>
                 #<?= htmlspecialchars($animal['brinco_identificador']) ?>
@@ -118,14 +176,14 @@
               </td>
 
               <td>
-                <span class="status-badge status-<?= htmlspecialchars($animal['status']) ?>">
-                  <?= ucfirst(htmlspecialchars($animal['status'])) ?>
+                <span class="status-badge status-<?= htmlspecialchars($statusAnimal) ?>">
+                  <?= ucfirst(htmlspecialchars($statusAnimal)) ?>
                 </span>
               </td>
 
               <td>
 
-                <div class="actions">
+                <div class="actions animal-actions">
 
                   <button
                     type="button"
@@ -138,7 +196,7 @@
                     data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-                    data-status="<?= htmlspecialchars($animal['status']) ?>"
+                    data-status="<?= htmlspecialchars($statusAnimal) ?>"
                     data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
                   >
                     <i class="ri-eye-line"></i>
@@ -155,13 +213,13 @@
                     data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-                    data-status="<?= htmlspecialchars($animal['status']) ?>"
+                    data-status="<?= htmlspecialchars($statusAnimal) ?>"
                     data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
                   >
                     <i class="ri-edit-line"></i>
                   </button>
 
-                  <?php if (strtolower($animal['status']) === 'ativo'): ?>
+                  <?php if ($statusAnimal === 'ativo'): ?>
 
                     <a
                       href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
@@ -176,7 +234,7 @@
                     <button
                       type="button"
                       class="action-btn action-btn-disabled"
-                      title="Pesagem indisponível para animal <?= htmlspecialchars($animal['status']) ?>"
+                      title="Pesagem indisponível para animal <?= htmlspecialchars($statusAnimal) ?>"
                       disabled
                     >
                       <i class="ri-scales-3-line"></i>
@@ -201,6 +259,12 @@
             </tr>
 
           <?php endforeach; ?>
+
+          <tr id="animalSearchEmpty" style="display: none;">
+            <td colspan="6" class="empty-message">
+              Nenhum animal encontrado para a pesquisa ou filtro selecionado.
+            </td>
+          </tr>
 
         <?php else: ?>
 

@@ -66,19 +66,26 @@ class Animal
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function brincoExiste($brinco)
+    public function brincoExiste($brinco, $idIgnorar = null)
     {
         $sql = "SELECT id 
                 FROM animal 
-                WHERE brinco_identificador = :brinco
-                AND LOWER(COALESCE(status, '')) != 'excluido'
-                LIMIT 1";
+                WHERE brinco_identificador = :brinco";
+
+        $params = [
+            ':brinco' => $brinco
+        ];
+
+        if (!empty($idIgnorar)) {
+            $sql .= " AND id != :id";
+            $params[':id'] = $idIgnorar;
+        }
+
+        $sql .= " LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
 
-        $stmt->execute([
-            ':brinco' => $brinco
-        ]);
+        $stmt->execute($params);
 
         return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
@@ -231,8 +238,7 @@ class Animal
     public function softDelete($id)
     {
         $sql = "UPDATE animal 
-                SET status = 'excluido',
-                    brinco_identificador = CONCAT('EXCLUIDO_', id, '_', brinco_identificador)
+                SET status = 'excluido'
                 WHERE id = :id
                 AND LOWER(COALESCE(status, '')) != 'excluido'";
 

@@ -1,160 +1,380 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+/* =========================
+   PÁGINA DE ANIMAIS
+========================= */
+
+.animal-page {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-body {
-  background: #f4f6f8;
-  color: #1f2937;
-}
+/* =========================
+   AÇÕES DA PÁGINA
+========================= */
 
-.dashboard-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-
-
-.sidebar {
-  width: 250px;
-  background: #0f172a;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
+.animal-page-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.logo-icon {
-  font-size: 22px;
-  color: #22c55e;
+.animal-page-actions h2 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #111;
+  margin-bottom: 6px;
 }
 
-.logo-text h2 {
+.animal-page-actions p {
+  color: #666;
+  font-size: 15px;
+}
+
+.animal-create-btn {
+  min-height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 16px;
+  background: #0f5a22;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(15, 90, 34, 0.22);
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.animal-create-btn i {
   font-size: 20px;
 }
 
-.logo-text span {
-  font-size: 12px;
-  color: #94a3b8;
+.animal-create-btn:hover {
+  background: #0a4218;
+  transform: translateY(-1px);
 }
 
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.animal-create-btn:active {
+  transform: translateY(0);
 }
 
-.menu-item {
+/* =========================
+   PESQUISA E FILTROS
+========================= */
+
+.animal-filtros-container {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  color: #cbd5e1;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.menu-item:hover {
-  background: #1e293b;
-  color: #fff;
-}
-
-.menu-item.active {
-  background: #22c55e;
-  color: #fff;
-}
-
-.main-content {
-  flex: 1;
-  padding: 30px;
-}
-
-.topbar {
-  display: flex;
   justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.animal-search-box {
+  width: 100%;
+  max-width: 520px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  display: flex;
   align-items: center;
-  margin-bottom: 25px;
+  gap: 10px;
+  padding: 0 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: 0.25s;
 }
 
-.topbar-title h1 {
-  font-size: 24px;
+.animal-search-box:focus-within {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
 }
 
-.topbar-title p {
-  font-size: 14px;
-  color: #6b7280;
+.animal-search-box i {
+  color: #0f5a22;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 
-.btn-primary {
-  background: #22c55e;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.2s;
+.animal-search-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  font-size: 15px;
+  font-family: inherit;
 }
 
-.btn-primary:hover {
-  background: #16a34a;
+.animal-search-box input::placeholder {
+  color: #888;
 }
 
+.animal-status-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  padding: 6px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  flex-wrap: wrap;
+}
 
-.table-container {
-  background: #fff;
+.animal-filter-btn {
+  min-height: 38px;
+  padding: 0 16px;
+  border: none;
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: transparent;
+  color: #35543b;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.animal-filter-btn:hover {
+  background: #f1f7f2;
+  color: #0f5a22;
+}
+
+.animal-filter-btn.active {
+  background: #0f5a22;
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(15, 90, 34, 0.20);
+}
+
+/* =========================
+   TABELA
+========================= */
+
+.animal-table-container {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eef0ee;
   overflow-x: auto;
 }
 
-table {
+.animal-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 18px;
 }
 
-thead {
-  background: #f1f5f9;
+.animal-table thead {
+  background: #f4f7f4;
 }
 
-th, td {
-  padding: 12px 10px;
+.animal-table th {
   text-align: left;
-  font-size: 14px;
-}
-
-tbody tr {
-  border-bottom: 1px solid #e5e7eb;
-}
-
-tbody tr:hover {
-  background: #f9fafb;
-}
-
-.status {
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  background: #e5e7eb;
-}
-
-td a {
-  margin-right: 10px;
-  text-decoration: none;
+  padding: 14px;
   font-size: 13px;
-  color: #2563eb;
+  color: #4d5a50;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #e8ece8;
+  white-space: nowrap;
 }
 
-td a:hover {
-  text-decoration: underline;
+.animal-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f0f1f0;
+  font-size: 14px;
+  color: #222;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.animal-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.animal-table tbody tr:hover {
+  background: #fbfdfb;
+}
+
+.empty-message {
+  text-align: center;
+  color: #777;
+  padding: 28px !important;
+  white-space: normal !important;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+.status-ativo {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-vendido {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-morto {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-excluido {
+  background: #eeeeee;
+  color: #616161;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
+.animal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.animal-actions .action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #f3f5f3;
+  color: #222;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
+}
+
+.animal-actions .action-btn i {
+  font-size: 18px;
+}
+
+.animal-actions .action-btn:hover {
+  background: #e8ece8;
+  transform: translateY(-1px);
+}
+
+.animal-actions .action-btn.danger {
+  color: #c62828;
+}
+
+.animal-actions .action-btn.danger:hover {
+  background: #ffebee;
+}
+
+.animal-actions .action-btn.pesagem-animal-btn {
+  color: #222;
+}
+
+.animal-actions .action-btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  color: #999 !important;
+}
+
+.animal-actions .action-btn-disabled:hover {
+  background: #f3f5f3;
+  transform: none;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 900px) {
+  .animal-page {
+    max-width: 100%;
+  }
+
+  .animal-page-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .animal-create-btn {
+    width: 100%;
+  }
+
+  .animal-filtros-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .animal-search-box {
+    max-width: 100%;
+  }
+
+  .animal-status-filters {
+    width: 100%;
+  }
+
+  .animal-filter-btn {
+    flex: 1;
+  }
+
+  .animal-table-container {
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .animal-page-actions h2 {
+    font-size: 24px;
+  }
+
+  .animal-page-actions p {
+    font-size: 14px;
+  }
+
+  .animal-status-filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .animal-filter-btn {
+    width: 100%;
+  }
+
+  .animal-table th,
+  .animal-table td {
+    padding: 14px 12px;
+  }
 }

@@ -13,7 +13,8 @@ class AnimalController extends Controller
             'pageCss' => [
                 '/public/assets/css/components/modal.css',
                 '/public/assets/css/components/animal/animalModal.css',
-                '/public/assets/css/pages/animal/animal.css'
+                '/public/assets/css/pages/animal/animal.css',
+                '/public/assets/css/pages/animal/listar.css'
             ],
             'pageJs' => [
                 '/public/assets/js/validations/animal/animalValidation.js',
@@ -103,7 +104,7 @@ class AnimalController extends Controller
         $model = $this->model('Animal');
 
         if (!$erro && $model->brincoExiste($dados['brinco'])) {
-            $erro = 'Já existe um animal cadastrado com esse número de brinco.';
+            $erro = 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($erro) {
@@ -406,7 +407,7 @@ class AnimalController extends Controller
     private function mensagemErroCadastroAnimal(PDOException $e)
     {
         if ($this->erroBrincoDuplicado($e)) {
-            return 'Já existe um animal cadastrado com esse número de brinco.';
+            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($this->erroChaveEstrangeira($e)) {
@@ -419,7 +420,7 @@ class AnimalController extends Controller
     private function mensagemErroAtualizarAnimal(PDOException $e)
     {
         if ($this->erroBrincoDuplicado($e)) {
-            return 'Já existe um animal cadastrado com esse número de brinco.';
+            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($this->erroChaveEstrangeira($e)) {
