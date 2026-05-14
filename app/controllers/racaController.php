@@ -4,13 +4,15 @@ class RacaController extends Controller
 {
     public function index()
     {
-        $model = $this->model('Raca');
+        $racaModel = $this->model('Raca');
+        $loteModel = $this->model('Lote');
 
         $dados = [
-            'titulo' => 'GranBoi - Raças',
-            'tituloPagina' => 'Raças',
-            'subtituloPagina' => 'Gerencie as raças cadastradas no sistema',
-            'racas' => $model->listarTodos()
+            'titulo' => 'GranBoi - Cadastros',
+            'tituloPagina' => 'Raças e Lotes',
+            'subtituloPagina' => 'Gerencie as raças e os lotes cadastrados no sistema',
+            'racas' => $racaModel->listarTodos(),
+            'lotes' => $loteModel->listarTodos()
         ];
 
         $this->render('racas/listar', $dados);

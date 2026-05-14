@@ -13,12 +13,12 @@ class VacinaController extends Controller
                 '/public/assets/css/components/modal.css',
                 '/public/assets/css/components/vacinacao/vacinacaoModal.css',
                 '/public/assets/css/pages/vacinas/vacinas.css'
-],
+            ],
             'pageJs' => [
                 '/public/assets/js/validations/vacinacao/vacinacaoValidation.js',
-             '/public/assets/js/modals/vacinacao/cadastrarVacinacaoModal.js',
-             '/public/assets/js/pages/vacinas/vacinasPage.js'
-],
+                '/public/assets/js/modals/vacinacao/cadastrarVacinacaoModal.js',
+                '/public/assets/js/pages/vacinas/vacinasPage.js'
+            ],
             'vacinacoes' => $vacinacaoModel->listarTodas(),
             'animais' => $animalModel->listarTodos()
         ]);
@@ -94,8 +94,12 @@ class VacinaController extends Controller
 
             if (!$animal) {
                 $erro = 'Animal não encontrado.';
-            } elseif ($animal['status'] !== 'ativo') {
-                $erro = 'Não é possível registrar vacinação para animal vendido ou morto.';
+            } else {
+                $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+
+                if ($statusAnimal !== 'ativo') {
+                    $erro = 'Não é possível registrar vacinação para animal vendido ou morto.';
+                }
             }
         }
 

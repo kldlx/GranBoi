@@ -133,6 +133,11 @@ textarea{
 .main-header-link i{
   font-size: 18px;
   flex-shrink: 0;
+  color: inherit;
+}
+
+.main-header-link.active i{
+  color: #0f5a22;
 }
 
 .main-header-link:hover{

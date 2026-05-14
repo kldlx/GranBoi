@@ -43,18 +43,24 @@
             <select id="animal_id" name="animal_id" required>
               <option value="">Selecione um animal</option>
 
-              <?php foreach ($animais as $animal): ?>
+              <?php if (!empty($animais)): ?>
 
-                <?php if ($animal['status'] === 'ativo'): ?>
+                <?php foreach ($animais as $animal): ?>
 
                   <option value="<?= htmlspecialchars($animal['id']) ?>">
                     #<?= htmlspecialchars($animal['brinco_identificador']) ?>
                     <?= !empty($animal['raca']) ? ' - ' . htmlspecialchars($animal['raca']) : '' ?>
                   </option>
 
-                <?php endif; ?>
+                <?php endforeach; ?>
 
-              <?php endforeach; ?>
+              <?php else: ?>
+
+                <option value="" disabled>
+                  Nenhum animal disponível para vacinação
+                </option>
+
+              <?php endif; ?>
 
             </select>
           </div>
@@ -115,7 +121,7 @@
               type="text"
               id="quantidade"
               name="quantidade"
-              placeholder="Ex: 5 ml"
+              placeholder="Ex: 5"
             >
           </div>
 

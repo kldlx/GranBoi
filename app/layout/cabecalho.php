@@ -96,13 +96,8 @@ function menuAtivoCabecalho($urlAtual, $url)
             </a>
 
             <a href="<?= BASE_URL ?>/racas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/racas') ?>">
-                <i class="ri-dna-line"></i>
-                <span>Raças</span>
-            </a>
-
-            <a href="<?= BASE_URL ?>/lotes" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/lotes') ?>">
-                <i class="ri-stack-line"></i>
-                <span>Lotes</span>
+                <i class="ri-folder-settings-line"></i>
+                <span>Cadastros</span>
             </a>
 
             <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
@@ -143,13 +138,8 @@ function menuAtivoCabecalho($urlAtual, $url)
             </a>
 
             <a href="<?= BASE_URL ?>/racas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/racas') ?>">
-                <i class="ri-dna-line"></i>
-                <span>Raças</span>
-            </a>
-
-            <a href="<?= BASE_URL ?>/lotes" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/lotes') ?>">
-                <i class="ri-stack-line"></i>
-                <span>Lotes</span>
+                <i class="ri-folder-settings-line"></i>
+                <span>Cadastros</span>
             </a>
 
             <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
