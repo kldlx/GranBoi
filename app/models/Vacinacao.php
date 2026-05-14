@@ -63,6 +63,62 @@ class Vacinacao
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function buscarPorId($id)
+    {
+        $sql = "
+            SELECT 
+                historico_sanitario.id,
+                historico_sanitario.animal_id,
+                historico_sanitario.vacina_id,
+                historico_sanitario.data_aplicacao,
+                historico_sanitario.dose AS quantidade,
+                historico_sanitario.proxima_dose,
+                historico_sanitario.preco_custo_sanitario,
+                historico_sanitario.pessoa_id_veterinario,
+
+                vacina.nome AS vacina,
+
+                animal.brinco_identificador,
+                animal.status AS status_animal,
+
+                raca.nome_raca AS raca,
+
+                pessoa.nome_completo AS responsavel,
+
+                CASE
+                    WHEN historico_sanitario.proxima_dose IS NULL THEN 'aplicada'
+                    WHEN historico_sanitario.proxima_dose < CURDATE() THEN 'atrasada'
+                    WHEN historico_sanitario.proxima_dose = CURDATE() THEN 'pendente'
+                    ELSE 'aplicada'
+                END AS status
+
+            FROM historico_sanitario
+
+            INNER JOIN animal 
+                ON animal.id = historico_sanitario.animal_id
+
+            LEFT JOIN raca
+                ON raca.id = animal.raca_id
+
+            INNER JOIN vacina
+                ON vacina.id = historico_sanitario.vacina_id
+
+            INNER JOIN pessoa
+                ON pessoa.id = historico_sanitario.pessoa_id_veterinario
+
+            WHERE historico_sanitario.id = :id
+            LIMIT 1
+        ";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function salvar($dados)
     {
         $vacinaId = $this->buscarOuCriarVacina($dados['vacina']);
@@ -102,6 +158,34 @@ class Vacinacao
             ':proxima_dose' => !empty($dados['proxima_dose']) ? $dados['proxima_dose'] : null,
             ':preco_custo_sanitario' => $precoCustoSanitario,
             ':pessoa_id_veterinario' => $pessoaIdVeterinario
+        ]);
+    }
+
+    public function atualizar($dados)
+    {
+        $vacinaId = $this->buscarOuCriarVacina($dados['vacina']);
+
+        $precoCustoSanitario = $this->buscarPrecoVacina($vacinaId);
+
+        $sql = "UPDATE historico_sanitario
+                SET animal_id = :animal_id,
+                    vacina_id = :vacina_id,
+                    data_aplicacao = :data_aplicacao,
+                    dose = :dose,
+                    proxima_dose = :proxima_dose,
+                    preco_custo_sanitario = :preco_custo_sanitario
+                WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $dados['id'],
+            ':animal_id' => $dados['animal_id'],
+            ':vacina_id' => $vacinaId,
+            ':data_aplicacao' => $dados['data_aplicacao'],
+            ':dose' => $dados['quantidade'],
+            ':proxima_dose' => !empty($dados['proxima_dose']) ? $dados['proxima_dose'] : null,
+            ':preco_custo_sanitario' => $precoCustoSanitario
         ]);
     }
 
@@ -152,6 +236,18 @@ class Vacinacao
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+        public function excluir($id)
+    {
+        $sql = "DELETE FROM historico_sanitario
+                WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $id
+        ]);
+    }
+    
     public function countPendentes()
     {
         $sql = "

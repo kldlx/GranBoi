@@ -178,9 +178,23 @@ $routes = [
         'roles' => ['administrador', 'veterinario']
     ],
 
-    '/vacinas/salvar' => [
+        '/vacinas/salvar' => [
         'controller' => 'VacinaController',
         'method' => 'salvar',
+        'auth' => true,
+        'roles' => ['administrador', 'veterinario']
+    ],
+
+        '/vacinas/atualizar' => [
+        'controller' => 'VacinaController',
+        'method' => 'atualizar',
+        'auth' => true,
+        'roles' => ['administrador', 'veterinario']
+    ],
+
+    '/vacinas/excluir' => [
+        'controller' => 'VacinaController',
+        'method' => 'excluir',
         'auth' => true,
         'roles' => ['administrador', 'veterinario']
     ],
