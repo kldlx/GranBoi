@@ -60,80 +60,126 @@
 
     <aside class="peso-card">
 
-  <h2>Nova Pesagem</h2>
+      <h2>Nova Pesagem</h2>
 
-  <p>
-    Selecione um animal e registre o peso atual.
-  </p>
+      <p>
+        Pesquise um animal e registre o peso atual.
+      </p>
 
-  <div
-    class="peso-form-message"
-    id="pesoFormMessage"
-    hidden
-  ></div>
+      <div
+        class="peso-form-message"
+        id="pesoFormMessage"
+        hidden
+      ></div>
 
-  <?php if (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo'): ?>
+      <?php if (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo'): ?>
 
-  <div class="peso-form-message error">
-    Não é possível registrar nova pesagem para animal <?= htmlspecialchars($animalSelecionado['status']) ?>.
-  </div>
+        <div class="peso-form-message error">
+          Não é possível registrar nova pesagem para animal <?= htmlspecialchars($animalSelecionado['status']) ?>.
+        </div>
 
-<?php endif; ?>
+      <?php endif; ?>
 
-  <form method="POST" action="<?= BASE_URL ?>/peso/salvar" id="formPesagem">
+      <div class="peso-search-area">
 
-        <div class="peso-form-group">
+        <label for="pesquisaAnimalPeso">Pesquisar Animal</label>
 
-          <label for="animal_id">Animal</label>
+        <div class="peso-search-box">
+          <i class="ri-search-line"></i>
 
-          <select id="animal_id" name="animal_id" required>
+          <input
+            type="text"
+            id="pesquisaAnimalPeso"
+            placeholder="Pesquisar por brinco, raça ou status..."
+            autocomplete="off"
+          >
+        </div>
 
-            <option value="">Selecione um animal</option>
+        <div class="peso-animal-list" id="listaAnimaisPeso">
+
+          <?php if (!empty($animais)): ?>
 
             <?php foreach ($animais as $animal): ?>
 
-              <option
-                value="<?= htmlspecialchars($animal['id']) ?>"
-                <?= !empty($animalSelecionado) && $animalSelecionado['id'] == $animal['id'] ? 'selected' : '' ?>
+              <?php
+                $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+                $animalSelecionadoAtual = !empty($animalSelecionado) && $animalSelecionado['id'] == $animal['id'];
+              ?>
+
+              <a
+                href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
+                class="peso-animal-option <?= $animalSelecionadoAtual ? 'active' : '' ?>"
+                data-search="<?= htmlspecialchars(strtolower(($animal['brinco_identificador'] ?? '') . ' ' . ($animal['raca'] ?? '') . ' ' . $statusAnimal)) ?>"
               >
-                #<?= htmlspecialchars($animal['brinco_identificador']) ?>
-                <?= !empty($animal['raca']) ? ' - ' . htmlspecialchars($animal['raca']) : '' ?>
-              </option>
+                <div>
+                  <strong>#<?= htmlspecialchars($animal['brinco_identificador']) ?></strong>
+                  <span><?= !empty($animal['raca']) ? htmlspecialchars($animal['raca']) : 'Raça não informada' ?></span>
+                </div>
+
+                <span class="peso-status-badge peso-status-<?= htmlspecialchars($statusAnimal) ?>">
+                  <?= ucfirst(htmlspecialchars($statusAnimal)) ?>
+                </span>
+              </a>
 
             <?php endforeach; ?>
 
-          </select>
+            <div
+              class="peso-animal-empty"
+              id="pesoAnimalSearchEmpty"
+              style="display: none;"
+            >
+              Nenhum animal encontrado.
+            </div>
+
+          <?php else: ?>
+
+            <div class="peso-animal-empty">
+              Nenhum animal disponível.
+            </div>
+
+          <?php endif; ?>
+
+        </div>
+
+      </div>
+
+      <form method="POST" action="<?= BASE_URL ?>/peso/salvar" id="formPesagem">
+
+        <input
+          type="hidden"
+          id="animal_id"
+          name="animal_id"
+          value="<?= !empty($animalSelecionado) ? htmlspecialchars($animalSelecionado['id']) : '' ?>"
+        >
+
+        <div class="peso-form-group">
+
+          <label for="peso_atual">Peso atual registrado</label>
+
+          <input
+            type="text"
+            id="peso_atual"
+            value="<?= $pesoAtual !== null ? htmlspecialchars($pesoAtual) . ' kg' : 'Selecione um animal' ?>"
+            disabled
+          >
 
         </div>
 
         <div class="peso-form-group">
 
-  <label for="peso_atual">Peso atual registrado</label>
+          <label for="peso">Nova pesagem</label>
 
-  <input
-    type="text"
-    id="peso_atual"
-    value="<?= $pesoAtual !== null ? htmlspecialchars($pesoAtual) . ' kg' : 'Selecione um animal' ?>"
-    disabled
-  >
+          <input
+            type="number"
+            step="0.01"
+            id="peso"
+            name="peso"
+            placeholder="Ex: 430"
+            required
+            <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
+          >
 
-</div>
-
-<div class="peso-form-group">
-
-  <label for="peso">Nova pesagem</label>
-
-  <input
-    type="number"
-    step="0.01"
-    id="peso"
-    name="peso"
-    placeholder="Ex: 430"
-    required
-    <?= empty($animalSelecionado) ? 'disabled' : '' ?>
-  >
-
-</div>
+        </div>
 
         <div class="peso-form-group">
 
@@ -143,17 +189,19 @@
             id="observacao"
             name="observacao"
             placeholder="Ex: Pesagem realizada após manejo..."
+            <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
           ></textarea>
 
         </div>
 
         <button
-  type="submit"
-  class="peso-submit-btn"
-  <?= !empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo' ? 'disabled' : '' ?>
->
-  Registrar Pesagem
-</button>
+          type="submit"
+          class="peso-submit-btn"
+          <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
+        >
+          Registrar Pesagem
+        </button>
+
       </form>
 
     </aside>
@@ -212,7 +260,7 @@
                   </td>
 
                   <td>
-                    <?= htmlspecialchars($item['peso']) ?> kg
+                    <?= number_format((float) $item['peso'], 2, ',', '.') ?> kg
                   </td>
 
                   <td>

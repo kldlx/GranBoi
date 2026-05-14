@@ -1,162 +1,269 @@
-.peso-page-header {
-  margin-bottom: 24px;
-}
+/* =========================
+   LAYOUT PRINCIPAL
+========================= */
 
 .peso-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 24px;
   align-items: flex-start;
 }
 
+/* =========================
+   CARD DE FORMULÁRIO
+========================= */
+
 .peso-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eef0ee;
 }
 
 .peso-card h2 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--dark);
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
   margin-bottom: 6px;
 }
 
 .peso-card p {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   PESQUISA DE ANIMAL
+========================= */
+
+.peso-search-area {
+  margin-bottom: 22px;
+}
+
+.peso-search-area > label {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.peso-search-box {
+  width: 100%;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: 0.25s;
+  margin-bottom: 12px;
+}
+
+.peso-search-box:focus-within {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.peso-search-box i {
+  color: #0f5a22;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.peso-search-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.peso-search-box input::placeholder {
+  color: #888;
+}
+
+.peso-animal-list {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.peso-animal-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #eef0ee;
+  border-radius: 16px;
+  background: #f8faf8;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.peso-animal-option:hover {
+  background: #f1f7f2;
+  border-color: #d7e2d8;
+  transform: translateY(-1px);
+}
+
+.peso-animal-option.active {
+  background: #e8f5e9;
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.peso-animal-option strong {
+  display: block;
+  color: #111;
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 3px;
+}
+
+.peso-animal-option span {
+  display: block;
+  color: #666;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.peso-status-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+.peso-status-ativo {
+  background: #e8f5e9;
+  color: #2e7d32 !important;
+}
+
+.peso-status-vendido {
+  background: #e3f2fd;
+  color: #1565c0 !important;
+}
+
+.peso-status-morto {
+  background: #ffebee;
+  color: #c62828 !important;
+}
+
+.peso-animal-empty {
+  padding: 16px;
+  border-radius: 16px;
+  background: #f8faf8;
+  border: 1px dashed #dde3dd;
   color: #777;
   font-size: 14px;
-  margin-bottom: 18px;
+  font-weight: 700;
+  text-align: center;
 }
+
+/* =========================
+   FORMULÁRIO
+========================= */
 
 .peso-form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 16px;
 }
 
 .peso-form-group label {
   font-size: 14px;
-  font-weight: 700;
-  color: #374151;
+  font-weight: 800;
+  color: #222;
 }
 
 .peso-form-group input,
 .peso-form-group select,
 .peso-form-group textarea {
   width: 100%;
-  min-height: 44px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  padding: 10px 12px;
+  min-height: 52px;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  padding: 0 16px;
   font-family: inherit;
-  font-size: 14px;
-  color: var(--dark);
-  background: #fff;
+  font-size: 15px;
+  color: #222;
+  background: #ffffff;
   outline: none;
+  transition: 0.25s;
+}
+
+.peso-form-group textarea {
+  resize: vertical;
+  min-height: 96px;
+  padding: 14px 16px;
 }
 
 .peso-form-group input:focus,
 .peso-form-group select:focus,
 .peso-form-group textarea:focus {
-  border-color: #0b4f1f;
-  box-shadow: 0 0 0 3px rgba(11, 79, 31, 0.12);
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
 }
 
-.peso-form-group textarea {
-  resize: vertical;
-  min-height: 90px;
+.peso-form-group input:disabled,
+.peso-form-group select:disabled,
+.peso-form-group textarea:disabled {
+  background: #f3f5f3;
+  color: #777;
+  cursor: not-allowed;
 }
 
 .peso-submit-btn {
   width: 100%;
-  min-height: 44px;
+  min-height: 48px;
   border: none;
-  border-radius: 12px;
-  background: #0b4f1f;
-  color: #fff;
-  font-weight: 800;
+  border-radius: 16px;
+  background: #0f5a22;
+  color: #ffffff;
   font-family: inherit;
+  font-size: 14px;
+  font-weight: 900;
   cursor: pointer;
+  box-shadow: 0 8px 18px rgba(15, 90, 34, 0.22);
+  transition: 0.25s;
 }
 
 .peso-submit-btn:hover {
-  background: #083d18;
+  background: #0a4218;
+  transform: translateY(-1px);
 }
 
-.peso-summary {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+.peso-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #9ca3af;
+  box-shadow: none;
+  transform: none;
 }
 
-.peso-summary-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-}
-
-.peso-summary-card span {
-  display: block;
-  color: #777;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.peso-summary-card strong {
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--dark);
-}
-
-.peso-table-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  overflow-x: auto;
-}
-
-.peso-table-card h2 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 16px;
-}
-
-.peso-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.peso-table th {
-  text-align: left;
-  font-size: 13px;
-  color: #555;
-  padding: 14px 12px;
-  border-bottom: 1px solid #eee;
-}
-
-.peso-table td {
-  padding: 16px 12px;
-  border-bottom: 1px solid #f1f1f1;
-  font-size: 14px;
-  color: var(--dark);
-}
-
-.peso-table tr:last-child td {
-  border-bottom: none;
-}
-
-.peso-empty {
-  text-align: center;
-  color: #777;
-  padding: 26px;
-}
+/* =========================
+   MENSAGENS
+========================= */
 
 .peso-message {
   display: flex;
@@ -166,7 +273,11 @@
   border-radius: 14px;
   margin-bottom: 22px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
+}
+
+.peso-message i {
+  font-size: 20px;
 }
 
 .peso-message-success {
@@ -181,7 +292,133 @@
   border: 1px solid #ffcdd2;
 }
 
-@media (max-width: 992px) {
+.peso-form-message {
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.peso-form-message.error {
+  background: #ffebee;
+  color: #8a1f1f;
+  border: 1px solid #ffcdd2;
+}
+
+.peso-form-message.success {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #c8e6c9;
+}
+
+/* =========================
+   RESUMO
+========================= */
+
+.peso-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.peso-summary-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eef0ee;
+}
+
+.peso-summary-card span {
+  display: block;
+  color: #666;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.peso-summary-card strong {
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
+}
+
+/* =========================
+   TABELA
+========================= */
+
+.peso-table-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eef0ee;
+  overflow-x: auto;
+}
+
+.peso-table-card h2 {
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
+  margin-bottom: 18px;
+}
+
+.peso-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.peso-table thead {
+  background: #f4f7f4;
+}
+
+.peso-table th {
+  text-align: left;
+  padding: 16px;
+  font-size: 13px;
+  color: #4d5a50;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #e8ece8;
+  white-space: nowrap;
+}
+
+.peso-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f1f0;
+  font-size: 14px;
+  color: #222;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.peso-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.peso-table tbody tr:hover {
+  background: #fbfdfb;
+}
+
+.peso-empty {
+  text-align: center;
+  color: #777;
+  padding: 28px !important;
+  white-space: normal !important;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 1100px) {
   .peso-grid {
     grid-template-columns: 1fr;
   }
@@ -189,39 +426,36 @@
   .peso-summary {
     grid-template-columns: 1fr;
   }
+
+  .peso-animal-list {
+    max-height: 320px;
+  }
 }
 
-.peso-form-group input:disabled,
-.peso-form-group select:disabled,
-.peso-form-group textarea:disabled {
-  background: #f3f4f6;
-  color: #6b7280;
-  cursor: not-allowed;
-}
+@media (max-width: 600px) {
+  .peso-card,
+  .peso-table-card,
+  .peso-summary-card {
+    border-radius: 20px;
+  }
 
-.peso-form-message {
-  padding: 12px 14px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
-}
+  .peso-card,
+  .peso-table-card {
+    padding: 18px;
+  }
 
-.peso-form-message.error {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
-}
+  .peso-card h2,
+  .peso-table-card h2 {
+    font-size: 22px;
+  }
 
-.peso-form-message.success {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
+  .peso-table th,
+  .peso-table td {
+    padding: 14px 12px;
+  }
 
-.peso-submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background: #9ca3af;
+  .peso-animal-option {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
