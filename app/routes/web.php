@@ -178,14 +178,14 @@ $routes = [
         'roles' => ['administrador', 'veterinario']
     ],
 
-        '/vacinas/salvar' => [
+    '/vacinas/salvar' => [
         'controller' => 'VacinaController',
         'method' => 'salvar',
         'auth' => true,
         'roles' => ['administrador', 'veterinario']
     ],
 
-        '/vacinas/atualizar' => [
+    '/vacinas/atualizar' => [
         'controller' => 'VacinaController',
         'method' => 'atualizar',
         'auth' => true,
@@ -197,6 +197,41 @@ $routes = [
         'method' => 'excluir',
         'auth' => true,
         'roles' => ['administrador', 'veterinario']
+    ],
+
+    '/funcionarios' => [
+        'controller' => 'UsuarioController',
+        'method' => 'index',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
+
+    '/funcionarios/salvar' => [
+        'controller' => 'UsuarioController',
+        'method' => 'salvar',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
+
+    '/funcionarios/atualizar' => [
+        'controller' => 'UsuarioController',
+        'method' => 'atualizar',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
+
+    '/funcionarios/desativar' => [
+        'controller' => 'UsuarioController',
+        'method' => 'desativar',
+        'auth' => true,
+        'roles' => ['administrador']
+    ],
+
+    '/funcionarios/reativar' => [
+        'controller' => 'UsuarioController',
+        'method' => 'reativar',
+        'auth' => true,
+        'roles' => ['administrador']
     ],
 
     '/financeiro' => [

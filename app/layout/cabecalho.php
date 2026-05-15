@@ -8,7 +8,7 @@
 
     <title><?= $titulo ?? 'GranBoi' ?></title>
 
-   <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css?v=2">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css?v=2">
 
     <?php if (!empty($pageCss)): ?>
         <?php foreach ($pageCss as $css): ?>
@@ -100,6 +100,7 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Cadastros</span>
             </a>
 
+
             <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
                 <i class="ri-heart-pulse-line"></i>
                 <span>Vacinação</span>
@@ -113,6 +114,11 @@ function menuAtivoCabecalho($urlAtual, $url)
             <a href="<?= BASE_URL ?>/relatorios" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/relatorios') ?>">
                 <i class="ri-file-chart-line"></i>
                 <span>Relatórios</span>
+            </a>
+
+            <a href="<?= BASE_URL ?>/funcionarios" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/funcionarios') ?>">
+                <i class="ri-team-line"></i>
+                <span>Funcionários</span>
             </a>
 
             <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
