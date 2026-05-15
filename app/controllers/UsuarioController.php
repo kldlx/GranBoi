@@ -45,7 +45,13 @@ class UsuarioController extends Controller
     public function perfil()
     {
         $this->render('profile/profile', [
-            'titulo' => 'GranBoi - Perfil'
+            'titulo' => 'GranBoi - Perfil',
+            'pageCss' => [
+                '/public/assets/css/pages/profile/profile.css'
+            ],
+            'pageJs' => [
+                '/public/assets/js/pages/profile/profile.js'
+            ]
         ]);
     }
 

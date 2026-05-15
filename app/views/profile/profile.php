@@ -1,232 +1,98 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<main class="main-content profile-page">
 
-<head>
+  <header class="topbar">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+    >
+      <i class="ri-menu-line"></i>
+    </button>
 
-  <title>GranBoi - Perfil</title>
+    <div class="topbar-title">
 
+      <h1>Meu Perfil</h1>
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/style.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/profile/profile.css">
+      <p>
+        Consulte suas informações de acesso ao sistema
+      </p>
 
+    </div>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <div class="profile">
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+      <div class="profile-info">
+        <h3><?= htmlspecialchars($_SESSION['usuario']['nome'] ?? 'Usuário') ?></h3>
+        <span><?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? 'Perfil') ?></span>
+      </div>
 
+      <div class="profile-avatar">
+        <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
+      </div>
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-    rel="stylesheet">
+    </div>
 
-</head>
+  </header>
 
-<body>
+  <section class="profile-card">
 
-  <div class="dashboard-container">
+    <div class="profile-header">
 
+      <div class="profile-avatar-large">
+        <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
+      </div>
 
-    <aside class="sidebar" id="sidebar">
+      <div class="profile-info-main">
 
-      <div class="logo">
+        <h2>
+          <?= htmlspecialchars($_SESSION['usuario']['nome'] ?? 'Usuário') ?>
+        </h2>
 
-        <div class="logo-icon">
-          <i class="ri-leaf-line"></i>
-        </div>
-
-        <div class="logo-text">
-          <h2>GranBoi</h2>
-          <span>Gestão Inteligente</span>
-        </div>
+        <p>
+          <?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? 'Perfil') ?> • GranBoi
+        </p>
 
       </div>
 
+    </div>
 
-      <nav class="menu">
+    <div class="profile-details-grid">
 
-        <a
-          href="<?= BASE_URL ?>/dashboard"
-          class="menu-item"
-        >
-          <i class="ri-dashboard-line"></i>
-          <span>Dashboard</span>
-        </a>
+      <div class="profile-detail-item">
+        <span>Nome Completo</span>
+        <strong><?= htmlspecialchars($_SESSION['usuario']['nome'] ?? '-') ?></strong>
+      </div>
 
-        <a
-          href="<?= BASE_URL ?>/animal/cadastrar"
-          class="menu-item"
-        >
-          <i class="ri-bear-smile-line"></i>
-          <span>Gado</span>
-        </a>
+      <div class="profile-detail-item">
+        <span>E-mail</span>
+        <strong><?= htmlspecialchars($_SESSION['usuario']['email'] ?? '-') ?></strong>
+      </div>
 
-        <a
-          href="<?= BASE_URL ?>/vacinas"
-          class="menu-item"
-        >
-          <i class="ri-heart-pulse-line"></i>
-          <span>Vacinação</span>
-        </a>
+      <div class="profile-detail-item">
+        <span>Função no Sistema</span>
+        <strong><?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? '-') ?></strong>
+      </div>
 
-        <a
-          href="<?= BASE_URL ?>/financeiro"
-          class="menu-item"
-        >
-          <i class="ri-line-chart-line"></i>
-          <span>Financeiro</span>
-        </a>
+      <div class="profile-detail-item">
+        <span>Status</span>
+        <strong><?= htmlspecialchars(ucfirst($_SESSION['usuario']['status'] ?? 'Ativo')) ?></strong>
+      </div>
 
-        <a
-          href="<?= BASE_URL ?>/relatorios"
-          class="menu-item"
-        >
-          <i class="ri-file-chart-line"></i>
-          <span>Relatórios</span>
-        </a>
+    </div>
 
-        <a
-          href="<?= BASE_URL ?>/profile"
-          class="menu-item active"
-        >
-          <i class="ri-user-line"></i>
-          <span>Perfil</span>
-        </a>
+    <div class="profile-alert">
 
-      </nav>
+      <i class="ri-information-line"></i>
 
-    </aside>
+      <div>
+        <strong>Informações do perfil</strong>
+        <p>
+          Para alterar dados pessoais, senha ou função de acesso, solicite a alteração a um administrador do sistema.
+        </p>
+      </div>
 
+    </div>
 
-    <main class="main-content">
+  </section>
 
-      <header class="topbar">
-
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-        >
-          <i class="ri-menu-line"></i>
-        </button>
-
-        <div class="topbar-title">
-
-          <h1>Meu Perfil</h1>
-
-          <p>
-            Gerencie suas informações pessoais
-          </p>
-
-        </div>
-
-      </header>
-
-      <section class="profile-card">
-
-        <div class="profile-header">
-
-          <div class="profile-avatar-large">
-            A
-          </div>
-
-          <div class="profile-info">
-
-            <h2>Administrador</h2>
-
-            <p>
-              Fazenda Central • Gerente do Sistema
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="profile-form">
-
-          <div class="input-row">
-
-            <div class="input-group">
-
-              <label>Nome Completo</label>
-
-              <input
-                type="text"
-                value="Administrador"
-              >
-
-            </div>
-
-            <div class="input-group">
-
-              <label>Email</label>
-
-              <input
-                type="email"
-                value="admin@GranBoi.com"
-              >
-
-            </div>
-
-          </div>
-
-          <div class="input-row">
-
-            <div class="input-group">
-
-              <label>Telefone</label>
-
-              <input
-                type="text"
-                value="(63) 99999-9999"
-              >
-
-            </div>
-
-            <div class="input-group">
-
-              <label>Função</label>
-
-              <input
-                type="text"
-                value="Administrador"
-              >
-
-            </div>
-
-          </div>
-
-          <div class="input-group">
-
-            <label>Senha</label>
-
-            <input
-              type="password"
-              value="1234"
-            >
-
-          </div>
-
-          <button class="save-btn">
-            Salvar Alterações
-          </button>
-
-        </div>
-
-      </section>
-
-    </main>
-
-  </div>
-
-
-  <script src="<?= BASE_URL ?>/public/assets/js/pages/profile/profile.js"></script>
-
-</body>
-
-</html>
+</main>
