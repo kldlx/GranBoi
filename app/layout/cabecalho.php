@@ -100,7 +100,6 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Cadastros</span>
             </a>
 
-
             <a href="<?= BASE_URL ?>/vacinas" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/vacinas') ?>">
                 <i class="ri-heart-pulse-line"></i>
                 <span>Vacinação</span>
@@ -119,11 +118,6 @@ function menuAtivoCabecalho($urlAtual, $url)
             <a href="<?= BASE_URL ?>/funcionarios" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/funcionarios') ?>">
                 <i class="ri-team-line"></i>
                 <span>Funcionários</span>
-            </a>
-
-            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
-                <i class="ri-user-line"></i>
-                <span>Perfil</span>
             </a>
 
         <?php elseif ($papelUsuario === 'gestor'): ?>
@@ -158,11 +152,6 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Relatórios</span>
             </a>
 
-            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
-                <i class="ri-user-line"></i>
-                <span>Perfil</span>
-            </a>
-
         <?php elseif ($papelUsuario === 'veterinario'): ?>
 
             <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
@@ -185,11 +174,6 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Vacinação</span>
             </a>
 
-            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
-                <i class="ri-user-line"></i>
-                <span>Perfil</span>
-            </a>
-
         <?php elseif ($papelUsuario === 'operador'): ?>
 
             <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
@@ -207,21 +191,11 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Pesagem</span>
             </a>
 
-            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
-                <i class="ri-user-line"></i>
-                <span>Perfil</span>
-            </a>
-
         <?php else: ?>
 
             <a href="<?= BASE_URL ?>/dashboard" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/dashboard') ?>">
                 <i class="ri-dashboard-line"></i>
                 <span>Dashboard</span>
-            </a>
-
-            <a href="<?= BASE_URL ?>/profile" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>">
-                <i class="ri-user-line"></i>
-                <span>Perfil</span>
             </a>
 
         <?php endif; ?>
@@ -235,9 +209,13 @@ function menuAtivoCabecalho($urlAtual, $url)
             <span><?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? 'Perfil') ?></span>
         </div>
 
-        <div class="profile-avatar">
+        <a
+            href="<?= BASE_URL ?>/profile"
+            class="profile-avatar profile-avatar-link <?= menuAtivoCabecalho($urlAtual, '/profile') ?>"
+            title="Meu Perfil"
+        >
             <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
-        </div>
+        </a>
 
         <a href="<?= BASE_URL ?>/logout" class="main-header-logout" title="Sair">
             <i class="ri-logout-box-line"></i>

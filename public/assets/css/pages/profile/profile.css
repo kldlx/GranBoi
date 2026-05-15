@@ -1,29 +1,33 @@
 .profile-page {
   min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.profile-card {
+.profile-page .profile-card {
+  width: 100%;
+  max-width: 1100px;
   background: #ffffff;
-  border-radius: 24px;
-  padding: 28px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 28px;
+  padding: 36px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
   border: 1px solid #eef0ee;
-  max-width: 900px;
 }
 
-.profile-header {
+.profile-page .profile-header {
   display: flex;
   align-items: center;
-  gap: 22px;
-  padding-bottom: 24px;
-  margin-bottom: 24px;
+  gap: 28px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
   border-bottom: 1px solid #eef0ee;
 }
 
-.profile-avatar-large {
-  width: 86px;
-  height: 86px;
-  border-radius: 24px;
+.profile-page .profile-avatar-large {
+  width: 104px;
+  height: 104px;
+  border-radius: 999px;
 
   display: flex;
   align-items: center;
@@ -32,111 +36,147 @@
   background: #0f5a22;
   color: #ffffff;
 
-  font-size: 34px;
+  font-size: 42px;
   font-weight: 900;
 
-  box-shadow: 0 10px 24px rgba(15, 90, 34, 0.22);
+  box-shadow: 0 12px 28px rgba(15, 90, 34, 0.24);
   flex-shrink: 0;
 }
 
-.profile-info-main h2 {
-  font-size: 28px;
+.profile-page .profile-info-main h2 {
+  font-size: 34px;
   font-weight: 900;
   color: #111;
-  margin-bottom: 6px;
+  margin: 0 0 8px 0;
 }
 
-.profile-info-main p {
-  font-size: 15px;
+.profile-page .profile-info-main p {
+  font-size: 16px;
   color: #666;
   font-weight: 700;
+  margin: 0;
 }
 
-.profile-details-grid {
+.profile-page .profile-details-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-bottom: 24px;
+  gap: 22px;
+  margin-bottom: 28px;
 }
 
-.profile-detail-item {
+.profile-page .profile-detail-item {
   background: #f8faf8;
   border: 1px solid #eef0ee;
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 20px;
+  padding: 24px;
+  min-height: 112px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.profile-detail-item span {
+.profile-page .profile-detail-item span {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   color: #666;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.profile-detail-item strong {
+.profile-page .profile-detail-item strong {
   display: block;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
   color: #222;
   word-break: break-word;
 }
 
-.profile-alert {
+.profile-page .profile-alert {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 16px;
 
-  padding: 18px;
-  border-radius: 18px;
+  padding: 22px;
+  border-radius: 20px;
 
   background: #e8f5e9;
   border: 1px solid #c8e6c9;
   color: #1b5e20;
 }
 
-.profile-alert i {
-  font-size: 24px;
+.profile-page .profile-alert i {
+  font-size: 26px;
   flex-shrink: 0;
+  color: #1b5e20;
 }
 
-.profile-alert strong {
+.profile-page .profile-alert strong {
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  color: #1b5e20;
 }
 
-.profile-alert p {
-  font-size: 14px;
+.profile-page .profile-alert p {
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
   margin: 0;
+  color: #1b5e20;
+}
+
+.profile-page .topbar {
+  width: 100%;
+}
+
+.profile-page .topbar .profile-info h3 {
+  color: #111;
+}
+
+.profile-page .topbar .profile-info span {
+  color: #666;
+}
+
+.profile-page .topbar .profile-avatar {
+  background: #0f5a22;
+  color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  .profile-page .profile-card {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-  .profile-card {
-    padding: 22px;
-    border-radius: 20px;
+  .profile-page .profile-card {
+    padding: 24px;
+    border-radius: 22px;
   }
 
-  .profile-header {
+  .profile-page .profile-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 18px;
   }
 
-  .profile-details-grid {
+  .profile-page .profile-details-grid {
     grid-template-columns: 1fr;
   }
 
-  .profile-avatar-large {
-    width: 76px;
-    height: 76px;
-    border-radius: 20px;
-    font-size: 30px;
+  .profile-page .profile-avatar-large {
+    width: 82px;
+    height: 82px;
+    font-size: 32px;
   }
 
-  .profile-info-main h2 {
-    font-size: 24px;
+  .profile-page .profile-info-main h2 {
+    font-size: 25px;
+  }
+
+  .profile-page .profile-detail-item {
+    min-height: auto;
   }
 }
