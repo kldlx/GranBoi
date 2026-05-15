@@ -1,20 +1,23 @@
-<div class="modal" id="modalCadastrarVacinacao">
+<div class="modal" id="modalEditarVacinacao">
 
-  <div class="modal-overlay" data-close-modal="modalCadastrarVacinacao"></div>
+  <div
+    class="modal-overlay"
+    data-close-modal="modalEditarVacinacao"
+  ></div>
 
   <div class="modal-container">
 
     <div class="modal-header">
 
       <div>
-        <h2>Registrar Vacinação</h2>
-        <p>Preencha os dados da vacinação aplicada</p>
+        <h2>Editar Vacinação</h2>
+        <p>Atualize os dados do registro sanitário</p>
       </div>
 
       <button
         type="button"
         class="close-modal"
-        data-close-modal="modalCadastrarVacinacao"
+        data-close-modal="modalEditarVacinacao"
       >
         ✕
       </button>
@@ -23,19 +26,25 @@
 
     <form
       method="POST"
-      action="<?= BASE_URL ?>/vacinas/salvar"
-      id="formCadastrarVacinacao"
+      action="<?= BASE_URL ?>/vacinas/atualizar"
+      id="formEditarVacinacao"
     >
 
       <input
         type="hidden"
-        id="animal_id"
+        id="editar_vacinacao_id"
+        name="id"
+      >
+
+      <input
+        type="hidden"
+        id="editar_animal_id"
         name="animal_id"
       >
 
       <div
         class="vacinacao-modal-message"
-        id="vacinacaoModalMessage"
+        id="editarVacinacaoModalMessage"
         hidden
       ></div>
 
@@ -45,14 +54,14 @@
 
           <div class="vacinacao-form-group vacinacao-form-full">
 
-            <label for="pesquisaAnimalVacinacao">Animal</label>
+            <label for="editarPesquisaAnimalVacinacao">Animal</label>
 
             <div class="vacinacao-animal-search-box">
               <i class="ri-search-line"></i>
 
               <input
                 type="text"
-                id="pesquisaAnimalVacinacao"
+                id="editarPesquisaAnimalVacinacao"
                 placeholder="Pesquisar por brinco, raça ou status..."
                 autocomplete="off"
               >
@@ -60,7 +69,7 @@
 
             <div
               class="vacinacao-animal-selected"
-              id="vacinacaoAnimalSelecionado"
+              id="editarVacinacaoAnimalSelecionado"
               hidden
             >
               Nenhum animal selecionado.
@@ -68,7 +77,7 @@
 
             <div
               class="vacinacao-animal-list"
-              id="listaAnimaisVacinacao"
+              id="editarListaAnimaisVacinacao"
             >
 
               <?php if (!empty($animais)): ?>
@@ -95,7 +104,7 @@
 
                   <button
                     type="button"
-                    class="vacinacao-animal-option"
+                    class="vacinacao-animal-option editar-vacinacao-animal-option"
                     data-id="<?= htmlspecialchars($animal['id']) ?>"
                     data-brinco="<?= htmlspecialchars($animal['brinco_identificador']) ?>"
                     data-raca="<?= htmlspecialchars($animal['raca'] ?? '') ?>"
@@ -119,7 +128,7 @@
 
                 <div
                   class="vacinacao-animal-empty"
-                  id="vacinacaoAnimalSearchEmpty"
+                  id="editarVacinacaoAnimalSearchEmpty"
                   style="display: none;"
                 >
                   Nenhum animal encontrado.
@@ -138,11 +147,11 @@
           </div>
 
           <div class="vacinacao-form-group">
-            <label for="vacina">Vacina</label>
+            <label for="editar_vacina">Vacina</label>
 
             <input
               type="text"
-              id="vacina"
+              id="editar_vacina"
               name="vacina"
               placeholder="Ex: Febre Aftosa"
               required
@@ -150,32 +159,32 @@
           </div>
 
           <div class="vacinacao-form-group">
-            <label for="data_aplicacao">Data de Aplicação</label>
+            <label for="editar_data_aplicacao">Data de Aplicação</label>
 
             <input
               type="date"
-              id="data_aplicacao"
+              id="editar_data_aplicacao"
               name="data_aplicacao"
               required
             >
           </div>
 
           <div class="vacinacao-form-group">
-            <label for="proxima_dose">Próxima Dose</label>
+            <label for="editar_proxima_dose">Próxima Dose</label>
 
             <input
               type="date"
-              id="proxima_dose"
+              id="editar_proxima_dose"
               name="proxima_dose"
             >
           </div>
 
           <div class="vacinacao-form-group">
-            <label for="quantidade">Quantidade/Dose</label>
+            <label for="editar_quantidade">Quantidade/Dose</label>
 
             <input
               type="number"
-              id="quantidade"
+              id="editar_quantidade"
               name="quantidade"
               placeholder="Ex: 5"
               min="0.001"
@@ -193,7 +202,7 @@
         <button
           type="button"
           class="btn-cancelar"
-          data-close-modal="modalCadastrarVacinacao"
+          data-close-modal="modalEditarVacinacao"
         >
           Cancelar
         </button>
@@ -202,7 +211,7 @@
           type="submit"
           class="btn-salvar"
         >
-          Salvar Vacinação
+          Salvar Alterações
         </button>
 
       </div>

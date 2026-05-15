@@ -3,50 +3,50 @@
 class PesoController extends Controller
 {
     public function index()
-{
-    $animalId = $_GET['animal_id'] ?? null;
+    {
+        $animalId = $_GET['animal_id'] ?? null;
 
-    $animalModel = $this->model('Animal');
-    $pesagemModel = $this->model('Pesagem');
+        $animalModel = $this->model('Animal');
+        $pesagemModel = $this->model('Pesagem');
 
-    $animais = $animalModel->listarTodos();
+        $animais = $animalModel->listarTodos();
 
-    $animalSelecionado = null;
-    $historico = [];
-    $gmd = null;
-    $ultimaPesagem = null;
-    $pesoAtual = null;
+        $animalSelecionado = null;
+        $historico = [];
+        $gmd = null;
+        $ultimaPesagem = null;
+        $pesoAtual = null;
 
-    if ($animalId) {
-    $animalSelecionado = $animalModel->buscarPorId($animalId);
+        if ($animalId) {
+            $animalSelecionado = $animalModel->buscarPorId($animalId);
 
-    if ($animalSelecionado) {
-        $historico = $pesagemModel->listarPorAnimal($animalId);
-        $gmd = $pesagemModel->calcularGmd($animalId);
-        $ultimaPesagem = $pesagemModel->buscarUltimaPesagem($animalId);
+            if ($animalSelecionado) {
+                $historico = $pesagemModel->listarPorAnimal($animalId);
+                $gmd = $pesagemModel->calcularGmd($animalId);
+                $ultimaPesagem = $pesagemModel->buscarUltimaPesagem($animalId);
 
-        $pesoAtual = $ultimaPesagem
-            ? $ultimaPesagem['peso']
-            : $animalSelecionado['peso_entrada'];
+                $pesoAtual = $ultimaPesagem
+                    ? $ultimaPesagem['peso']
+                    : $animalSelecionado['peso_entrada'];
+            }
+        }
+
+        $this->render('peso/peso', [
+            'titulo' => 'GranBoi - Pesagem',
+            'pageCss' => [
+                '/public/assets/css/pages/peso/peso.css'
+            ],
+            'pageJs' => [
+                '/public/assets/js/pages/peso/pesoPage.js'
+            ],
+            'animais' => $animais,
+            'animalSelecionado' => $animalSelecionado,
+            'historico' => $historico,
+            'gmd' => $gmd,
+            'ultimaPesagem' => $ultimaPesagem,
+            'pesoAtual' => $pesoAtual
+        ]);
     }
-}
-
-    $this->render('peso/peso', [
-    'titulo' => 'GranBoi - Pesagem',
-    'pageCss' => [
-        '/public/assets/css/pages/peso/peso.css'
-    ],
-    'pageJs' => [
-        '/public/assets/js/pages/peso/pesoPage.js'
-    ],
-    'animais' => $animais,
-    'animalSelecionado' => $animalSelecionado,
-    'historico' => $historico,
-    'gmd' => $gmd,
-    'ultimaPesagem' => $ultimaPesagem,
-    'pesoAtual' => $pesoAtual
-]);
-}
 
     public function salvar()
     {
@@ -83,14 +83,14 @@ class PesoController extends Controller
         $animalModel = $this->model('Animal');
 
         if (!$erro) {
-    $animal = $animalModel->buscarPorId($dados['animal_id']);
+            $animal = $animalModel->buscarPorId($dados['animal_id']);
 
-    if (!$animal) {
-        $erro = 'Animal não encontrado.';
-    } elseif ($animal['status'] !== 'ativo') {
-        $erro = 'Não é possível registrar pesagem para animal vendido ou morto.';
-    }
-}
+            if (!$animal) {
+                $erro = 'Animal não encontrado.';
+            } elseif ($animal['status'] !== 'ativo') {
+                $erro = 'Não é possível registrar pesagem para animal vendido ou abatido.';
+            }
+        }
 
         if ($erro) {
             if ($isAjax) {

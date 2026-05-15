@@ -16,21 +16,21 @@ class Pesagem
         $pessoaId = $this->resolverPessoaResponsavel();
 
         $sql = "INSERT INTO pesagem 
-                (
-                    animal_id,
-                    peso,
-                    data_pesagem,
-                    observacao,
-                    pessoa_id
-                )
-                VALUES 
-                (
-                    :animal_id,
-                    :peso,
-                    NOW(),
-                    :observacao,
-                    :pessoa_id
-                )";
+        (
+            animal_id,
+            peso,
+            data_pesagem,
+            observacao,
+            pessoa_id
+        )
+        VALUES 
+        (
+            :animal_id,
+            :peso,
+            NOW(),
+            :observacao,
+            :pessoa_id
+        )";
 
         $stmt = $this->db->prepare($sql);
 

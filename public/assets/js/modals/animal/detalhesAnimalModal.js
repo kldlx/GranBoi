@@ -48,6 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return '-';
     }
 
+    if (status === 'ativo') {
+      return 'Ativo';
+    }
+
+    if (status === 'vendido') {
+      return 'Vendido';
+    }
+
+    if (status === 'morto') {
+      return 'Abatido';
+    }
+
     return status.charAt(0).toUpperCase() + status.slice(1);
   }
 

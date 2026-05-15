@@ -74,8 +74,20 @@
 
       <?php if (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo'): ?>
 
+        <?php
+          $statusSelecionado = strtolower(trim($animalSelecionado['status'] ?? ''));
+
+          if ($statusSelecionado === 'morto') {
+              $statusSelecionadoTexto = 'abatido';
+          } elseif ($statusSelecionado === 'vendido') {
+              $statusSelecionadoTexto = 'vendido';
+          } else {
+              $statusSelecionadoTexto = htmlspecialchars($statusSelecionado);
+          }
+        ?>
+
         <div class="peso-form-message error">
-          Não é possível registrar nova pesagem para animal <?= htmlspecialchars($animalSelecionado['status']) ?>.
+          Não é possível registrar nova pesagem para animal <?= $statusSelecionadoTexto ?>.
         </div>
 
       <?php endif; ?>
@@ -104,12 +116,26 @@
               <?php
                 $statusAnimal = strtolower(trim($animal['status'] ?? ''));
                 $animalSelecionadoAtual = !empty($animalSelecionado) && $animalSelecionado['id'] == $animal['id'];
+
+                if ($statusAnimal === 'ativo') {
+                    $statusAnimalTexto = 'Ativo';
+                    $statusPesquisa = 'ativo';
+                } elseif ($statusAnimal === 'vendido') {
+                    $statusAnimalTexto = 'Vendido';
+                    $statusPesquisa = 'vendido';
+                } elseif ($statusAnimal === 'morto') {
+                    $statusAnimalTexto = 'Abatido';
+                    $statusPesquisa = 'morto abatido';
+                } else {
+                    $statusAnimalTexto = '-';
+                    $statusPesquisa = $statusAnimal;
+                }
               ?>
 
               <a
                 href="<?= BASE_URL ?>/peso?animal_id=<?= htmlspecialchars($animal['id']) ?>"
                 class="peso-animal-option <?= $animalSelecionadoAtual ? 'active' : '' ?>"
-                data-search="<?= htmlspecialchars(strtolower(($animal['brinco_identificador'] ?? '') . ' ' . ($animal['raca'] ?? '') . ' ' . $statusAnimal)) ?>"
+                data-search="<?= htmlspecialchars(strtolower(($animal['brinco_identificador'] ?? '') . ' ' . ($animal['raca'] ?? '') . ' ' . $statusPesquisa)) ?>"
               >
                 <div>
                   <strong>#<?= htmlspecialchars($animal['brinco_identificador']) ?></strong>
@@ -117,7 +143,7 @@
                 </div>
 
                 <span class="peso-status-badge peso-status-<?= htmlspecialchars($statusAnimal) ?>">
-                  <?= ucfirst(htmlspecialchars($statusAnimal)) ?>
+                  <?= htmlspecialchars($statusAnimalTexto) ?>
                 </span>
               </a>
 

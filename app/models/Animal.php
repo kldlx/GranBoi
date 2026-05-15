@@ -48,15 +48,19 @@ class Animal
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
-                SELECT p1.animal_id, p1.peso, p1.data_pesagem
-                FROM pesagem p1
+                SELECT 
+                    pesagem.animal_id,
+                    pesagem.peso,
+                    pesagem.data_pesagem
+                FROM pesagem
                 INNER JOIN (
-                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    SELECT 
+                        animal_id,
+                        MAX(id) AS ultima_pesagem_id
                     FROM pesagem
                     GROUP BY animal_id
-                ) p2 
-                    ON p2.animal_id = p1.animal_id
-                    AND p2.ultima_data = p1.data_pesagem
+                ) ultima
+                    ON ultima.ultima_pesagem_id = pesagem.id
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
@@ -111,15 +115,19 @@ class Animal
                     COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual
                 FROM animal
                 LEFT JOIN (
-                    SELECT p1.animal_id, p1.peso, p1.data_pesagem
-                    FROM pesagem p1
+                    SELECT 
+                        pesagem.animal_id,
+                        pesagem.peso,
+                        pesagem.data_pesagem
+                    FROM pesagem
                     INNER JOIN (
-                        SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                        SELECT 
+                            animal_id,
+                            MAX(id) AS ultima_pesagem_id
                         FROM pesagem
                         GROUP BY animal_id
-                    ) p2 
-                        ON p2.animal_id = p1.animal_id
-                        AND p2.ultima_data = p1.data_pesagem
+                    ) ultima
+                        ON ultima.ultima_pesagem_id = pesagem.id
                 ) ultima_pesagem
                     ON ultima_pesagem.animal_id = animal.id
                 WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
@@ -148,15 +156,19 @@ class Animal
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
-                SELECT p1.animal_id, p1.peso, p1.data_pesagem
-                FROM pesagem p1
+                SELECT 
+                    pesagem.animal_id,
+                    pesagem.peso,
+                    pesagem.data_pesagem
+                FROM pesagem
                 INNER JOIN (
-                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    SELECT 
+                        animal_id,
+                        MAX(id) AS ultima_pesagem_id
                     FROM pesagem
                     GROUP BY animal_id
-                ) p2 
-                    ON p2.animal_id = p1.animal_id
-                    AND p2.ultima_data = p1.data_pesagem
+                ) ultima
+                    ON ultima.ultima_pesagem_id = pesagem.id
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
@@ -184,15 +196,19 @@ class Animal
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
-                SELECT p1.animal_id, p1.peso, p1.data_pesagem
-                FROM pesagem p1
+                SELECT 
+                    pesagem.animal_id,
+                    pesagem.peso,
+                    pesagem.data_pesagem
+                FROM pesagem
                 INNER JOIN (
-                    SELECT animal_id, MAX(data_pesagem) AS ultima_data
+                    SELECT 
+                        animal_id,
+                        MAX(id) AS ultima_pesagem_id
                     FROM pesagem
                     GROUP BY animal_id
-                ) p2 
-                    ON p2.animal_id = p1.animal_id
-                    AND p2.ultima_data = p1.data_pesagem
+                ) ultima
+                    ON ultima.ultima_pesagem_id = pesagem.id
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
             WHERE animal.id = :id 
@@ -266,7 +282,7 @@ class Animal
         $sql = "INSERT INTO pesagem 
                 (animal_id, peso, data_pesagem, observacao, pessoa_id)
                 VALUES 
-                (:animal_id, :peso, CURDATE(), :observacao, :pessoa_id)";
+                (:animal_id, :peso, NOW(), :observacao, :pessoa_id)";
 
         $stmt = $this->db->prepare($sql);
 

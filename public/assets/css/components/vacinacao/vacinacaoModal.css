@@ -187,3 +187,146 @@
     width: 100%;
   }
 }
+
+.vacinacao-animal-search-box {
+  width: 100%;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #dde3dd;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  transition: 0.25s;
+}
+
+.vacinacao-animal-search-box:focus-within {
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.vacinacao-animal-search-box i {
+  color: #0f5a22;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.vacinacao-animal-search-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.vacinacao-animal-list {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 230px;
+  overflow-y: auto;
+  margin-top: 12px;
+  padding-right: 4px;
+}
+
+.vacinacao-animal-option {
+  width: 100%;
+  border: 1px solid #eef0ee;
+  border-radius: 16px;
+  background: #f8faf8;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: 0.25s;
+}
+
+.vacinacao-animal-option:hover {
+  background: #f1f7f2;
+  border-color: #d7e2d8;
+}
+
+.vacinacao-animal-option.active {
+  background: #e8f5e9;
+  border-color: #0f5a22;
+  box-shadow: 0 0 0 4px rgba(15, 90, 34, 0.08);
+}
+
+.vacinacao-animal-option strong {
+  display: block;
+  color: #111;
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 3px;
+}
+
+.vacinacao-animal-option span {
+  display: block;
+  color: #666;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.vacinacao-animal-status {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+.vacinacao-animal-status-ativo {
+  background: #e8f5e9;
+  color: #2e7d32 !important;
+}
+
+.vacinacao-animal-status-vendido {
+  background: #e3f2fd;
+  color: #1565c0 !important;
+}
+
+.vacinacao-animal-status-morto {
+  background: #ffebee;
+  color: #c62828 !important;
+}
+
+.vacinacao-animal-selected {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f8faf8;
+  border: 1px solid #eef0ee;
+  color: #444;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.vacinacao-animal-selected.active {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border-color: #c8e6c9;
+}
+
+.vacinacao-animal-empty {
+  padding: 14px;
+  border-radius: 14px;
+  background: #f8faf8;
+  border: 1px dashed #dde3dd;
+  color: #777;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}

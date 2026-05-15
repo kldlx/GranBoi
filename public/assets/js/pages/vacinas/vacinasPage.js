@@ -28,6 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const formExcluirVacinacao =
     document.getElementById('formExcluirVacinacao');
 
+  const editarPesquisaAnimal =
+    document.getElementById('editarPesquisaAnimalVacinacao');
+
+  const editarListaAnimais =
+    document.getElementById('editarListaAnimaisVacinacao');
+
+  const editarAnimais =
+    document.querySelectorAll('.editar-vacinacao-animal-option');
+
+  const editarAnimalSearchEmpty =
+    document.getElementById('editarVacinacaoAnimalSearchEmpty');
+
+  const editarAnimalSelecionadoBox =
+    document.getElementById('editarVacinacaoAnimalSelecionado');
+
   let filtroStatusAtual = 'todos';
 
   function filtrarVacinacoes() {
@@ -140,6 +155,146 @@ document.addEventListener('DOMContentLoaded', () => {
     messageBox.textContent = '';
   }
 
+  function esconderListaEditarAnimais() {
+    if (editarListaAnimais) {
+      editarListaAnimais.style.display = 'none';
+    }
+
+    editarAnimais.forEach((animal) => {
+      animal.style.display = 'none';
+    });
+
+    if (editarAnimalSearchEmpty) {
+      editarAnimalSearchEmpty.style.display = 'none';
+    }
+  }
+
+  function mostrarListaEditarAnimais() {
+    if (editarListaAnimais) {
+      editarListaAnimais.style.display = 'flex';
+    }
+  }
+
+  function filtrarAnimaisEdicao() {
+    const termo = editarPesquisaAnimal
+      ? editarPesquisaAnimal.value.trim().toLowerCase()
+      : '';
+
+    if (!termo) {
+      esconderListaEditarAnimais();
+      return;
+    }
+
+    mostrarListaEditarAnimais();
+
+    let totalVisivel = 0;
+
+    editarAnimais.forEach((animal) => {
+      const texto = animal.dataset.search || '';
+
+      if (texto.includes(termo)) {
+        animal.style.display = '';
+        totalVisivel++;
+      } else {
+        animal.style.display = 'none';
+      }
+    });
+
+    if (editarAnimalSearchEmpty) {
+      editarAnimalSearchEmpty.style.display = totalVisivel === 0 ? '' : 'none';
+    }
+  }
+
+  function selecionarAnimalEdicao(botao) {
+    limparMensagemEditar();
+
+    const status = botao.dataset.status || '';
+    const statusTexto = botao.dataset.statusTexto || status;
+    const brinco = botao.dataset.brinco || '-';
+    const raca = botao.dataset.raca || 'Raça não informada';
+
+    if (status !== 'ativo') {
+      preencherCampo('editar_animal_id', '');
+
+      if (editarAnimalSelecionadoBox) {
+        editarAnimalSelecionadoBox.hidden = true;
+        editarAnimalSelecionadoBox.textContent = 'Nenhum animal selecionado.';
+        editarAnimalSelecionadoBox.className = 'vacinacao-animal-selected';
+      }
+
+      editarAnimais.forEach((animal) => {
+        animal.classList.remove('active');
+      });
+
+      mostrarMensagemEditar(
+        'error',
+        `Não é possível registrar vacinação para animal ${statusTexto.toLowerCase()}.`
+      );
+
+      return;
+    }
+
+    preencherCampo('editar_animal_id', botao.dataset.id);
+
+    editarAnimais.forEach((animal) => {
+      animal.classList.remove('active');
+    });
+
+    botao.classList.add('active');
+
+    if (editarAnimalSelecionadoBox) {
+      editarAnimalSelecionadoBox.hidden = false;
+      editarAnimalSelecionadoBox.className = 'vacinacao-animal-selected active';
+      editarAnimalSelecionadoBox.textContent = `Animal selecionado: #${brinco} - ${raca} (${statusTexto})`;
+    }
+
+    if (editarPesquisaAnimal) {
+      editarPesquisaAnimal.value = `#${brinco} - ${raca}`;
+    }
+
+    esconderListaEditarAnimais();
+  }
+
+  function preencherAnimalAtualEdicao(animalId) {
+    const animalAtual = Array.from(editarAnimais).find((animal) => {
+      return animal.dataset.id === String(animalId);
+    });
+
+    if (!animalAtual) {
+      preencherCampo('editar_animal_id', animalId);
+
+      if (editarAnimalSelecionadoBox) {
+        editarAnimalSelecionadoBox.hidden = false;
+        editarAnimalSelecionadoBox.className = 'vacinacao-animal-selected active';
+        editarAnimalSelecionadoBox.textContent = 'Animal selecionado.';
+      }
+
+      return;
+    }
+
+    const brinco = animalAtual.dataset.brinco || '-';
+    const raca = animalAtual.dataset.raca || 'Raça não informada';
+    const statusTexto = animalAtual.dataset.statusTexto || '-';
+
+    preencherCampo('editar_animal_id', animalAtual.dataset.id);
+
+    editarAnimais.forEach((animal) => {
+      animal.classList.remove('active');
+    });
+
+    animalAtual.classList.add('active');
+
+    if (editarAnimalSelecionadoBox) {
+      editarAnimalSelecionadoBox.hidden = false;
+      editarAnimalSelecionadoBox.className = 'vacinacao-animal-selected active';
+      editarAnimalSelecionadoBox.textContent = `Animal selecionado: #${brinco} - ${raca} (${statusTexto})`;
+    }
+
+    if (editarPesquisaAnimal) {
+      editarPesquisaAnimal.value = `#${brinco} - ${raca}`;
+    }
+  }
+
   function validarEdicaoVacinacao() {
     const animalId = document.getElementById('editar_animal_id')?.value;
     const vacina = document.getElementById('editar_vacina')?.value.trim();
@@ -220,13 +375,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function abrirEdicaoVacinacao(botao) {
     limparMensagemEditar();
+    esconderListaEditarAnimais();
 
     preencherCampo('editar_vacinacao_id', botao.dataset.id);
-    preencherCampo('editar_animal_id', botao.dataset.animalId);
     preencherCampo('editar_vacina', botao.dataset.vacina);
     preencherCampo('editar_quantidade', botao.dataset.quantidade);
     preencherCampo('editar_data_aplicacao', botao.dataset.dataAplicacao);
     preencherCampo('editar_proxima_dose', botao.dataset.proximaDose);
+
+    preencherAnimalAtualEdicao(botao.dataset.animalId);
 
     abrirModal(modalEditarVacinacao);
   }
@@ -248,6 +405,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abrirModal(modalExcluirVacinacao);
   }
+
+  esconderListaEditarAnimais();
+
+  if (editarPesquisaAnimal) {
+    editarPesquisaAnimal.addEventListener('input', filtrarAnimaisEdicao);
+  }
+
+  editarAnimais.forEach((animal) => {
+    animal.addEventListener('click', () => {
+      selecionarAnimalEdicao(animal);
+    });
+  });
 
   if (inputPesquisa) {
     inputPesquisa.addEventListener('input', filtrarVacinacoes);

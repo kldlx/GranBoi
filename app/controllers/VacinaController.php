@@ -302,7 +302,7 @@ class VacinaController extends Controller
         $statusAnimal = strtolower(trim($animal['status'] ?? ''));
 
         if ($statusAnimal !== 'ativo') {
-            return 'Não é possível registrar vacinação para animal vendido ou morto.';
+            return 'Não é possível registrar vacinação para animal vendido ou abatido.';
         }
 
         return null;
