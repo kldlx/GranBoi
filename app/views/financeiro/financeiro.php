@@ -1,256 +1,191 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<main class="main-content financeiro-page">
 
-<head>
+  <header class="topbar">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+    >
+      <i class="ri-menu-line"></i>
+    </button>
 
-  <title>GranBoi - Financeiro</title>
+    <div class="topbar-title">
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/pages/financeiro/financeiro.css">
+      <h1>Financeiro</h1>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <p>
+        Acompanhe custos, receitas e resultados da fazenda
+      </p>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    </div>
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-    rel="stylesheet">
+    <div class="profile">
 
-</head>
+      <div class="profile-info">
+        <h3><?= htmlspecialchars($_SESSION['usuario']['nome'] ?? 'Usuário') ?></h3>
+        <span><?= htmlspecialchars($_SESSION['usuario']['papel_nome'] ?? 'Perfil') ?></span>
+      </div>
 
-<body>
+      <div class="profile-avatar">
+        <?= strtoupper(substr($_SESSION['usuario']['nome'] ?? 'U', 0, 1)) ?>
+      </div>
 
-  <div class="dashboard-container">
+    </div>
 
-    <aside class="sidebar" id="sidebar">
+  </header>
 
-      <div class="logo">
+  <section class="financeiro-page-actions">
 
-        <div class="logo-icon">
-          <i class="ri-leaf-line"></i>
-        </div>
+    <div>
+      <h2>Resumo Financeiro</h2>
+      <p>
+        Área administrativa para controle econômico da propriedade.
+      </p>
+    </div>
 
-        <div class="logo-text">
-          <h2>GranBoi</h2>
-          <span>Gestão Inteligente</span>
+  </section>
+
+  <section class="financeiro-summary-grid">
+
+    <div class="financeiro-summary-card">
+
+      <div class="financeiro-summary-icon green">
+        <i class="ri-money-dollar-circle-line"></i>
+      </div>
+
+      <div>
+        <span>Receitas Registradas</span>
+        <strong>Em estruturação</strong>
+        <p>Base futura: vendas de animais e movimentações financeiras.</p>
+      </div>
+
+    </div>
+
+    <div class="financeiro-summary-card">
+
+      <div class="financeiro-summary-icon red">
+        <i class="ri-bank-card-line"></i>
+      </div>
+
+      <div>
+        <span>Custos Sanitários</span>
+        <strong>Em estruturação</strong>
+        <p>Base futura: vacinas aplicadas e custos cadastrados.</p>
+      </div>
+
+    </div>
+
+    <div class="financeiro-summary-card">
+
+      <div class="financeiro-summary-icon blue">
+        <i class="ri-line-chart-line"></i>
+      </div>
+
+      <div>
+        <span>Resultado Financeiro</span>
+        <strong>Em estruturação</strong>
+        <p>Base futura: receitas menos despesas operacionais.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="financeiro-info-grid">
+
+    <div class="financeiro-table-card">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Fontes de Dados Financeiros</h2>
+          <p>
+            Informações do sistema que podem alimentar o financeiro.
+          </p>
         </div>
 
       </div>
 
-      <nav class="menu">
+      <table class="financeiro-table">
 
-        <a
-          href="<?= BASE_URL ?>/dashboard"
-          class="menu-item"
-        >
-          <i class="ri-dashboard-line"></i>
-          <span>Dashboard</span>
-        </a>
+        <thead>
 
-        <a
-          href="<?= BASE_URL ?>/animal/cadastrar"
-          class="menu-item"
-        >
-          <i class="ri-bear-smile-line"></i>
-          <span>Gado</span>
-        </a>
+          <tr>
+            <th>Origem</th>
+            <th>Dados disponíveis</th>
+            <th>Situação</th>
+          </tr>
 
-        <a
-          href="<?= BASE_URL ?>/vacinas"
-          class="menu-item"
-        >
-          <i class="ri-heart-pulse-line"></i>
-          <span>Vacinação</span>
-        </a>
+        </thead>
 
-        <a
-          href="<?= BASE_URL ?>/financeiro"
-          class="menu-item active"
-        >
-          <i class="ri-line-chart-line"></i>
-          <span>Financeiro</span>
-        </a>
+        <tbody>
 
-        <a
-          href="<?= BASE_URL ?>/relatorios"
-          class="menu-item"
-        >
-          <i class="ri-file-chart-line"></i>
-          <span>Relatórios</span>
-        </a>
+          <tr>
+            <td>Animais</td>
+            <td>Peso de entrada, peso de saída, valor de venda e status.</td>
+            <td>
+              <span class="financeiro-status planejamento">
+                Base disponível
+              </span>
+            </td>
+          </tr>
 
-        <a
-          href="<?= BASE_URL ?>/profile"
-          class="menu-item"
-        >
-          <i class="ri-user-line"></i>
-          <span>Perfil</span>
-        </a>
+          <tr>
+            <td>Vacinação</td>
+            <td>Histórico sanitário, doses aplicadas e custo da vacina.</td>
+            <td>
+              <span class="financeiro-status planejamento">
+                Base disponível
+              </span>
+            </td>
+          </tr>
 
-      </nav>
+          <tr>
+            <td>Pesagem</td>
+            <td>Histórico de peso e evolução dos animais.</td>
+            <td>
+              <span class="financeiro-status apoio">
+                Apoio gerencial
+              </span>
+            </td>
+          </tr>
 
-    </aside>
+          <tr>
+            <td>Manejo/Pasto</td>
+            <td>Estrutura prevista no banco para custos de manejo e pasto.</td>
+            <td>
+              <span class="financeiro-status futuro">
+                Futuro
+              </span>
+            </td>
+          </tr>
 
-    <main class="main-content">
+        </tbody>
 
-      <header class="topbar">
+      </table>
 
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-        >
-          <i class="ri-menu-line"></i>
-        </button>
+    </div>
 
-        <div class="topbar-title">
+    <div class="financeiro-note-card">
 
-          <h1>Financeiro</h1>
+      <div class="financeiro-note-icon">
+        <i class="ri-information-line"></i>
+      </div>
 
-          <p>
-            Controle financeiro da fazenda
-          </p>
+      <div>
+        <h2>Observação</h2>
 
-        </div>
+        <p>
+          Esta área está reservada para a gestão financeira do GranBoi. Como o foco atual do sistema está no manejo do rebanho, pesagem, vacinação e controle de funcionários, o financeiro permanece como módulo administrativo em evolução.
+        </p>
 
-      </header>
+        <p>
+          Para evitar dados fictícios, os valores financeiros serão exibidos somente quando as regras de receitas, despesas e vendas estiverem completamente definidas.
+        </p>
+      </div>
 
-      <section class="cards">
+    </div>
 
-        <div class="card">
+  </section>
 
-          <div class="card-icon green">
-            <i class="ri-money-dollar-circle-line"></i>
-          </div>
-
-          <div class="card-info">
-            <span>Receita Total</span>
-            <h2>R$ 82.400</h2>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="card-icon red">
-            <i class="ri-bank-card-line"></i>
-          </div>
-
-          <div class="card-info">
-            <span>Despesas</span>
-            <h2>R$ 24.900</h2>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="card-icon blue">
-            <i class="ri-wallet-3-line"></i>
-          </div>
-
-          <div class="card-info">
-            <span>Lucro Líquido</span>
-            <h2>R$ 57.500</h2>
-          </div>
-
-        </div>
-
-      </section>
-
-      <section class="finance-table-container">
-
-        <div class="table-header">
-
-          <div>
-
-            <h2>Últimas Transações</h2>
-
-            <p>
-              Entradas e saídas recentes
-            </p>
-
-          </div>
-
-          <button class="new-transaction-btn">
-            Nova Transação
-          </button>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Descrição</th>
-              <th>Categoria</th>
-              <th>Valor</th>
-              <th>Status</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <tr>
-
-              <td>Venda de Gado</td>
-              <td>Receita</td>
-              <td>R$ 15.000</td>
-
-              <td>
-                <span class="status income">
-                  Entrada
-                </span>
-              </td>
-
-            </tr>
-
-            <tr>
-
-              <td>Compra de Ração</td>
-              <td>Despesa</td>
-              <td>R$ 4.300</td>
-
-              <td>
-                <span class="status expense">
-                  Saída
-                </span>
-              </td>
-
-            </tr>
-
-            <tr>
-
-              <td>Vacinação</td>
-              <td>Saúde Animal</td>
-              <td>R$ 2.150</td>
-
-              <td>
-                <span class="status expense">
-                  Saída
-                </span>
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </section>
-
-    </main>
-
-  </div>
-
-  <script src="<?= BASE_URL ?>/public/assets/js/pages/financeiro/financeiro.js"></script>
-
-</body>
-
-</html>
+</main>
