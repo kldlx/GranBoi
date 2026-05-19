@@ -97,7 +97,7 @@
       </button>
 
       <button type="button" class="animal-filter-btn" data-status-filter="morto">
-        Abatidos
+        Perdas
       </button>
 
     </div>
@@ -135,7 +135,7 @@
               } elseif ($statusAnimal === 'vendido') {
                   $statusAnimalTexto = 'Vendido';
               } elseif ($statusAnimal === 'morto') {
-                  $statusAnimalTexto = 'Abatido';
+                  $statusAnimalTexto = 'Perda';
               } else {
                   $statusAnimalTexto = '-';
               }
@@ -228,7 +228,7 @@
                     <button
                       type="button"
                       class="action-btn action-btn-disabled"
-                      title="Pesagem indisponível para animal <?= $statusAnimal === 'morto' ? 'abatido' : htmlspecialchars($statusAnimal) ?>"
+                      title="Pesagem indisponível para animal <?= $statusAnimal === 'morto' ? 'perda' : htmlspecialchars($statusAnimal) ?>"
                       disabled
                     >
                       <i class="ri-scales-3-line"></i>

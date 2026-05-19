@@ -109,7 +109,7 @@
             <select id="editar_status" name="status" required>
               <option value="ativo">Ativo</option>
               <option value="vendido">Vendido</option>
-              <option value="morto">Abatido</option>
+              <option value="morto">Perda</option>
             </select>
           </div>
 

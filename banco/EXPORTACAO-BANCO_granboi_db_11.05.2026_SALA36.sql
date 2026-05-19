@@ -26,8 +26,9 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `animal`
 --
+DROP TABLE IF EXISTS `granboi_db`.`animal` ;
 
-CREATE TABLE `animal` (
+CREATE TABLE IF NOT EXISTS `animal` (
   `id` bigint(20) NOT NULL,
   `brinco_identificador` varchar(20) NOT NULL,
   `raca_id` int(11) DEFAULT NULL,

@@ -18,7 +18,7 @@ class Relatorio
                 COUNT(*) AS total,
                 SUM(CASE WHEN LOWER(status) = 'ativo' THEN 1 ELSE 0 END) AS ativos,
                 SUM(CASE WHEN LOWER(status) = 'vendido' THEN 1 ELSE 0 END) AS vendidos,
-                SUM(CASE WHEN LOWER(status) = 'morto' THEN 1 ELSE 0 END) AS abatidos
+                SUM(CASE WHEN LOWER(status) = 'morto' THEN 1 ELSE 0 END) AS perdas
             FROM animal
             WHERE LOWER(COALESCE(status, '')) != 'excluido'
         ";

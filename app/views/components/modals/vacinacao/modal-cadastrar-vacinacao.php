@@ -85,8 +85,8 @@
                         $statusAnimalTexto = 'Vendido';
                         $statusPesquisa = 'vendido';
                     } elseif ($statusAnimal === 'morto') {
-                        $statusAnimalTexto = 'Abatido';
-                        $statusPesquisa = 'morto abatido';
+                        $statusAnimalTexto = 'Perda';
+                        $statusPesquisa = 'morto perda';
                     } else {
                         $statusAnimalTexto = '-';
                         $statusPesquisa = $statusAnimal;

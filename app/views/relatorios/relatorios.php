@@ -83,8 +83,8 @@
     </div>
 
     <div class="relatorio-summary-card">
-      <span>Abatidos</span>
-      <strong><?= htmlspecialchars($resumoRebanho['abatidos'] ?? 0) ?></strong>
+      <span>Percas</span>
+      <strong><?= htmlspecialchars($resumoRebanho['percas'] ?? 0) ?></strong>
     </div>
 
     <div class="relatorio-summary-card">

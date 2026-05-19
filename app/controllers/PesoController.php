@@ -88,7 +88,7 @@ class PesoController extends Controller
             if (!$animal) {
                 $erro = 'Animal não encontrado.';
             } elseif ($animal['status'] !== 'ativo') {
-                $erro = 'Não é possível registrar pesagem para animal vendido ou abatido.';
+                $erro = 'Não é possível registrar pesagem para animal vendido ou perdido.';
             }
         }
 

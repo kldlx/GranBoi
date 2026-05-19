@@ -1,10 +1,12 @@
 #modalCadastrarVacinacao .modal-container {
   width: min(560px, calc(100% - 32px));
-  max-height: 90vh;
+  max-height: calc(100dvh - 150px);
   overflow: hidden;
   border-radius: 24px;
   background: #ffffff;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
 }
 
 #modalCadastrarVacinacao .modal-header {
@@ -14,6 +16,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
+  flex-shrink: 0;
 }
 
 #modalCadastrarVacinacao .modal-header h2 {
@@ -51,8 +54,9 @@
 
 .vacinacao-modal-body {
   padding: 24px 28px;
-  max-height: 58vh;
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .vacinacao-form-grid {
@@ -125,6 +129,8 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  flex-shrink: 0;
+  background: #ffffff;
 }
 
 #modalCadastrarVacinacao .btn-cancelar,
@@ -163,29 +169,6 @@
   opacity: 0.7;
   cursor: not-allowed;
   box-shadow: none;
-}
-
-@media (max-width: 768px) {
-  #modalCadastrarVacinacao .modal-container {
-    width: min(100% - 24px, 560px);
-    border-radius: 20px;
-  }
-
-  #modalCadastrarVacinacao .modal-header,
-  .vacinacao-modal-body,
-  #modalCadastrarVacinacao .modal-footer {
-    padding-left: 22px;
-    padding-right: 22px;
-  }
-
-  #modalCadastrarVacinacao .modal-footer {
-    flex-direction: column-reverse;
-  }
-
-  #modalCadastrarVacinacao .btn-cancelar,
-  #modalCadastrarVacinacao .btn-salvar {
-    width: 100%;
-  }
 }
 
 .vacinacao-animal-search-box {
@@ -329,4 +312,49 @@
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  #modalCadastrarVacinacao .modal-container {
+    width: min(100% - 24px, 560px);
+    max-height: calc(100dvh - 110px);
+    border-radius: 20px;
+  }
+
+  #modalCadastrarVacinacao .modal-header,
+  .vacinacao-modal-body,
+  #modalCadastrarVacinacao .modal-footer {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  #modalCadastrarVacinacao .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  #modalCadastrarVacinacao .btn-cancelar,
+  #modalCadastrarVacinacao .btn-salvar {
+    width: 100%;
+  }
+}
+
+@media (max-height: 760px) {
+  #modalCadastrarVacinacao .modal-container {
+    max-height: calc(100dvh - 120px);
+  }
+
+  #modalCadastrarVacinacao .modal-header {
+    padding-top: 20px;
+    padding-bottom: 16px;
+  }
+
+  .vacinacao-modal-body {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  #modalCadastrarVacinacao .modal-footer {
+    padding-top: 16px;
+    padding-bottom: 20px;
+  }
 }

@@ -56,6 +56,14 @@
 
   <?php endif; ?>
 
+  <?php
+    $statusSelecionadoNormalizado = !empty($animalSelecionado)
+        ? strtolower(trim($animalSelecionado['status'] ?? ''))
+        : '';
+
+    $animalSelecionadoAtivo = !empty($animalSelecionado) && $statusSelecionadoNormalizado === 'ativo';
+  ?>
+
   <section class="peso-grid">
 
     <aside class="peso-card">
@@ -72,17 +80,15 @@
         hidden
       ></div>
 
-      <?php if (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo'): ?>
+      <?php if (!empty($animalSelecionado) && !$animalSelecionadoAtivo): ?>
 
         <?php
-          $statusSelecionado = strtolower(trim($animalSelecionado['status'] ?? ''));
-
-          if ($statusSelecionado === 'morto') {
-              $statusSelecionadoTexto = 'abatido';
-          } elseif ($statusSelecionado === 'vendido') {
+          if ($statusSelecionadoNormalizado === 'morto') {
+              $statusSelecionadoTexto = 'perda';
+          } elseif ($statusSelecionadoNormalizado === 'vendido') {
               $statusSelecionadoTexto = 'vendido';
           } else {
-              $statusSelecionadoTexto = htmlspecialchars($statusSelecionado);
+              $statusSelecionadoTexto = 'status inválido';
           }
         ?>
 
@@ -120,15 +126,19 @@
                 if ($statusAnimal === 'ativo') {
                     $statusAnimalTexto = 'Ativo';
                     $statusPesquisa = 'ativo';
+                    $statusClasse = 'ativo';
                 } elseif ($statusAnimal === 'vendido') {
                     $statusAnimalTexto = 'Vendido';
                     $statusPesquisa = 'vendido';
+                    $statusClasse = 'vendido';
                 } elseif ($statusAnimal === 'morto') {
-                    $statusAnimalTexto = 'Abatido';
-                    $statusPesquisa = 'morto abatido';
+                    $statusAnimalTexto = 'Perda';
+                    $statusPesquisa = 'morto perda';
+                    $statusClasse = 'morto';
                 } else {
                     $statusAnimalTexto = '-';
-                    $statusPesquisa = $statusAnimal;
+                    $statusPesquisa = '';
+                    $statusClasse = 'invalido';
                 }
               ?>
 
@@ -142,7 +152,7 @@
                   <span><?= !empty($animal['raca']) ? htmlspecialchars($animal['raca']) : 'Raça não informada' ?></span>
                 </div>
 
-                <span class="peso-status-badge peso-status-<?= htmlspecialchars($statusAnimal) ?>">
+                <span class="peso-status-badge peso-status-<?= htmlspecialchars($statusClasse) ?>">
                   <?= htmlspecialchars($statusAnimalTexto) ?>
                 </span>
               </a>
@@ -202,7 +212,7 @@
             name="peso"
             placeholder="Ex: 430"
             required
-            <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
+            <?= !$animalSelecionadoAtivo ? 'disabled' : '' ?>
           >
 
         </div>
@@ -215,7 +225,7 @@
             id="observacao"
             name="observacao"
             placeholder="Ex: Pesagem realizada após manejo..."
-            <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
+            <?= !$animalSelecionadoAtivo ? 'disabled' : '' ?>
           ></textarea>
 
         </div>
@@ -223,7 +233,7 @@
         <button
           type="submit"
           class="peso-submit-btn"
-          <?= empty($animalSelecionado) || (!empty($animalSelecionado) && $animalSelecionado['status'] !== 'ativo') ? 'disabled' : '' ?>
+          <?= !$animalSelecionadoAtivo ? 'disabled' : '' ?>
         >
           Registrar Pesagem
         </button>
