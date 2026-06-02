@@ -89,10 +89,8 @@ class Financeiro
         return (float) $this->db->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
-    public function getUltimasDespesas($limit = 10)
+    public function getUltimasDespesas()
     {
-        $limit = (int) $limit;
-
         $sql = "SELECT
                     df.id,
                     df.descricao,
@@ -100,15 +98,56 @@ class Financeiro
                     df.valor,
                     df.data_despesa,
                     df.observacao,
+                    df.lote_id,
                     a.brinco_identificador AS animal_brinco,
                     l.nome_lote
                 FROM despesa_financeira df
                 LEFT JOIN animal a ON a.id = df.animal_id
                 LEFT JOIN lote l ON l.id = df.lote_id
-                ORDER BY df.data_despesa DESC, df.id DESC
-                LIMIT {$limit}";
+                ORDER BY df.data_despesa DESC, df.id DESC";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarDespesaPorId($id)
+    {
+        $stmt = $this->db->prepare("
+            SELECT df.*, l.nome_lote
+            FROM despesa_financeira df
+            LEFT JOIN lote l ON l.id = df.lote_id
+            WHERE df.id = :id LIMIT 1
+        ");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarDespesa($id, $dados)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE despesa_financeira
+            SET descricao = :descricao,
+                categoria = :categoria,
+                valor = :valor,
+                data_despesa = :data_despesa,
+                observacao = :observacao,
+                lote_id = :lote_id
+            WHERE id = :id
+        ");
+        return $stmt->execute([
+            ':id'          => $id,
+            ':descricao'   => $dados['descricao'],
+            ':categoria'   => $dados['categoria'],
+            ':valor'       => $dados['valor'],
+            ':data_despesa'=> $dados['data_despesa'],
+            ':observacao'  => !empty($dados['observacao']) ? $dados['observacao'] : null,
+            ':lote_id'     => !empty($dados['lote_id']) ? $dados['lote_id'] : null,
+        ]);
+    }
+
+    public function excluirDespesa($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM despesa_financeira WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
     }
 
     public function salvarDespesa($dados)

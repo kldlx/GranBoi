@@ -105,4 +105,97 @@ class FinanceiroController extends Controller
             $this->redirect('/financeiro');
         }
     }
+
+    public function editarDespesa()
+    {
+        $isAjax = $this->isAjax();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Requisição inválida.'], 405);
+            $this->redirect('/financeiro');
+        }
+
+        $id = $_POST['id'] ?? '';
+        $dados = [
+            'descricao'    => trim($_POST['descricao']   ?? ''),
+            'categoria'    => trim($_POST['categoria']   ?? ''),
+            'valor'        => $_POST['valor']            ?? '',
+            'data_despesa' => $_POST['data_despesa']     ?? '',
+            'observacao'   => trim($_POST['observacao']  ?? ''),
+            'lote_id'      => $_POST['lote_id']          ?? '',
+        ];
+
+        $categoriasValidas = ['Alimentação','Sanidade','Mão de obra','Equipamento','Transporte','Manutenção','Outros'];
+
+        if (empty($id) || empty($dados['descricao']) || empty($dados['categoria']) || empty($dados['valor']) || empty($dados['data_despesa'])) {
+            $erro = 'Preencha os campos obrigatórios.';
+        } elseif (!in_array($dados['categoria'], $categoriasValidas)) {
+            $erro = 'Categoria inválida.';
+        } elseif (!is_numeric($dados['valor']) || (float) $dados['valor'] <= 0) {
+            $erro = 'O valor deve ser maior que zero.';
+        } else {
+            $erro = null;
+        }
+
+        if ($erro) {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => $erro], 422);
+            $_SESSION['erro'] = $erro;
+            $this->redirect('/financeiro');
+        }
+
+        try {
+            $financeiro = $this->model('Financeiro');
+            if (!$financeiro->buscarDespesaPorId($id)) {
+                if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Despesa não encontrada.'], 404);
+                $this->redirect('/financeiro');
+            }
+            $financeiro->atualizarDespesa($id, $dados);
+            if ($isAjax) $this->json(['sucesso' => true, 'mensagem' => 'Despesa atualizada com sucesso.']);
+            $_SESSION['sucesso'] = 'Despesa atualizada com sucesso.';
+            $this->redirect('/financeiro');
+        } catch (PDOException $e) {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Erro ao atualizar despesa.'], 500);
+            $_SESSION['erro'] = 'Erro ao atualizar despesa.';
+            $this->redirect('/financeiro');
+        }
+    }
+
+    public function excluirDespesa()
+    {
+        $isAjax = $this->isAjax();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Requisição inválida.'], 405);
+            $this->redirect('/financeiro');
+        }
+
+        $id = $_POST['id'] ?? '';
+
+        if (empty($id)) {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Despesa não informada.'], 422);
+            $this->redirect('/financeiro');
+        }
+
+        try {
+            $financeiro = $this->model('Financeiro');
+            if (!$financeiro->buscarDespesaPorId($id)) {
+                if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Despesa não encontrada.'], 404);
+                $this->redirect('/financeiro');
+            }
+            $financeiro->excluirDespesa($id);
+            if ($isAjax) $this->json(['sucesso' => true, 'mensagem' => 'Despesa excluída com sucesso.']);
+            $_SESSION['sucesso'] = 'Despesa excluída com sucesso.';
+            $this->redirect('/financeiro');
+        } catch (PDOException $e) {
+            if ($isAjax) $this->json(['sucesso' => false, 'mensagem' => 'Erro ao excluir despesa.'], 500);
+            $_SESSION['erro'] = 'Erro ao excluir despesa.';
+            $this->redirect('/financeiro');
+        }
+    }
+
+    private function isAjax()
+    {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
 }
