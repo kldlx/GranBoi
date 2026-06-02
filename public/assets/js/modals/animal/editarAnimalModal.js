@@ -52,6 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
     campo.value = valor || '';
   }
 
+  function toggleVendaSection(status) {
+    const section = document.getElementById('editarAnimalVendaSection');
+
+    if (!section) {
+      return;
+    }
+
+    section.hidden = status !== 'Vendido';
+
+    if (status !== 'Vendido') {
+      preencherCampo('editar_peso_saida', '');
+      preencherCampo('editar_valor_venda', '');
+    }
+  }
+
   document.querySelectorAll('.editar-animal-btn').forEach((button) => {
     button.addEventListener('click', () => {
       limparMensagemEditarModal();
@@ -65,8 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       preencherCampo('editar_sexo', button.dataset.sexo);
       preencherCampo('editar_data_nascimento', button.dataset.dataNascimento);
-      preencherCampo('editar_status', button.dataset.status || 'ativo');
+      preencherCampo('editar_status', button.dataset.status || 'Ativo');
       preencherCampo('editar_chip', button.dataset.chip);
+
+      const status = button.dataset.status || 'Ativo';
+      const section = document.getElementById('editarAnimalVendaSection');
+
+      if (section) {
+        section.hidden = status !== 'Vendido';
+      }
+
+      preencherCampo('editar_peso_saida', status === 'Vendido' ? (button.dataset.pesoSaida || '') : '');
+      preencherCampo('editar_valor_venda', status === 'Vendido' ? (button.dataset.valorVenda || '') : '');
 
       const pesoVisivel = document.getElementById('editar_peso_entrada');
 
@@ -79,6 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
       abrirModal(modalEditarAnimal);
     });
   });
+
+  const statusSelectEditar = document.getElementById('editar_status');
+
+  if (statusSelectEditar) {
+    statusSelectEditar.addEventListener('change', () => {
+      toggleVendaSection(statusSelectEditar.value);
+    });
+  }
 
   document.querySelectorAll('[data-close-modal="modalEditarAnimal"]').forEach((elemento) => {
     elemento.addEventListener('click', () => {

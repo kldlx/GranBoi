@@ -129,6 +129,7 @@
 
             <?php
               $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+              $statusAnimalValor = ucfirst($statusAnimal); // Ativo, Vendido, Morto
 
               if ($statusAnimal === 'ativo') {
                   $statusAnimalTexto = 'Ativo';
@@ -186,7 +187,7 @@
                     data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-                    data-status="<?= htmlspecialchars($statusAnimal) ?>"
+                    data-status="<?= htmlspecialchars($statusAnimalValor) ?>"
                     data-chip="<?= htmlspecialchars($animal['chip'] ?? '') ?>"
                     data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
                   >
@@ -206,9 +207,11 @@
                     data-sexo="<?= htmlspecialchars($animal['sexo']) ?>"
                     data-peso="<?= htmlspecialchars($animal['peso_atual'] ?? $animal['peso_entrada']) ?>"
                     data-data-nascimento="<?= htmlspecialchars($animal['data_nascimento'] ?? '') ?>"
-                    data-status="<?= htmlspecialchars($statusAnimal) ?>"
+                    data-status="<?= htmlspecialchars($statusAnimalValor) ?>"
                     data-chip="<?= htmlspecialchars($animal['chip'] ?? '') ?>"
                     data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
+                    data-peso-saida="<?= htmlspecialchars($animal['peso_saida'] ?? '') ?>"
+                    data-valor-venda="<?= htmlspecialchars($animal['valor_venda'] ?? '') ?>"
                   >
                     <i class="ri-edit-line"></i>
                   </button>
@@ -228,7 +231,7 @@
                     <button
                       type="button"
                       class="action-btn action-btn-disabled"
-                      title="Pesagem indisponível para animal <?= $statusAnimal === 'morto' ? 'perda' : htmlspecialchars($statusAnimal) ?>"
+                      title="Pesagem indisponível para animal <?= $statusAnimal === 'morto' ? 'com perda' : htmlspecialchars($statusAnimal) ?>"
                       disabled
                     >
                       <i class="ri-scales-3-line"></i>

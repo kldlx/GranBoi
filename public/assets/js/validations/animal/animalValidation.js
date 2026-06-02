@@ -102,5 +102,27 @@ function validarEdicaoAnimal() {
     return erroData;
   }
 
+  if (status === 'vendido') {
+    const pesoSaida =
+      document.getElementById('editar_peso_saida')?.value.trim();
+
+    const valorVenda =
+      document.getElementById('editar_valor_venda')?.value.trim();
+
+    if (!pesoSaida || isNaN(pesoSaida) || Number(pesoSaida) <= 0) {
+      return 'Informe o peso de saída do animal vendido.';
+    }
+
+    if (!valorVenda) {
+      return 'Informe o valor de venda do animal.';
+    }
+
+    const valorNormalizado = valorVenda.replace(/\./g, '').replace(',', '.');
+
+    if (isNaN(valorNormalizado) || Number(valorNormalizado) <= 0) {
+      return 'Informe um valor de venda válido e maior que zero.';
+    }
+  }
+
   return null;
 }

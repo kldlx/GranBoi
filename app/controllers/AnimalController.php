@@ -195,7 +195,9 @@ class AnimalController extends Controller
             'data_nascimento' => $_POST['data_nascimento'] ?? null,
             'sexo' => $this->normalizarSexo($_POST['sexo'] ?? ''),
             'status' => $this->normalizarStatus($_POST['status'] ?? 'ativo'),
-            'chip' => trim($_POST['chip'] ?? '')
+            'chip' => trim($_POST['chip'] ?? ''),
+            'peso_saida' => trim($_POST['peso_saida'] ?? ''),
+            'valor_venda' => trim($_POST['valor_venda'] ?? '')
         ];
 
         $erro = null;
@@ -213,8 +215,24 @@ class AnimalController extends Controller
             $erro = 'Selecione um sexo válido.';
         }
 
-        if (!$erro && !in_array($dados['status'], ['ativo', 'vendido', 'morto'])) {
+        if (!$erro && !in_array($dados['status'], ['Ativo', 'Vendido', 'Morto'])) {
             $erro = 'Selecione um status válido.';
+        }
+
+        if (!$erro && $dados['status'] === 'Vendido') {
+            if (empty($dados['peso_saida']) || !is_numeric($dados['peso_saida']) || (float) $dados['peso_saida'] <= 0) {
+                $erro = 'Informe o peso de saída do animal vendido.';
+            }
+
+            if (!$erro) {
+                $valorNormalizado = $this->normalizarValorMonetario($dados['valor_venda']);
+
+                if ($valorNormalizado === null || $valorNormalizado <= 0) {
+                    $erro = 'Informe um valor de venda válido e maior que zero.';
+                } else {
+                    $dados['valor_venda'] = $valorNormalizado;
+                }
+            }
         }
 
         if (!$erro && !empty($dados['raca']) && !ctype_digit((string) $dados['raca'])) {
@@ -369,6 +387,23 @@ class AnimalController extends Controller
         $this->redirect('/peso');
     }
 
+    private function normalizarValorMonetario($valor)
+    {
+        if ($valor === null || $valor === '') {
+            return null;
+        }
+
+        $valor = trim((string) $valor);
+        $valor = str_replace('.', '', $valor);
+        $valor = str_replace(',', '.', $valor);
+
+        if (!is_numeric($valor)) {
+            return null;
+        }
+
+        return (float) $valor;
+    }
+
     private function normalizarSexo($sexo)
     {
         $sexo = trim($sexo);
@@ -386,28 +421,22 @@ class AnimalController extends Controller
 
     private function normalizarStatus($status)
     {
-        $status = trim($status);
-        $status = mb_strtolower($status, 'UTF-8');
+        $mapa = [
+            'ativo'   => 'Ativo',  'ativa'   => 'Ativo',
+            'vendido' => 'Vendido','vendida' => 'Vendido',
+            'morto'   => 'Morto',  'morta'   => 'Morto',
+            'perda'   => 'Morto',
+        ];
 
-        if ($status === 'ativo' || $status === 'ativa') {
-            return 'ativo';
-        }
+        $normalizado = mb_strtolower(trim($status), 'UTF-8');
 
-        if ($status === 'vendido' || $status === 'vendida') {
-            return 'vendido';
-        }
-
-        if ($status === 'morto' || $status === 'morta') {
-            return 'morto';
-        }
-
-        return $status;
+        return $mapa[$normalizado] ?? $status;
     }
 
     private function mensagemErroCadastroAnimal(PDOException $e)
     {
         if ($this->erroBrincoDuplicado($e)) {
-            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
+            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, com perda ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($this->erroChaveEstrangeira($e)) {
@@ -420,7 +449,7 @@ class AnimalController extends Controller
     private function mensagemErroAtualizarAnimal(PDOException $e)
     {
         if ($this->erroBrincoDuplicado($e)) {
-            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
+            return 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, com perda ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($this->erroChaveEstrangeira($e)) {

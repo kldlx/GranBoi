@@ -227,6 +227,9 @@ class Animal
 
     public function atualizar($dados)
     {
+        $pesoSaida  = (isset($dados['peso_saida'])  && $dados['peso_saida']  !== '') ? (float) $dados['peso_saida']  : null;
+        $valorVenda = (isset($dados['valor_venda']) && $dados['valor_venda'] !== '') ? (float) $dados['valor_venda'] : null;
+
         $sql = "UPDATE animal 
                 SET brinco_identificador = :brinco,
                     raca_id = :raca_id,
@@ -234,20 +237,24 @@ class Animal
                     data_nascimento = :data_nascimento,
                     sexo = :sexo,
                     status = :status,
-                    chip = :chip
+                    chip = :chip,
+                    peso_saida = :peso_saida,
+                    valor_venda = :valor_venda
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-            ':id' => $dados['id'],
-            ':brinco' => $dados['brinco'],
-            ':raca_id' => !empty($dados['raca']) ? $dados['raca'] : null,
-            ':lote_id' => !empty($dados['lote']) ? $dados['lote'] : null,
-            ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
-            ':sexo' => !empty($dados['sexo']) ? $dados['sexo'] : null,
-            ':status' => !empty($dados['status']) ? $dados['status'] : 'ativo',
-            ':chip' => !empty($dados['chip']) ? $dados['chip'] : null
+            ':id'             => $dados['id'],
+            ':brinco'         => $dados['brinco'],
+            ':raca_id'        => !empty($dados['raca'])  ? $dados['raca']  : null,
+            ':lote_id'        => !empty($dados['lote'])  ? $dados['lote']  : null,
+            ':data_nascimento'=> !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
+            ':sexo'           => !empty($dados['sexo'])  ? $dados['sexo']  : null,
+            ':status'         => !empty($dados['status']) ? $dados['status'] : 'ativo',
+            ':chip'           => !empty($dados['chip'])  ? $dados['chip']  : null,
+            ':peso_saida'     => $pesoSaida,
+            ':valor_venda'    => $valorVenda
         ]);
     }
 

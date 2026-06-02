@@ -120,6 +120,32 @@
   cursor: not-allowed;
 }
 
+.animal-venda-section {
+  margin-top: 22px;
+}
+
+.animal-venda-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.animal-venda-divider::before,
+.animal-venda-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #c8e6c9;
+}
+
+.animal-venda-divider i {
+  font-size: 18px;
+}
+
 .animal-modal-message {
   margin: 18px 28px 0;
   padding: 14px 16px;

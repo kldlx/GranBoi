@@ -241,6 +241,13 @@ $routes = [
         'roles' => ['administrador']
     ],
 
+    '/financeiro/salvar-despesa' => [
+        'controller' => 'FinanceiroController',
+        'method' => 'salvarDespesa',
+        'auth' => true,
+        'roles' => ['administrador', 'gestor']
+    ],
+
     '/relatorios' => [
         'controller' => 'RelatorioController',
         'method' => 'index',

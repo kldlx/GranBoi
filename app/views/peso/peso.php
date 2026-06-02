@@ -203,6 +203,22 @@
 
         <div class="peso-form-group">
 
+          <label for="data_pesagem">Data da pesagem</label>
+
+          <input
+            type="date"
+            id="data_pesagem"
+            name="data_pesagem"
+            value="<?= date('Y-m-d') ?>"
+            max="<?= date('Y-m-d') ?>"
+            required
+            <?= !$animalSelecionadoAtivo ? 'disabled' : '' ?>
+          >
+
+        </div>
+
+        <div class="peso-form-group">
+
           <label for="peso">Nova pesagem</label>
 
           <input
@@ -292,7 +308,7 @@
                 <tr>
 
                   <td>
-                    <?= date('d/m/Y H:i', strtotime($item['data_registro'])) ?>
+                    <?= date('d/m/Y', strtotime($item['data_registro'])) ?>
                   </td>
 
                   <td>

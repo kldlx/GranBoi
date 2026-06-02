@@ -82,7 +82,7 @@
       <input
         type="text"
         id="pesquisaVacinacao"
-        placeholder="Pesquisar por animal, vacina, dose, responsável ou status..."
+        placeholder="Pesquisar por animal, vacina, dose, custo, responsável ou status..."
         autocomplete="off"
       >
     </div>
@@ -119,6 +119,7 @@
           <th>Animal</th>
           <th>Vacina</th>
           <th>Dose</th>
+          <th>Custo</th>
           <th>Aplicação</th>
           <th>Próxima Dose</th>
           <th>Responsável</th>
@@ -152,6 +153,10 @@
               </td>
 
               <td>
+                <?= isset($vacinacao['preco_custo_sanitario']) && $vacinacao['preco_custo_sanitario'] !== null ? 'R$ ' . number_format((float) $vacinacao['preco_custo_sanitario'], 2, ',', '.') : '-' ?>
+              </td>
+
+              <td>
                 <?= date('d/m/Y', strtotime($vacinacao['data_aplicacao'])) ?>
               </td>
 
@@ -180,6 +185,7 @@
                     data-animal="<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>"
                     data-vacina="<?= htmlspecialchars($vacinacao['vacina']) ?>"
                     data-dose="<?= !empty($vacinacao['quantidade']) ? number_format((float) $vacinacao['quantidade'], 2, ',', '.') . ' ml' : '-' ?>"
+                    data-custo="<?= isset($vacinacao['preco_custo_sanitario']) && $vacinacao['preco_custo_sanitario'] !== null ? 'R$ ' . number_format((float) $vacinacao['preco_custo_sanitario'], 2, ',', '.') : '-' ?>"
                     data-aplicacao="<?= date('d/m/Y', strtotime($vacinacao['data_aplicacao'])) ?>"
                     data-proxima-dose="<?= !empty($vacinacao['proxima_dose']) ? date('d/m/Y', strtotime($vacinacao['proxima_dose'])) : '-' ?>"
                     data-responsavel="<?= htmlspecialchars($vacinacao['responsavel'] ?? '-') ?>"
@@ -196,6 +202,7 @@
                     data-animal-id="<?= htmlspecialchars($vacinacao['animal_id']) ?>"
                     data-vacina="<?= htmlspecialchars($vacinacao['vacina']) ?>"
                     data-quantidade="<?= htmlspecialchars($vacinacao['quantidade']) ?>"
+                    data-custo="<?= htmlspecialchars($vacinacao['preco_custo_sanitario'] ?? '') ?>"
                     data-data-aplicacao="<?= htmlspecialchars($vacinacao['data_aplicacao']) ?>"
                     data-proxima-dose="<?= htmlspecialchars($vacinacao['proxima_dose'] ?? '') ?>"
                   >
@@ -219,9 +226,14 @@
                       type="button"
                       class="action-btn aplicar-proxima-dose-btn"
                       title="Aplicar próxima dose"
+                      data-id="<?= htmlspecialchars($vacinacao['id']) ?>"
                       data-animal-id="<?= htmlspecialchars($vacinacao['animal_id']) ?>"
                       data-animal="<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>"
                       data-vacina="<?= htmlspecialchars($vacinacao['vacina']) ?>"
+                      data-quantidade="<?= htmlspecialchars($vacinacao['quantidade']) ?>"
+                      data-custo="<?= htmlspecialchars($vacinacao['preco_custo_sanitario'] ?? '') ?>"
+                      data-data-aplicacao="<?= htmlspecialchars($vacinacao['data_aplicacao']) ?>"
+                      data-proxima-dose="<?= htmlspecialchars($vacinacao['proxima_dose'] ?? '') ?>"
                     >
                       <i class="ri-syringe-line"></i>
                     </button>
@@ -237,7 +249,7 @@
           <?php endforeach; ?>
 
           <tr id="vacinacaoSearchEmpty" style="display: none;">
-            <td colspan="8" class="vacinacao-empty">
+            <td colspan="9" class="vacinacao-empty">
               Nenhum resultado encontrado para a pesquisa ou filtro selecionado.
             </td>
           </tr>
@@ -245,7 +257,7 @@
         <?php else: ?>
 
           <tr>
-            <td colspan="8" class="vacinacao-empty">
+            <td colspan="9" class="vacinacao-empty">
               Nenhuma vacinação registrada.
             </td>
           </tr>

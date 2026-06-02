@@ -38,7 +38,7 @@ CREATE TABLE `animal` (
   `chip` VARCHAR(100) DEFAULT NULL COMMENT 'CODIGO DO CHIP IMPLANTADO NO ANIMAL (=0 para ausente)',
   `peso_saida` DOUBLE(13,3) DEFAULT 0.000 COMMENT 'Peso na saida (ou venda) do animal.',
   `valor_venda` DECIMAL(13,2) DEFAULT 0.00 COMMENT 'Valor da venda do animal.',
-  `status` VARCHAR(20) DEFAULT 'Ativo',
+  `status` VARCHAR(20) DEFAULT 'Ativo' COMMENT 'Ativo, Vendido, Perda, Excluido',
   PRIMARY KEY (`id`),
   UNIQUE KEY `brinco_UNIQUE` (`brinco_identificador`),
   KEY `fk_animal_raca` (`raca_id`),
@@ -173,7 +173,31 @@ CREATE TABLE `historico_manejo` (
   CONSTRAINT `fk_historico_manejo_pessoa1` FOREIGN KEY (`pessoa_id_operador`) REFERENCES `pessoa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `despesa_financeira` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(200) NOT NULL,
+  `categoria` VARCHAR(100) NOT NULL COMMENT 'Ex: Alimentação, Sanidade, Mão de obra, Equipamento, Outros',
+  `valor` DECIMAL(13,2) NOT NULL,
+  `data_despesa` DATE NOT NULL,
+  `observacao` TEXT DEFAULT NULL,
+  `animal_id` BIGINT(20) DEFAULT NULL,
+  `lote_id` INT(11) DEFAULT NULL,
+  `usuario_id` BIGINT(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_despesa_animal` (`animal_id`),
+  KEY `fk_despesa_lote` (`lote_id`),
+  KEY `fk_despesa_usuario` (`usuario_id`),
+  CONSTRAINT `fk_despesa_animal` FOREIGN KEY (`animal_id`) REFERENCES `animal` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `fk_despesa_lote` FOREIGN KEY (`lote_id`) REFERENCES `lote` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `fk_despesa_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 ALTER TABLE pesagem 
 MODIFY data_pesagem DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- Padronização de status existentes no banco
+UPDATE animal SET status = 'Morto'   WHERE LOWER(status) = 'morto';
+UPDATE animal SET status = 'Vendido' WHERE LOWER(status) = 'vendido';
+UPDATE animal SET status = 'Ativo'   WHERE LOWER(status) = 'ativo';

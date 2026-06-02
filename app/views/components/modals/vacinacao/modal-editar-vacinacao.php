@@ -193,6 +193,18 @@
             >
           </div>
 
+          <div class="vacinacao-form-group">
+            <label for="editar_preco_custo_sanitario">Custo da Vacina (R$)</label>
+
+            <input
+              type="text"
+              id="editar_preco_custo_sanitario"
+              name="preco_custo_sanitario"
+              placeholder="Ex: 25,00"
+              required
+            >
+          </div>
+
         </div>
 
       </div>

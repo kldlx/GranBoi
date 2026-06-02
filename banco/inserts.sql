@@ -159,7 +159,23 @@ INSERT INTO animal (
 
 (10, 'GB010', 9, 4, '2024-01-08', 'F', 260.00, 'CHIP-GB010', 0.000, 0.00, 'Ativo'),
 (11, 'GB011', 10, 4, '2024-03-19', 'F', 230.00, 'CHIP-GB011', 0.000, 0.00, 'Ativo'),
-(12, 'GB012', 8, 4, '2023-09-25', 'M', 300.00, 'CHIP-GB012', 0.000, 0.00, 'Ativo');
+(12, 'GB012', 8, 4, '2023-09-25', 'M', 300.00, 'CHIP-GB012', 0.000, 0.00, 'Ativo'),
+
+-- Animais com status Vendido
+(13, 'GB013', 1, 1, '2023-06-10', 'M', 380.00, 'CHIP-GB013', 420.500, 3200.00, 'Vendido'),
+(14, 'GB014', 2, 2, '2023-08-22', 'M', 360.00, 'CHIP-GB014', 405.000, 3050.00, 'Vendido'),
+(15, 'GB015', 3, 2, '2023-05-14', 'F', 295.00, NULL,         330.000, 2500.00, 'Vendido'),
+
+-- Animais com status Perda
+(16, 'GB016', 5, 3, '2024-01-03', 'M', 270.00, 'CHIP-GB016', 0.000, 0.00, 'Morto'),
+(17, 'GB017', 6, 3, '2023-11-30', 'F', 255.00, NULL,         0.000, 0.00, 'Morto'),
+
+-- Mais animais ativos
+(18, 'GB018', 1, 1, '2024-05-01', 'M', 310.00, 'CHIP-GB018', 0.000, 0.00, 'Ativo'),
+(19, 'GB019', 2, 2, '2024-06-15', 'M', 345.00, 'CHIP-GB019', 0.000, 0.00, 'Ativo'),
+(20, 'GB020', 4, 1, '2024-04-20', 'F', 280.00, 'CHIP-GB020', 0.000, 0.00, 'Ativo'),
+(21, 'GB021', 7, 3, '2024-03-08', 'M', 390.00, 'CHIP-GB021', 0.000, 0.00, 'Ativo'),
+(22, 'GB022', 9, 4, '2024-07-01', 'F', 245.00, 'CHIP-GB022', 0.000, 0.00, 'Ativo');
 
 -- ==============================
 -- PESAGENS PARA DEMONSTRAÇÃO
@@ -208,3 +224,26 @@ INSERT INTO historico_sanitario (
 (5, 4, '2026-04-08', 5.000, '2027-04-08', 13.00, 3),
 (7, 5, '2026-04-12', 5.000, '2026-10-12', 18.00, 3),
 (10, 6, '2026-04-20', 5.000, '2026-11-20', 35.00, 3);
+
+-- ==============================
+-- DESPESAS FINANCEIRAS PARA DEMONSTRAÇÃO
+-- ==============================
+
+INSERT INTO despesa_financeira (descricao, categoria, valor, data_despesa, observacao, animal_id, lote_id, usuario_id) VALUES
+('Ração concentrada - Lote Nelore 01',     'Alimentação',  1850.00, '2026-03-05', 'Compra mensal de ração para engorda',          NULL, 1, 1),
+('Ração concentrada - Lote Angus 01',      'Alimentação',  2100.00, '2026-03-05', 'Compra mensal de ração para engorda',          NULL, 2, 1),
+('Sal mineral - Lote Misto 01',            'Alimentação',   420.00, '2026-03-10', 'Reposição de sal mineral no cocho',            NULL, 3, 2),
+('Vacina Febre Aftosa - GB001',            'Sanidade',       10.00, '2026-03-15', 'Vacinação semestral obrigatória',              1,    NULL, 3),
+('Vacina Febre Aftosa - GB002',            'Sanidade',       10.00, '2026-03-15', 'Vacinação semestral obrigatória',              2,    NULL, 3),
+('Vacina Clostridioses - GB003',           'Sanidade',       30.00, '2026-03-20', 'Dose de reforço aplicada',                     3,    NULL, 3),
+('Vacina Brucelose - GB004',               'Sanidade',       20.00, '2026-04-01', 'Vacinação do lote Angus',                      4,    NULL, 3),
+('Mão de obra - manejo mensal março',      'Mão de obra',   800.00, '2026-03-31', 'Pagamento de diária dos operadores',           NULL, NULL, 1),
+('Manutenção de cerca elétrica',           'Equipamento',   350.00, '2026-04-03', 'Troca de isoladores e fio',                    NULL, NULL, 2),
+('Medicamento vermífugo - Lote Misto 01',  'Sanidade',      180.00, '2026-04-10', 'Vermifugação preventiva do lote',              NULL, 3, 3),
+('Ração concentrada - Lote Nelore 01',     'Alimentação',  1850.00, '2026-04-05', 'Compra mensal de ração para engorda',          NULL, 1, 1),
+('Combustível - transporte de animais',    'Outros',        290.00, '2026-04-18', 'Frete para venda dos animais GB013 e GB014',   NULL, NULL, 2),
+('Mão de obra - manejo mensal abril',      'Mão de obra',   800.00, '2026-04-30', 'Pagamento de diária dos operadores',           NULL, NULL, 1),
+('Suplemento vitamínico - Lote Leiteiro',  'Alimentação',   560.00, '2026-05-02', 'Suplementação para vacas em lactação',         NULL, 4, 2),
+('Reparo de bebedouro - Lote Angus 01',    'Equipamento',   120.00, '2026-05-08', 'Substituição de boia do bebedouro',            NULL, 2, 4),
+('Ração concentrada - Lote Angus 01',      'Alimentação',  2100.00, '2026-05-05', 'Compra mensal de ração para engorda',          NULL, 2, 1),
+('Mão de obra - manejo mensal maio',       'Mão de obra',   800.00, '2026-05-31', 'Pagamento de diária dos operadores',           NULL, NULL, 1);

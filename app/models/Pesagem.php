@@ -27,7 +27,7 @@ class Pesagem
         (
             :animal_id,
             :peso,
-            NOW(),
+            :data_pesagem,
             :observacao,
             :pessoa_id
         )";
@@ -37,6 +37,7 @@ class Pesagem
         return $stmt->execute([
             ':animal_id' => $dados['animal_id'],
             ':peso' => $dados['peso'],
+            ':data_pesagem' => !empty($dados['data_pesagem']) ? $dados['data_pesagem'] : date('Y-m-d'),
             ':observacao' => !empty($dados['observacao']) ? $dados['observacao'] : null,
             ':pessoa_id' => $pessoaId
         ]);

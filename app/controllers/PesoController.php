@@ -67,7 +67,8 @@ class PesoController extends Controller
         $dados = [
             'animal_id' => $_POST['animal_id'] ?? '',
             'peso' => $_POST['peso'] ?? '',
-            'observacao' => trim($_POST['observacao'] ?? '')
+            'observacao' => trim($_POST['observacao'] ?? ''),
+            'data_pesagem' => $_POST['data_pesagem'] ?? ''
         ];
 
         $erro = null;
@@ -87,7 +88,7 @@ class PesoController extends Controller
 
             if (!$animal) {
                 $erro = 'Animal não encontrado.';
-            } elseif ($animal['status'] !== 'ativo') {
+            } elseif (strtolower(trim($animal['status'] ?? '')) !== 'ativo') {
                 $erro = 'Não é possível registrar pesagem para animal vendido ou perdido.';
             }
         }

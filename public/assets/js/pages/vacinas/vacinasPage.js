@@ -301,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataAplicacao = document.getElementById('editar_data_aplicacao')?.value;
     const proximaDose = document.getElementById('editar_proxima_dose')?.value;
     const quantidade = document.getElementById('editar_quantidade')?.value.trim();
+    const custo = document.getElementById('editar_preco_custo_sanitario')?.value.trim();
 
     if (!animalId || !vacina || !dataAplicacao) {
       return 'Preencha os campos obrigatórios: animal, vacina e data de aplicação.';
@@ -312,6 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isNaN(quantidade) || Number(quantidade) <= 0) {
       return 'Informe uma quantidade/dose maior que zero.';
+    }
+
+    if (custo === '' || custo === undefined) {
+      return 'Informe o custo da vacina.';
+    }
+
+    const custoNormalizado = custo.replace(/\./g, '').replace(',', '.');
+    if (isNaN(custoNormalizado) || Number(custoNormalizado) < 0) {
+      return 'Informe um custo da vacina válido.';
     }
 
     const hoje = new Date();
@@ -380,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherCampo('editar_vacinacao_id', botao.dataset.id);
     preencherCampo('editar_vacina', botao.dataset.vacina);
     preencherCampo('editar_quantidade', botao.dataset.quantidade);
+    preencherCampo('editar_preco_custo_sanitario', botao.dataset.custo);
     preencherCampo('editar_data_aplicacao', botao.dataset.dataAplicacao);
     preencherCampo('editar_proxima_dose', botao.dataset.proximaDose);
 

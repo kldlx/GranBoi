@@ -258,7 +258,8 @@ class VacinaController extends Controller
             'vacina' => trim($_POST['vacina'] ?? ''),
             'data_aplicacao' => $_POST['data_aplicacao'] ?? '',
             'proxima_dose' => $_POST['proxima_dose'] ?? null,
-            'quantidade' => trim($_POST['quantidade'] ?? '')
+            'quantidade' => trim($_POST['quantidade'] ?? ''),
+            'preco_custo_sanitario' => trim($_POST['preco_custo_sanitario'] ?? '')
         ];
     }
 
@@ -278,6 +279,16 @@ class VacinaController extends Controller
 
         if (!is_numeric($dados['quantidade']) || (float) $dados['quantidade'] <= 0) {
             return 'Informe uma quantidade/dose maior que zero.';
+        }
+
+        if ($dados['preco_custo_sanitario'] === '') {
+            return 'Informe o custo da vacina.';
+        }
+
+        $precoCustoSanitario = $this->normalizarValorMonetario($dados['preco_custo_sanitario']);
+
+        if ($precoCustoSanitario === null || $precoCustoSanitario < 0) {
+            return 'Informe um custo da vacina válido.';
         }
 
         if (!empty($dados['data_aplicacao']) && $dados['data_aplicacao'] > date('Y-m-d')) {
@@ -306,6 +317,26 @@ class VacinaController extends Controller
         }
 
         return null;
+    }
+
+    private function normalizarValorMonetario($valor)
+    {
+        if ($valor === null || $valor === '') {
+            return null;
+        }
+
+        $valor = trim((string) $valor);
+
+        if (strpos($valor, ',') !== false) {
+            $valor = str_replace('.', '', $valor);
+            $valor = str_replace(',', '.', $valor);
+        }
+
+        if (!is_numeric($valor)) {
+            return null;
+        }
+
+        return (float) $valor;
     }
 
     private function isAjax()

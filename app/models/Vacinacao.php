@@ -121,11 +121,18 @@ class Vacinacao
 
     public function salvar($dados)
     {
-        $vacinaId = $this->buscarOuCriarVacina($dados['vacina']);
+        $precoCustoSanitario = $this->normalizarPrecoCustoSanitario($dados);
+
+        $vacinaId = $this->buscarOuCriarVacina(
+            $dados['vacina'],
+            $precoCustoSanitario
+        );
 
         $pessoaIdVeterinario = $this->resolverPessoaResponsavel();
 
-        $precoCustoSanitario = $this->buscarPrecoVacina($vacinaId);
+        if ($precoCustoSanitario === null) {
+            $precoCustoSanitario = $this->buscarPrecoVacina($vacinaId);
+        }
 
         $sql = "INSERT INTO historico_sanitario
             (
@@ -163,9 +170,16 @@ class Vacinacao
 
     public function atualizar($dados)
     {
-        $vacinaId = $this->buscarOuCriarVacina($dados['vacina']);
+        $precoCustoSanitario = $this->normalizarPrecoCustoSanitario($dados);
 
-        $precoCustoSanitario = $this->buscarPrecoVacina($vacinaId);
+        $vacinaId = $this->buscarOuCriarVacina(
+            $dados['vacina'],
+            $precoCustoSanitario
+        );
+
+        if ($precoCustoSanitario === null) {
+            $precoCustoSanitario = $this->buscarPrecoVacina($vacinaId);
+        }
 
         $sql = "UPDATE historico_sanitario
                 SET animal_id = :animal_id,
@@ -236,7 +250,7 @@ class Vacinacao
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-        public function excluir($id)
+    public function excluir($id)
     {
         $sql = "DELETE FROM historico_sanitario
                 WHERE id = :id";
@@ -247,7 +261,7 @@ class Vacinacao
             ':id' => $id
         ]);
     }
-    
+
     public function countPendentes()
     {
         $sql = "
@@ -262,7 +276,7 @@ class Vacinacao
         return $res['total'] ?? 0;
     }
 
-    private function buscarOuCriarVacina($nomeVacina)
+    private function buscarOuCriarVacina($nomeVacina, $precoVacina = null)
     {
         $nomeVacina = trim($nomeVacina);
 
@@ -289,13 +303,14 @@ class Vacinacao
             INSERT INTO vacina
                 (nome, preco_vacina, periodo_carencia_dias)
             VALUES
-                (:nome, 0.00, 0)
+                (:nome, :preco_vacina, 0)
         ";
 
         $stmt = $this->db->prepare($sql);
 
         $stmt->execute([
-            ':nome' => $nomeVacina
+            ':nome' => $nomeVacina,
+            ':preco_vacina' => $precoVacina ?? 0
         ]);
 
         return $this->db->lastInsertId();
@@ -319,6 +334,28 @@ class Vacinacao
         $vacina = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $vacina['preco_vacina'] ?? 0;
+    }
+
+    private function normalizarPrecoCustoSanitario($dados)
+    {
+        $valor = $dados['preco_custo_sanitario'] ?? $dados['custo'] ?? null;
+
+        if ($valor === null || $valor === '') {
+            return null;
+        }
+
+        $valor = trim((string) $valor);
+
+        if (strpos($valor, ',') !== false) {
+            $valor = str_replace('.', '', $valor);
+            $valor = str_replace(',', '.', $valor);
+        }
+
+        if (!is_numeric($valor)) {
+            return null;
+        }
+
+        return number_format((float) $valor, 2, '.', '');
     }
 
     private function resolverPessoaResponsavel()
