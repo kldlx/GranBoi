@@ -14,20 +14,22 @@ class Animal
     public function salvar($dados)
     {
         $sql = "INSERT INTO animal 
-            (brinco_identificador, raca_id, lote_id, data_nascimento, sexo, peso_entrada, chip, status) 
+            (brinco_identificador, raca_id, lote_id, data_nascimento, sexo, peso_entrada, chip, data_compra, valor_compra, status) 
             VALUES 
-            (:brinco, :raca_id, :lote_id, :data_nascimento, :sexo, :peso_entrada, :chip, 'ativo')";
+            (:brinco, :raca_id, :lote_id, :data_nascimento, :sexo, :peso_entrada, :chip, :data_compra, :valor_compra, 'ativo')";
 
         $stmt = $this->db->prepare($sql);
 
         $stmt->execute([
-            ':brinco' => $dados['brinco'],
-            ':raca_id' => !empty($dados['raca']) ? $dados['raca'] : null,
-            ':lote_id' => !empty($dados['lote']) ? $dados['lote'] : null,
+            ':brinco'          => $dados['brinco'],
+            ':raca_id'         => !empty($dados['raca']) ? $dados['raca'] : null,
+            ':lote_id'         => !empty($dados['lote']) ? $dados['lote'] : null,
             ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
-            ':sexo' => !empty($dados['sexo']) ? $dados['sexo'] : null,
-            ':peso_entrada' => !empty($dados['peso_entrada']) ? $dados['peso_entrada'] : null,
-            ':chip' => !empty($dados['chip']) ? $dados['chip'] : null
+            ':sexo'            => !empty($dados['sexo']) ? $dados['sexo'] : null,
+            ':peso_entrada'    => !empty($dados['peso_entrada']) ? $dados['peso_entrada'] : null,
+            ':chip'            => !empty($dados['chip']) ? $dados['chip'] : null,
+            ':data_compra'     => !empty($dados['data_compra']) ? $dados['data_compra'] : null,
+            ':valor_compra'    => isset($dados['valor_compra']) && $dados['valor_compra'] !== null ? $dados['valor_compra'] : null,
         ]);
 
         return $this->db->lastInsertId();
@@ -238,23 +240,29 @@ class Animal
                     sexo = :sexo,
                     status = :status,
                     chip = :chip,
+                    data_compra = :data_compra,
+                    valor_compra = :valor_compra,
                     peso_saida = :peso_saida,
-                    valor_venda = :valor_venda
+                    valor_venda = :valor_venda,
+                    data_venda = :data_venda
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-            ':id'             => $dados['id'],
-            ':brinco'         => $dados['brinco'],
-            ':raca_id'        => !empty($dados['raca'])  ? $dados['raca']  : null,
-            ':lote_id'        => !empty($dados['lote'])  ? $dados['lote']  : null,
-            ':data_nascimento'=> !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
-            ':sexo'           => !empty($dados['sexo'])  ? $dados['sexo']  : null,
-            ':status'         => !empty($dados['status']) ? $dados['status'] : 'ativo',
-            ':chip'           => !empty($dados['chip'])  ? $dados['chip']  : null,
-            ':peso_saida'     => $pesoSaida,
-            ':valor_venda'    => $valorVenda
+            ':id'              => $dados['id'],
+            ':brinco'          => $dados['brinco'],
+            ':raca_id'         => !empty($dados['raca'])  ? $dados['raca']  : null,
+            ':lote_id'         => !empty($dados['lote'])  ? $dados['lote']  : null,
+            ':data_nascimento' => !empty($dados['data_nascimento']) ? $dados['data_nascimento'] : null,
+            ':sexo'            => !empty($dados['sexo'])  ? $dados['sexo']  : null,
+            ':status'          => !empty($dados['status']) ? $dados['status'] : 'ativo',
+            ':chip'            => !empty($dados['chip'])  ? $dados['chip']  : null,
+            ':data_compra'     => !empty($dados['data_compra'])  ? $dados['data_compra']  : null,
+            ':valor_compra'    => isset($dados['valor_compra']) && $dados['valor_compra'] !== null ? $dados['valor_compra'] : null,
+            ':peso_saida'      => $pesoSaida,
+            ':valor_venda'     => $valorVenda,
+            ':data_venda'      => !empty($dados['data_venda']) ? $dados['data_venda'] : null,
         ]);
     }
 

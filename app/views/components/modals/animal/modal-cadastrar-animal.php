@@ -120,6 +120,16 @@
             >
           </div>
 
+          <div class="animal-form-group">
+            <label for="data_compra">Data de Compra</label>
+            <input type="date" id="data_compra" name="data_compra">
+          </div>
+
+          <div class="animal-form-group">
+            <label for="valor_compra">Valor de Compra (R$) <span style="font-weight:400;color:#aaa">— opcional</span></label>
+            <input type="text" id="valor_compra" name="valor_compra" placeholder="Ex: 3.500,00">
+          </div>
+
         </div>
 
       </div>

@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (status !== 'Vendido') {
       preencherCampo('editar_peso_saida', '');
       preencherCampo('editar_valor_venda', '');
+      preencherCampo('editar_data_venda', '');
     }
   }
 
@@ -83,6 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
       preencherCampo('editar_status', button.dataset.status || 'Ativo');
       preencherCampo('editar_chip', button.dataset.chip);
 
+      preencherCampo('editar_data_compra', button.dataset.dataCompra || '');
+
+      if (button.dataset.valorCompra) {
+        const vcNum = parseFloat(button.dataset.valorCompra);
+        document.getElementById('editar_valor_compra').value = isNaN(vcNum)
+          ? ''
+          : vcNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else {
+        preencherCampo('editar_valor_compra', '');
+      }
+
       const status = button.dataset.status || 'Ativo';
       const section = document.getElementById('editarAnimalVendaSection');
 
@@ -91,7 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       preencherCampo('editar_peso_saida', status === 'Vendido' ? (button.dataset.pesoSaida || '') : '');
-      preencherCampo('editar_valor_venda', status === 'Vendido' ? (button.dataset.valorVenda || '') : '');
+
+      if (status === 'Vendido' && button.dataset.valorVenda) {
+        const valorNum = parseFloat(button.dataset.valorVenda);
+        document.getElementById('editar_valor_venda').value = isNaN(valorNum)
+          ? ''
+          : valorNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else {
+        preencherCampo('editar_valor_venda', '');
+      }
+
+      preencherCampo('editar_data_venda', status === 'Vendido' ? (button.dataset.dataVenda || '') : '');
 
       const pesoVisivel = document.getElementById('editar_peso_entrada');
 

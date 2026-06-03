@@ -30,25 +30,12 @@
       id="formEditarVacinacao"
     >
 
-      <input
-        type="hidden"
-        id="editar_vacinacao_id"
-        name="id"
-      >
-
-      <input
-        type="hidden"
-        id="editar_animal_id"
-        name="animal_id"
-      >
-
-      <div
-        class="vacinacao-modal-message"
-        id="editarVacinacaoModalMessage"
-        hidden
-      ></div>
+      <input type="hidden" id="editar_vacinacao_id" name="id">
+      <input type="hidden" id="editar_animal_id" name="animal_id">
 
       <div class="modal-body vacinacao-modal-body">
+
+        <div class="vacinacao-modal-message" id="editarVacinacaoModalMessage" hidden></div>
 
         <div class="vacinacao-form-grid">
 
@@ -93,9 +80,9 @@
                     } elseif ($statusAnimal === 'vendido') {
                         $statusAnimalTexto = 'Vendido';
                         $statusPesquisa = 'vendido';
-                    } elseif ($statusAnimal === 'morto') {
+                    } elseif ($statusAnimal === 'perda') {
                         $statusAnimalTexto = 'Perda';
-                        $statusPesquisa = 'morto perda';
+                        $statusPesquisa = 'perda';
                     } else {
                         $statusAnimalTexto = '-';
                         $statusPesquisa = $statusAnimal;

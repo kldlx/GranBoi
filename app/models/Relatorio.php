@@ -18,7 +18,7 @@ class Relatorio
                 COUNT(*) AS total,
                 SUM(CASE WHEN LOWER(status) = 'ativo' THEN 1 ELSE 0 END) AS ativos,
                 SUM(CASE WHEN LOWER(status) = 'vendido' THEN 1 ELSE 0 END) AS vendidos,
-                SUM(CASE WHEN LOWER(status) = 'morto' THEN 1 ELSE 0 END) AS perdas
+                SUM(CASE WHEN LOWER(status) = 'perda' THEN 1 ELSE 0 END) AS perdas
             FROM animal
             WHERE LOWER(COALESCE(status, '')) != 'excluido'
         ";
@@ -255,5 +255,18 @@ class Relatorio
         ";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function totalReceitas()
+    {
+        $sql = "SELECT COALESCE(SUM(valor_venda), 0) AS total FROM animal WHERE LOWER(status) = 'vendido' AND valor_venda > 0";
+        return (float) $this->db->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function totalDespesas()
+    {
+        $sanitario   = (float) $this->db->query("SELECT COALESCE(SUM(preco_custo_sanitario),0) AS t FROM historico_sanitario")->fetch(PDO::FETCH_ASSOC)['t'];
+        $operacional = (float) $this->db->query("SELECT COALESCE(SUM(valor),0) AS t FROM despesa_financeira")->fetch(PDO::FETCH_ASSOC)['t'];
+        return $sanitario + $operacional;
     }
 }

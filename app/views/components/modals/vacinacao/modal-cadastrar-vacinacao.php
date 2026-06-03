@@ -33,13 +33,13 @@
         name="animal_id"
       >
 
-      <div
-        class="vacinacao-modal-message"
-        id="vacinacaoModalMessage"
-        hidden
-      ></div>
-
       <div class="modal-body vacinacao-modal-body">
+
+        <div
+          class="vacinacao-modal-message"
+          id="vacinacaoModalMessage"
+          hidden
+        ></div>
 
         <div class="vacinacao-form-grid">
 
@@ -84,9 +84,9 @@
                     } elseif ($statusAnimal === 'vendido') {
                         $statusAnimalTexto = 'Vendido';
                         $statusPesquisa = 'vendido';
-                    } elseif ($statusAnimal === 'morto') {
+                    } elseif ($statusAnimal === 'perda') {
                         $statusAnimalTexto = 'Perda';
-                        $statusPesquisa = 'morto perda';
+                        $statusPesquisa = 'perda';
                     } else {
                         $statusAnimalTexto = '-';
                         $statusPesquisa = $statusAnimal;

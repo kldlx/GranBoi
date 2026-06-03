@@ -60,7 +60,9 @@ class AnimalController extends Controller
             'data_nascimento' => $_POST['data_nascimento'] ?? null,
             'sexo' => $this->normalizarSexo($_POST['sexo'] ?? ''),
             'peso_entrada' => $_POST['peso_entrada'] ?? '',
-            'chip' => trim($_POST['chip'] ?? '')
+            'chip' => trim($_POST['chip'] ?? ''),
+            'data_compra'  => $_POST['data_compra']  ?? null,
+            'valor_compra' => trim($_POST['valor_compra'] ?? '')
         ];
 
         $erro = null;
@@ -101,10 +103,17 @@ class AnimalController extends Controller
             $dados['data_nascimento'] = null;
         }
 
+        if (!empty($dados['valor_compra'])) {
+            $valorCompra = $this->normalizarValorMonetario($dados['valor_compra']);
+            $dados['valor_compra'] = ($valorCompra !== null && $valorCompra >= 0) ? $valorCompra : null;
+        } else {
+            $dados['valor_compra'] = null;
+        }
+
         $model = $this->model('Animal');
 
         if (!$erro && $model->brincoExiste($dados['brinco'])) {
-            $erro = 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, morto ou excluído. O brinco é único e não pode ser reutilizado.';
+            $erro = 'Este brinco já pertence a outro animal registrado no sistema, mesmo que ele esteja ativo, vendido, com perda ou excluído. O brinco é único e não pode ser reutilizado.';
         }
 
         if ($erro) {
@@ -197,7 +206,10 @@ class AnimalController extends Controller
             'status' => $this->normalizarStatus($_POST['status'] ?? 'ativo'),
             'chip' => trim($_POST['chip'] ?? ''),
             'peso_saida' => trim($_POST['peso_saida'] ?? ''),
-            'valor_venda' => trim($_POST['valor_venda'] ?? '')
+            'valor_venda' => trim($_POST['valor_venda'] ?? ''),
+            'data_compra'  => $_POST['data_compra']  ?? null,
+            'valor_compra' => trim($_POST['valor_compra'] ?? ''),
+            'data_venda'   => $_POST['data_venda']   ?? null
         ];
 
         $erro = null;
@@ -215,7 +227,7 @@ class AnimalController extends Controller
             $erro = 'Selecione um sexo válido.';
         }
 
-        if (!$erro && !in_array($dados['status'], ['Ativo', 'Vendido', 'Morto'])) {
+        if (!$erro && !in_array($dados['status'], ['Ativo', 'Vendido', 'Perda'])) {
             $erro = 'Selecione um status válido.';
         }
 
@@ -233,6 +245,17 @@ class AnimalController extends Controller
                     $dados['valor_venda'] = $valorNormalizado;
                 }
             }
+        }
+
+        if (!$erro && !empty($dados['valor_compra'])) {
+            $valorCompra = $this->normalizarValorMonetario($dados['valor_compra']);
+            if ($valorCompra === null || $valorCompra < 0) {
+                $erro = 'Informe um valor de compra válido.';
+            } else {
+                $dados['valor_compra'] = $valorCompra;
+            }
+        } else {
+            $dados['valor_compra'] = null;
         }
 
         if (!$erro && !empty($dados['raca']) && !ctype_digit((string) $dados['raca'])) {
@@ -394,8 +417,19 @@ class AnimalController extends Controller
         }
 
         $valor = trim((string) $valor);
-        $valor = str_replace('.', '', $valor);
-        $valor = str_replace(',', '.', $valor);
+
+        // Formato BR: 1.234,56 ou 1.234 (ponto como milhar, vírgula como decimal)
+        if (strpos($valor, ',') !== false) {
+            $valor = str_replace('.', '', $valor); // remove pontos de milhar
+            $valor = str_replace(',', '.', $valor); // vírgula vira decimal
+        }
+        // Formato US com ponto decimal: 1234.56 — mantém como está
+        // Mas se houver mais de um ponto (ex: 1.234.567), remove todos exceto o último
+        elseif (substr_count($valor, '.') > 1) {
+            $partes = explode('.', $valor);
+            $decimal = array_pop($partes);
+            $valor = implode('', $partes) . '.' . $decimal;
+        }
 
         if (!is_numeric($valor)) {
             return null;
@@ -424,8 +458,8 @@ class AnimalController extends Controller
         $mapa = [
             'ativo'   => 'Ativo',  'ativa'   => 'Ativo',
             'vendido' => 'Vendido','vendida' => 'Vendido',
-            'morto'   => 'Morto',  'morta'   => 'Morto',
-            'perda'   => 'Morto',
+            'morto'   => 'Perda',  'morta'   => 'Perda',
+            'perda'   => 'Perda',
         ];
 
         $normalizado = mb_strtolower(trim($status), 'UTF-8');

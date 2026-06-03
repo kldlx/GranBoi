@@ -530,7 +530,8 @@ textarea {
   color: #1565c0;
 }
 
-.dashboard-status-morto {
+.dashboard-status-morto,
+.dashboard-status-perda {
   background: #ffebee;
   color: #c62828;
 }

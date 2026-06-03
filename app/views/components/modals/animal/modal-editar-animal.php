@@ -109,14 +109,23 @@
             <select id="editar_status" name="status" required>
               <option value="Ativo">Ativo</option>
               <option value="Vendido">Vendido</option>
-              <option value="Morto">Perda</option>
+              <option value="Perda">Perda</option>
             </select>
           </div>
 
           <div class="animal-form-group">
             <label for="editar_chip">Chip</label>
-
             <input type="text" id="editar_chip" name="chip" placeholder="Código do chip, se houver">
+          </div>
+
+          <div class="animal-form-group">
+            <label for="editar_data_compra">Data de Compra</label>
+            <input type="date" id="editar_data_compra" name="data_compra">
+          </div>
+
+          <div class="animal-form-group">
+            <label for="editar_valor_compra">Valor de Compra (R$) <span style="font-weight:400;color:#aaa">— opcional</span></label>
+            <input type="text" id="editar_valor_compra" name="valor_compra" placeholder="Ex: 3.500,00">
           </div>
 
         </div>
@@ -132,26 +141,17 @@
 
             <div class="animal-form-group">
               <label for="editar_peso_saida">Peso de Saída (kg)</label>
-
-              <input
-                type="number"
-                id="editar_peso_saida"
-                name="peso_saida"
-                placeholder="Ex: 480.500"
-                min="0.001"
-                step="0.001"
-              >
+              <input type="number" id="editar_peso_saida" name="peso_saida" placeholder="Ex: 480.500" min="0.001" step="0.001">
             </div>
 
             <div class="animal-form-group">
               <label for="editar_valor_venda">Valor de Venda (R$)</label>
+              <input type="text" id="editar_valor_venda" name="valor_venda" placeholder="Ex: 3500,00">
+            </div>
 
-              <input
-                type="text"
-                id="editar_valor_venda"
-                name="valor_venda"
-                placeholder="Ex: 3500,00"
-              >
+            <div class="animal-form-group">
+              <label for="editar_data_venda">Data de Venda</label>
+              <input type="date" id="editar_data_venda" name="data_venda">
             </div>
 
           </div>

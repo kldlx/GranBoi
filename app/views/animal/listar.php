@@ -96,7 +96,7 @@
         Vendidos
       </button>
 
-      <button type="button" class="animal-filter-btn" data-status-filter="morto">
+      <button type="button" class="animal-filter-btn" data-status-filter="perda">
         Perdas
       </button>
 
@@ -135,7 +135,7 @@
                   $statusAnimalTexto = 'Ativo';
               } elseif ($statusAnimal === 'vendido') {
                   $statusAnimalTexto = 'Vendido';
-              } elseif ($statusAnimal === 'morto') {
+              } elseif ($statusAnimal === 'perda') {
                   $statusAnimalTexto = 'Perda';
               } else {
                   $statusAnimalTexto = '-';
@@ -212,6 +212,9 @@
                     data-observacoes="<?= htmlspecialchars($animal['observacoes'] ?? '') ?>"
                     data-peso-saida="<?= htmlspecialchars($animal['peso_saida'] ?? '') ?>"
                     data-valor-venda="<?= htmlspecialchars($animal['valor_venda'] ?? '') ?>"
+                    data-data-compra="<?= htmlspecialchars($animal['data_compra'] ?? '') ?>"
+                    data-valor-compra="<?= htmlspecialchars($animal['valor_compra'] ?? '') ?>"
+                    data-data-venda="<?= htmlspecialchars($animal['data_venda'] ?? '') ?>"
                   >
                     <i class="ri-edit-line"></i>
                   </button>
@@ -231,7 +234,7 @@
                     <button
                       type="button"
                       class="action-btn action-btn-disabled"
-                      title="Pesagem indisponível para animal <?= $statusAnimal === 'morto' ? 'com perda' : htmlspecialchars($statusAnimal) ?>"
+                      title="Pesagem indisponível para animal <?= $statusAnimal === 'perda' ? 'com perda' : htmlspecialchars($statusAnimal) ?>"
                       disabled
                     >
                       <i class="ri-scales-3-line"></i>
