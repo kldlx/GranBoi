@@ -31,8 +31,9 @@ class Financeiro
 
     public function getTotalCustosManejo()
     {
-        $sql = "SELECT COALESCE(SUM(custo_manejo), 0) AS total
-                FROM historico_manejo";
+        $sql = "SELECT COALESCE(SUM(valor), 0) AS total
+                FROM despesa_financeira
+                WHERE LOWER(categoria) = 'manejo'";
 
         return (float) $this->db->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
     }
@@ -53,9 +54,9 @@ class Financeiro
                     animal.brinco_identificador,
                     animal.valor_venda,
                     animal.peso_saida,
-                    raca.nome_raca AS raca
+                    tipo_raca.nome_tipo_raca AS raca
                 FROM animal
-                LEFT JOIN raca ON raca.id = animal.raca_id
+                LEFT JOIN tipo_raca ON tipo_raca.id = animal.tipo_raca_id
                 WHERE LOWER(animal.status) = 'vendido'
                   AND animal.valor_venda > 0
                 ORDER BY animal.id DESC

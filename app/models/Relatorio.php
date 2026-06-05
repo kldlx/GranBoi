@@ -63,13 +63,13 @@ class Relatorio
     {
         $sql = "
             SELECT 
-                COALESCE(raca.nome_raca, 'Sem raça') AS raca,
+                COALESCE(tipo_raca.nome_tipo_raca, 'Sem raça') AS raca,
                 COUNT(animal.id) AS total
             FROM animal
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
-            GROUP BY COALESCE(raca.nome_raca, 'Sem raça')
+            GROUP BY COALESCE(tipo_raca.nome_tipo_raca, 'Sem raça')
             ORDER BY total DESC, raca ASC
         ";
 
@@ -101,7 +101,7 @@ class Relatorio
             SELECT
                 animal.id,
                 animal.brinco_identificador,
-                raca.nome_raca AS raca,
+                tipo_raca.nome_tipo_raca AS raca,
                 lote.nome_lote AS lote,
                 primeira_pesagem.peso AS peso_inicial,
                 ultima_pesagem.peso AS peso_atual,
@@ -142,8 +142,8 @@ class Relatorio
                     ON ultima.ultima_pesagem_id = p2.id
             ) ultima_pesagem
                 ON ultima_pesagem.animal_id = animal.id
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
             LEFT JOIN lote
                 ON lote.id = animal.lote_id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
@@ -172,7 +172,7 @@ class Relatorio
                 animal.brinco_identificador,
                 animal.status AS status_animal,
 
-                raca.nome_raca AS raca,
+                tipo_raca.nome_tipo_raca AS raca,
 
                 pessoa.nome_completo AS responsavel,
 
@@ -185,8 +185,8 @@ class Relatorio
             FROM historico_sanitario
             INNER JOIN animal
                 ON animal.id = historico_sanitario.animal_id
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
             INNER JOIN vacina
                 ON vacina.id = historico_sanitario.vacina_id
             INNER JOIN pessoa
@@ -216,12 +216,12 @@ class Relatorio
                 historico_sanitario.proxima_dose,
                 vacina.nome AS vacina,
                 animal.brinco_identificador,
-                raca.nome_raca AS raca
+                tipo_raca.nome_tipo_raca AS raca
             FROM historico_sanitario
             INNER JOIN animal
                 ON animal.id = historico_sanitario.animal_id
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
             INNER JOIN vacina
                 ON vacina.id = historico_sanitario.vacina_id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'
@@ -240,13 +240,13 @@ class Relatorio
                 historico_sanitario.proxima_dose,
                 vacina.nome AS vacina,
                 animal.brinco_identificador,
-                raca.nome_raca AS raca,
+                tipo_raca.nome_tipo_raca AS raca,
                 DATEDIFF(CURDATE(), historico_sanitario.proxima_dose) AS dias_atraso
             FROM historico_sanitario
             INNER JOIN animal
                 ON animal.id = historico_sanitario.animal_id
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
             INNER JOIN vacina
                 ON vacina.id = historico_sanitario.vacina_id
             WHERE LOWER(COALESCE(animal.status, '')) != 'excluido'

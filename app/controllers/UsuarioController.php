@@ -44,6 +44,13 @@ class UsuarioController extends Controller
 
     public function perfil()
     {
+        $usuarioModel = $this->model('Usuario');
+        $usuarioPerfil = null;
+
+        if (!empty($_SESSION['usuario']['id'])) {
+            $usuarioPerfil = $usuarioModel->buscarPorId($_SESSION['usuario']['id']);
+        }
+
         $this->render('profile/profile', [
             'titulo' => 'GranBoi - Perfil',
             'pageCss' => [
@@ -51,7 +58,8 @@ class UsuarioController extends Controller
             ],
             'pageJs' => [
                 '/public/assets/js/pages/profile/profile.js'
-            ]
+            ],
+            'usuarioPerfil' => $usuarioPerfil
         ]);
     }
 

@@ -59,13 +59,14 @@ class Dashboard
         $sql = "
             SELECT 
                 animal.*,
-                raca.nome_raca,
+                animal.tipo_raca_id AS raca_id,
+                tipo_raca.nome_tipo_raca AS nome_raca,
                 lote.nome_lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
                 ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
-            LEFT JOIN raca 
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca 
+                ON tipo_raca.id = animal.tipo_raca_id
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
@@ -207,12 +208,12 @@ class Dashboard
                 pesagem.peso,
                 pesagem.data_pesagem AS data_registro,
                 animal.brinco_identificador,
-                raca.nome_raca AS raca
+                tipo_raca.nome_tipo_raca AS raca
             FROM pesagem
             INNER JOIN animal 
                 ON animal.id = pesagem.animal_id
-            LEFT JOIN raca 
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca 
+                ON tipo_raca.id = animal.tipo_raca_id
             WHERE animal.status != 'excluido'
             ORDER BY pesagem.data_pesagem DESC, pesagem.id DESC
             LIMIT {$limit}

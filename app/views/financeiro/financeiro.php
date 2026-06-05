@@ -150,6 +150,7 @@
             <option value="Equipamento">Equipamento</option>
             <option value="Transporte">Transporte</option>
             <option value="Manutenção">Manutenção</option>
+            <option value="Manejo">Manejo</option>
             <option value="Outros">Outros</option>
           </select>
         </div>
@@ -353,6 +354,7 @@
               <option value="Equipamento">Equipamento</option>
               <option value="Transporte">Transporte</option>
               <option value="Manutenção">Manutenção</option>
+              <option value="Manejo">Manejo</option>
               <option value="Outros">Outros</option>
             </select>
           </div>

@@ -203,35 +203,35 @@ $routes = [
         'controller' => 'UsuarioController',
         'method' => 'index',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/funcionarios/salvar' => [
         'controller' => 'UsuarioController',
         'method' => 'salvar',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/funcionarios/atualizar' => [
         'controller' => 'UsuarioController',
         'method' => 'atualizar',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/funcionarios/desativar' => [
         'controller' => 'UsuarioController',
         'method' => 'desativar',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/funcionarios/reativar' => [
         'controller' => 'UsuarioController',
         'method' => 'reativar',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor']
     ],
 
     '/financeiro' => [

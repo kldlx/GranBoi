@@ -92,6 +92,48 @@
   word-break: break-word;
 }
 
+.profile-page .profile-password-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 260px;
+  border: 1px solid #dfe8e1;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.profile-page .profile-password-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 12px 10px 12px 12px;
+  color: #222;
+  font-size: 18px;
+  font-weight: 900;
+  background: transparent;
+}
+
+.profile-page .profile-password-toggle {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border: 0;
+  border-left: 1px solid #dfe8e1;
+  background: #f8faf8;
+  color: #0f5a22;
+  cursor: pointer;
+}
+
+.profile-page .profile-password-toggle i {
+  font-size: 20px;
+}
+
+.profile-page .profile-password-toggle:hover {
+  background: #edf5ef;
+}
+
 .profile-page .profile-alert {
   display: flex;
   align-items: flex-start;
@@ -125,6 +167,29 @@
   line-height: 1.5;
   margin: 0;
   color: #1b5e20;
+}
+
+.profile-page .profile-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #0f5a22;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.profile-page .profile-action-link:hover {
+  background: #0b4419;
+}
+
+.profile-page .profile-action-link i {
+  font-size: 18px;
+  color: #ffffff;
 }
 
 .profile-page .topbar {

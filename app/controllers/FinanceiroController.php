@@ -47,7 +47,7 @@ class FinanceiroController extends Controller
 
         $categoriasValidas = [
             'Alimentação', 'Sanidade', 'Mão de obra',
-            'Equipamento', 'Transporte', 'Manutenção', 'Outros'
+            'Equipamento', 'Transporte', 'Manutenção', 'Manejo', 'Outros'
         ];
 
         $dados = [
@@ -125,7 +125,7 @@ class FinanceiroController extends Controller
             'lote_id'      => $_POST['lote_id']          ?? '',
         ];
 
-        $categoriasValidas = ['Alimentação','Sanidade','Mão de obra','Equipamento','Transporte','Manutenção','Outros'];
+        $categoriasValidas = ['Alimentação','Sanidade','Mão de obra','Equipamento','Transporte','Manutenção','Manejo','Outros'];
 
         if (empty($id) || empty($dados['descricao']) || empty($dados['categoria']) || empty($dados['valor']) || empty($dados['data_despesa'])) {
             $erro = 'Preencha os campos obrigatórios.';

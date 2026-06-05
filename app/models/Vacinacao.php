@@ -28,7 +28,7 @@ class Vacinacao
                 animal.brinco_identificador,
                 animal.status AS status_animal,
 
-                raca.nome_raca AS raca,
+                tipo_raca.nome_tipo_raca AS raca,
 
                 pessoa.nome_completo AS responsavel,
 
@@ -44,8 +44,8 @@ class Vacinacao
             INNER JOIN animal 
                 ON animal.id = historico_sanitario.animal_id
 
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
 
             INNER JOIN vacina
                 ON vacina.id = historico_sanitario.vacina_id
@@ -81,7 +81,7 @@ class Vacinacao
                 animal.brinco_identificador,
                 animal.status AS status_animal,
 
-                raca.nome_raca AS raca,
+                tipo_raca.nome_tipo_raca AS raca,
 
                 pessoa.nome_completo AS responsavel,
 
@@ -97,8 +97,8 @@ class Vacinacao
             INNER JOIN animal 
                 ON animal.id = historico_sanitario.animal_id
 
-            LEFT JOIN raca
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca
+                ON tipo_raca.id = animal.tipo_raca_id
 
             INNER JOIN vacina
                 ON vacina.id = historico_sanitario.vacina_id

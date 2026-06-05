@@ -14,7 +14,7 @@ class Animal
     public function salvar($dados)
     {
         $sql = "INSERT INTO animal 
-            (brinco_identificador, raca_id, lote_id, data_nascimento, sexo, peso_entrada, chip, data_compra, valor_compra, status) 
+            (brinco_identificador, tipo_raca_id, lote_id, data_nascimento, sexo, peso_entrada, chip, data_compra, valor_compra, status) 
             VALUES 
             (:brinco, :raca_id, :lote_id, :data_nascimento, :sexo, :peso_entrada, :chip, :data_compra, :valor_compra, 'ativo')";
 
@@ -40,13 +40,14 @@ class Animal
         $sql = "
             SELECT 
                 animal.*,
-                raca.nome_raca AS raca,
+                animal.tipo_raca_id AS raca_id,
+                tipo_raca.nome_tipo_raca AS raca,
                 lote.nome_lote AS lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
                 ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
-            LEFT JOIN raca 
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca 
+                ON tipo_raca.id = animal.tipo_raca_id
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
@@ -148,13 +149,14 @@ class Animal
         $sql = "
             SELECT 
                 animal.*,
-                raca.nome_raca AS raca,
+                animal.tipo_raca_id AS raca_id,
+                tipo_raca.nome_tipo_raca AS raca,
                 lote.nome_lote AS lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
                 ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
-            LEFT JOIN raca 
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca 
+                ON tipo_raca.id = animal.tipo_raca_id
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
@@ -186,15 +188,16 @@ class Animal
         $sql = "
             SELECT 
                 animal.*,
-                animal.raca_id AS raca,
+                animal.tipo_raca_id AS raca_id,
+                animal.tipo_raca_id AS raca,
                 animal.lote_id AS lote,
-                raca.nome_raca,
+                tipo_raca.nome_tipo_raca AS nome_raca,
                 lote.nome_lote,
                 COALESCE(ultima_pesagem.peso, animal.peso_entrada) AS peso_atual,
                 ultima_pesagem.data_pesagem AS data_ultima_pesagem
             FROM animal
-            LEFT JOIN raca 
-                ON raca.id = animal.raca_id
+            LEFT JOIN tipo_raca 
+                ON tipo_raca.id = animal.tipo_raca_id
             LEFT JOIN lote 
                 ON lote.id = animal.lote_id
             LEFT JOIN (
@@ -234,7 +237,7 @@ class Animal
 
         $sql = "UPDATE animal 
                 SET brinco_identificador = :brinco,
-                    raca_id = :raca_id,
+                    tipo_raca_id = :raca_id,
                     lote_id = :lote_id,
                     data_nascimento = :data_nascimento,
                     sexo = :sexo,

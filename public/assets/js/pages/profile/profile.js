@@ -1,23 +1,20 @@
-const menuToggle =
-document.getElementById('menuToggle');
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
 
-const sidebar =
-document.getElementById('sidebar');
-
-
-menuToggle.addEventListener('click', () => {
-
-  sidebar.classList.toggle('active');
-
-});
+if (menuToggle && sidebar) {
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+}
 
 document.addEventListener('click', (event) => {
 
-  const isInsideSidebar =
-  sidebar.contains(event.target);
+  if (!menuToggle || !sidebar) {
+    return;
+  }
 
-  const isMenuButton =
-  menuToggle.contains(event.target);
+  const isInsideSidebar = sidebar.contains(event.target);
+  const isMenuButton = menuToggle.contains(event.target);
 
   if(
     window.innerWidth <= 992 &&
@@ -32,11 +29,26 @@ document.addEventListener('click', (event) => {
 });
 
 
-const saveButton =
-document.querySelector('.save-btn');
+const saveButton = document.querySelector('.save-btn');
 
-saveButton.addEventListener('click', () => {
+if (saveButton) {
+  saveButton.addEventListener('click', () => {
+    alert('Perfil atualizado com sucesso!');
+  });
+}
 
-  alert('Perfil atualizado com sucesso!');
+const passwordInput = document.getElementById('profilePassword');
+const passwordToggle = document.getElementById('toggleProfilePassword');
 
-});
+if (passwordInput && passwordToggle) {
+  passwordToggle.addEventListener('click', () => {
+    const showingPassword = passwordInput.type === 'text';
+
+    passwordInput.type = showingPassword ? 'password' : 'text';
+    passwordToggle.title = showingPassword ? 'Mostrar senha' : 'Ocultar senha';
+    passwordToggle.setAttribute('aria-label', passwordToggle.title);
+    passwordToggle.innerHTML = showingPassword
+      ? '<i class="ri-eye-line"></i>'
+      : '<i class="ri-eye-off-line"></i>';
+  });
+}

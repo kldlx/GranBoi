@@ -13,17 +13,17 @@ class Raca
 
     public function listarTodos()
     {
-        $sql = "SELECT id, nome_raca
-                FROM raca
-                ORDER BY nome_raca ASC";
+        $sql = "SELECT id, nome_tipo_raca AS nome_raca
+                FROM tipo_raca
+                ORDER BY nome_tipo_raca ASC";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function buscarPorId($id)
     {
-        $sql = "SELECT id, nome_raca
-                FROM raca
+        $sql = "SELECT id, nome_tipo_raca AS nome_raca
+                FROM tipo_raca
                 WHERE id = :id
                 LIMIT 1";
 
@@ -39,8 +39,8 @@ class Raca
     public function nomeExiste($nome_raca, $idIgnorar = null)
     {
         $sql = "SELECT id
-                FROM raca
-                WHERE nome_raca = :nome_raca";
+                FROM tipo_raca
+                WHERE nome_tipo_raca = :nome_raca";
 
         $params = [
             ':nome_raca' => $nome_raca
@@ -61,7 +61,7 @@ class Raca
 
     public function salvar($dados)
     {
-        $sql = "INSERT INTO raca (nome_raca)
+        $sql = "INSERT INTO tipo_raca (nome_tipo_raca)
                 VALUES (:nome_raca)";
 
         $stmt = $this->db->prepare($sql);
@@ -73,8 +73,8 @@ class Raca
 
     public function atualizar($dados)
     {
-        $sql = "UPDATE raca
-                SET nome_raca = :nome_raca
+        $sql = "UPDATE tipo_raca
+                SET nome_tipo_raca = :nome_raca
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
@@ -87,7 +87,7 @@ class Raca
 
     public function excluir($id)
     {
-        $sql = "DELETE FROM raca
+        $sql = "DELETE FROM tipo_raca
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
@@ -101,7 +101,7 @@ class Raca
     {
         $sql = "SELECT id
                 FROM animal
-                WHERE raca_id = :id
+                WHERE tipo_raca_id = :id
                 LIMIT 1";
 
         $stmt = $this->db->prepare($sql);

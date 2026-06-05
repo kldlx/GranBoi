@@ -142,13 +142,13 @@ INSERT INTO usuario (
   senha,
   status
 ) VALUES
-('Roberto Almeida', 'admin@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('Carlos Henrique Souza', 'gestor@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('Mariana Lopes Ferreira', 'veterinario@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('João Batista Lima', 'operador@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('Ana Paula Martins', 'ana.operadora@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('Pedro Nunes Carvalho', 'pedro.campo@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'ativo'),
-('Lucas Vieira Prado', 'lucas.inativo@granboi.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi', 'inativo');
+('Roberto Almeida', 'admin@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('Carlos Henrique Souza', 'gestor@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('Mariana Lopes Ferreira', 'veterinario@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('João Batista Lima', 'operador@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('Ana Paula Martins', 'ana.operadora@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('Pedro Nunes Carvalho', 'pedro.campo@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'ativo'),
+('Lucas Vieira Prado', 'lucas.inativo@granboi.com', '$2y$10$/mnXkr9rLpkaV3zDiuhIe.swic.MoxrpnCZ/W6aE7wz.QTAQnf0SW', 'inativo');
 
 -- =====================================================
 -- PESSOAS
@@ -190,8 +190,8 @@ INSERT INTO usuario_papel (
 -- RAÇAS
 -- =====================================================
 
-INSERT INTO raca (
-  nome_raca
+INSERT INTO tipo_raca (
+  nome_tipo_raca
 ) VALUES
 ('Nelore'),
 ('Angus'),
@@ -245,7 +245,7 @@ INSERT INTO vacina (
 
 INSERT INTO animal (
   brinco_identificador,
-  raca_id,
+  tipo_raca_id,
   lote_id,
   data_nascimento,
   sexo,
@@ -258,36 +258,36 @@ INSERT INTO animal (
   valor_venda,
   status
 ) VALUES
-('GB-0001', (SELECT id FROM raca WHERE nome_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-01-15', 'M', 210.50, 'CHIP0001', '2023-08-10', 2800.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0002', (SELECT id FROM raca WHERE nome_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-11-20', 'M', 275.00, 'CHIP0002', '2023-07-15', 3500.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0003', (SELECT id FROM raca WHERE nome_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-09-05', 'M', 300.00, 'CHIP0003', '2023-06-05', 3900.00, '2024-05-20', 485.000, 6200.00, 'Vendido'),
-('GB-0004', (SELECT id FROM raca WHERE nome_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-03-18', 'F', 330.00, 'CHIP0004', '2023-04-12', 4200.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0005', (SELECT id FROM raca WHERE nome_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-01-10', 'F', 145.00, 'CHIP0005', '2024-03-01', 1800.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0006', (SELECT id FROM raca WHERE nome_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-05-02', 'M', 225.00, 'CHIP0006', '2023-10-11', 3100.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0007', (SELECT id FROM raca WHERE nome_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-02-22', 'M', 320.00, 'CHIP0007', '2023-02-14', 4300.00, '2024-06-18', 510.000, 6800.00, 'Vendido'),
-('GB-0008', (SELECT id FROM raca WHERE nome_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2023-07-30', 'F', 190.00, 'CHIP0008', '2023-12-05', 2600.00, NULL, 0.000, 0.00, 'Perda'),
-('GB-0009', (SELECT id FROM raca WHERE nome_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-12-12', 'F', 360.00, 'CHIP0009', '2023-01-25', 4600.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0010', (SELECT id FROM raca WHERE nome_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-04-08', 'M', 205.00, 'CHIP0010', '2023-09-19', 2900.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0011', (SELECT id FROM raca WHERE nome_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-08-14', 'M', 295.00, 'CHIP0011', '2023-05-20', 3700.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0012', (SELECT id FROM raca WHERE nome_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-10-03', 'M', 310.00, 'CHIP0012', '2023-06-18', 4100.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0013', (SELECT id FROM raca WHERE nome_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-02-19', 'F', 215.00, 'CHIP0013', '2023-09-02', 2950.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0014', (SELECT id FROM raca WHERE nome_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-02-01', 'M', 132.00, 'CHIP0014', '2024-04-07', 1650.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0015', (SELECT id FROM raca WHERE nome_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-09-11', 'F', 375.00, 'CHIP0015', '2023-03-11', 4800.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0016', (SELECT id FROM raca WHERE nome_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-04-17', 'M', 340.00, 'CHIP0016', '2023-01-09', 4550.00, '2024-07-22', 530.000, 7100.00, 'Vendido'),
-('GB-0017', (SELECT id FROM raca WHERE nome_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-06-09', 'F', 198.00, 'CHIP0017', '2023-11-15', 2750.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0018', (SELECT id FROM raca WHERE nome_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2020-12-28', 'F', 390.00, 'CHIP0018', '2022-12-10', 5100.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0019', (SELECT id FROM raca WHERE nome_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2023-03-21', 'M', 220.00, 'CHIP0019', '2023-10-01', 3000.00, NULL, 0.000, 0.00, 'Perda'),
-('GB-0020', (SELECT id FROM raca WHERE nome_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-07-07', 'M', 305.00, 'CHIP0020', '2023-04-23', 3950.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0021', (SELECT id FROM raca WHERE nome_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-01-30', 'M', 355.00, 'CHIP0021', '2023-01-18', 4700.00, '2024-08-14', 545.000, 7350.00, 'Vendido'),
-('GB-0022', (SELECT id FROM raca WHERE nome_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-08-13', 'M', 185.00, 'CHIP0022', '2024-01-04', 2500.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0023', (SELECT id FROM raca WHERE nome_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-03-12', 'F', 118.00, 'CHIP0023', '2024-05-02', 1500.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0024', (SELECT id FROM raca WHERE nome_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-05-24', 'F', 348.00, 'CHIP0024', '2023-02-05', 4450.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0025', (SELECT id FROM raca WHERE nome_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-12-06', 'M', 285.00, 'CHIP0025', '2023-08-13', 3600.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0026', (SELECT id FROM raca WHERE nome_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-06-16', 'M', 315.00, 'CHIP0026', '2023-05-08', 4050.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0027', (SELECT id FROM raca WHERE nome_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2022-03-09', 'F', 325.00, 'CHIP0027', '2023-01-12', 4300.00, NULL, 0.000, 0.00, 'Perda'),
-('GB-0028', (SELECT id FROM raca WHERE nome_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-09-18', 'M', 175.00, 'CHIP0028', '2024-01-29', 2400.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0029', (SELECT id FROM raca WHERE nome_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2020-10-10', 'F', 410.00, 'CHIP0029', '2022-11-20', 5400.00, NULL, 0.000, 0.00, 'Ativo'),
-('GB-0030', (SELECT id FROM raca WHERE nome_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2021-11-05', 'M', 365.00, 'CHIP0030', '2022-12-15', 4900.00, '2024-09-03', 560.000, 7600.00, 'Vendido');
+('GB-0001', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-01-15', 'M', 210.50, 'CHIP0001', '2023-08-10', 2800.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0002', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-11-20', 'M', 275.00, 'CHIP0002', '2023-07-15', 3500.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0003', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-09-05', 'M', 300.00, 'CHIP0003', '2023-06-05', 3900.00, '2024-05-20', 485.000, 6200.00, 'Vendido'),
+('GB-0004', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-03-18', 'F', 330.00, 'CHIP0004', '2023-04-12', 4200.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0005', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-01-10', 'F', 145.00, 'CHIP0005', '2024-03-01', 1800.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0006', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-05-02', 'M', 225.00, 'CHIP0006', '2023-10-11', 3100.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0007', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-02-22', 'M', 320.00, 'CHIP0007', '2023-02-14', 4300.00, '2024-06-18', 510.000, 6800.00, 'Vendido'),
+('GB-0008', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2023-07-30', 'F', 190.00, 'CHIP0008', '2023-12-05', 2600.00, NULL, 0.000, 0.00, 'Perda'),
+('GB-0009', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-12-12', 'F', 360.00, 'CHIP0009', '2023-01-25', 4600.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0010', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-04-08', 'M', 205.00, 'CHIP0010', '2023-09-19', 2900.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0011', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-08-14', 'M', 295.00, 'CHIP0011', '2023-05-20', 3700.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0012', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-10-03', 'M', 310.00, 'CHIP0012', '2023-06-18', 4100.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0013', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-02-19', 'F', 215.00, 'CHIP0013', '2023-09-02', 2950.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0014', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-02-01', 'M', 132.00, 'CHIP0014', '2024-04-07', 1650.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0015', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-09-11', 'F', 375.00, 'CHIP0015', '2023-03-11', 4800.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0016', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-04-17', 'M', 340.00, 'CHIP0016', '2023-01-09', 4550.00, '2024-07-22', 530.000, 7100.00, 'Vendido'),
+('GB-0017', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-06-09', 'F', 198.00, 'CHIP0017', '2023-11-15', 2750.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0018', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2020-12-28', 'F', 390.00, 'CHIP0018', '2022-12-10', 5100.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0019', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2023-03-21', 'M', 220.00, 'CHIP0019', '2023-10-01', 3000.00, NULL, 0.000, 0.00, 'Perda'),
+('GB-0020', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-07-07', 'M', 305.00, 'CHIP0020', '2023-04-23', 3950.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0021', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2022-01-30', 'M', 355.00, 'CHIP0021', '2023-01-18', 4700.00, '2024-08-14', 545.000, 7350.00, 'Vendido'),
+('GB-0022', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Brahman'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-08-13', 'M', 185.00, 'CHIP0022', '2024-01-04', 2500.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0023', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Tabapuã'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), '2024-03-12', 'F', 118.00, 'CHIP0023', '2024-05-02', 1500.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0024', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Guzerá'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2021-05-24', 'F', 348.00, 'CHIP0024', '2023-02-05', 4450.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0025', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Senepol'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-12-06', 'M', 285.00, 'CHIP0025', '2023-08-13', 3600.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0026', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Hereford'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), '2022-06-16', 'M', 315.00, 'CHIP0026', '2023-05-08', 4050.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0027', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Girolando'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), '2022-03-09', 'F', 325.00, 'CHIP0027', '2023-01-12', 4300.00, NULL, 0.000, 0.00, 'Perda'),
+('GB-0028', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Cruzado'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), '2023-09-18', 'M', 175.00, 'CHIP0028', '2024-01-29', 2400.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0029', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Nelore'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), '2020-10-10', 'F', 410.00, 'CHIP0029', '2022-11-20', 5400.00, NULL, 0.000, 0.00, 'Ativo'),
+('GB-0030', (SELECT id FROM tipo_raca WHERE nome_tipo_raca = 'Angus'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), '2021-11-05', 'M', 365.00, 'CHIP0030', '2022-12-15', 4900.00, '2024-09-03', 560.000, 7600.00, 'Vendido');
 
 -- =====================================================
 -- PASTOS
@@ -385,26 +385,6 @@ INSERT INTO historico_sanitario (
 ((SELECT id FROM animal WHERE brinco_identificador = 'GB-0029'), (SELECT id FROM vacina WHERE nome = 'Brucelose'), '2024-04-28', 2.000, NULL, 8.90, (SELECT id FROM pessoa WHERE email = 'veterinario@granboi.com'));
 
 -- =====================================================
--- HISTÓRICO DE MANEJO
--- =====================================================
-
-INSERT INTO historico_manejo (
-  data_manejo,
-  custo_manejo,
-  pasto_id_origem,
-  pasto_id_destino,
-  lote_id,
-  pessoa_id_operador
-) VALUES
-('2024-02-10', 250.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Norte'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Central'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), (SELECT id FROM pessoa WHERE email = 'operador@granboi.com')),
-('2024-03-15', 300.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Central'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Sul'), (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), (SELECT id FROM pessoa WHERE email = 'ana.operadora@granboi.com')),
-('2024-04-20', 180.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Sul'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Reserva'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), (SELECT id FROM pessoa WHERE email = 'pedro.campo@granboi.com')),
-('2024-05-25', 220.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Reserva'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Bezerros'), (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), (SELECT id FROM pessoa WHERE email = 'ana.operadora@granboi.com')),
-('2024-06-08', 275.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Bezerros'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Norte'), (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), (SELECT id FROM pessoa WHERE email = 'operador@granboi.com')),
-('2024-07-11', 350.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Matrizes'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Central'), (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), (SELECT id FROM pessoa WHERE email = 'pedro.campo@granboi.com')),
-('2024-08-19', 310.00, (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Sul'), (SELECT id FROM pasto WHERE nome_pasto = 'Pasto Central'), (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), (SELECT id FROM pessoa WHERE email = 'gestor@granboi.com'));
-
--- =====================================================
 -- DESPESAS FINANCEIRAS
 -- =====================================================
 
@@ -431,6 +411,12 @@ INSERT INTO despesa_financeira (
 ('Tratamento clínico animal GB-0019', 'Sanidade', 280.00, '2023-11-15', 'Atendimento antes do registro de perda', (SELECT id FROM animal WHERE brinco_identificador = 'GB-0019'), (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), (SELECT id FROM usuario WHERE email = 'veterinario@granboi.com')),
 ('Frete de compra de animais', 'Transporte', 950.00, '2023-08-10', 'Transporte de animais recém-comprados para a fazenda', NULL, NULL, (SELECT id FROM usuario WHERE email = 'admin@granboi.com')),
 ('Manutenção da balança do curral', 'Equipamento', 680.00, '2024-07-04', 'Ajuste e calibração da balança usada nas pesagens', NULL, NULL, (SELECT id FROM usuario WHERE email = 'gestor@granboi.com')),
-('Serviço extra de manejo no curral', 'Mão de obra', 430.00, '2024-08-19', 'Equipe extra para movimentação do lote de venda', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), (SELECT id FROM usuario WHERE email = 'gestor@granboi.com'));
+('Serviço extra de manejo no curral', 'Mão de obra', 430.00, '2024-08-19', 'Equipe extra para movimentação do lote de venda', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), (SELECT id FROM usuario WHERE email = 'gestor@granboi.com')),
+('Manejo de transferência para engorda', 'Manejo', 300.00, '2024-03-15', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote B - Engorda'), (SELECT id FROM usuario WHERE email = 'ana.operadora@granboi.com')),
+('Manejo de lote em observação', 'Manejo', 180.00, '2024-04-20', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote F - Observação'), (SELECT id FROM usuario WHERE email = 'pedro.campo@granboi.com')),
+('Manejo de bezerros', 'Manejo', 220.00, '2024-05-25', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote D - Bezerros'), (SELECT id FROM usuario WHERE email = 'ana.operadora@granboi.com')),
+('Manejo de recria', 'Manejo', 275.00, '2024-06-08', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote A - Recria'), (SELECT id FROM usuario WHERE email = 'operador@granboi.com')),
+('Manejo de matrizes', 'Manejo', 350.00, '2024-07-11', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote C - Matrizes'), (SELECT id FROM usuario WHERE email = 'pedro.campo@granboi.com')),
+('Manejo de lote para venda', 'Manejo', 310.00, '2024-08-19', 'Custo operacional de movimentação dos animais', NULL, (SELECT id FROM lote WHERE nome_lote = 'Lote E - Venda'), (SELECT id FROM usuario WHERE email = 'gestor@granboi.com'));
 
 COMMIT;
