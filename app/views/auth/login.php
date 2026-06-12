@@ -185,7 +185,7 @@
 
           <p>
             Ainda não tem uma conta?
-            <a href="https://wa.me/5561996548283?text=Ol%C3%A1%2C%20preciso%20solicitar%20acesso%20ao%20sistema%20GranBoi."
+            <a href="https://wa.me/5561996548283?text=Ol%C3%A1%2C%20preciso%20de%20acesso%20ao%20sistema%20GranBoi."
                target="_blank" rel="noopener noreferrer">
               Solicitar acesso
             </a>
