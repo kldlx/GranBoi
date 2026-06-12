@@ -26,9 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const animalSelecionadoBox =
     document.getElementById('vacinacaoAnimalSelecionado');
 
-  const botoesAplicarProximaDose =
-    document.querySelectorAll('.aplicar-proxima-dose-btn');
-
   function abrirModal(modal) {
     if (!modal) {
       return;
@@ -79,15 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     campo.value = valor || '';
-  }
-
-  function obterDataAtualSistema() {
-    const hoje = new Date();
-    const ano = hoje.getFullYear();
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-    const dia = String(hoje.getDate()).padStart(2, '0');
-
-    return `${ano}-${mes}-${dia}`;
   }
 
   function esconderListaAnimais() {
@@ -297,12 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
   animaisVacinacao.forEach((animal) => {
     animal.addEventListener('click', () => {
       selecionarAnimal(animal);
-    });
-  });
-
-  botoesAplicarProximaDose.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      aplicarProximaDose(botao);
     });
   });
 

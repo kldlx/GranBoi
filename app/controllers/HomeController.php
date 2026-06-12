@@ -15,7 +15,7 @@ class HomeController extends Controller
             'totalAnimais' => $dashboardModel->totalAnimais(),
             'totalAtivos' => $dashboardModel->totalPorStatus('ativo'),
             'totalVendidos' => $dashboardModel->totalPorStatus('vendido'),
-            'totalMortos' => $dashboardModel->totalPorStatus('morto'),
+            'totalPerdas' => $dashboardModel->totalPorStatus('perda'),
 
             'pesoMedio' => $dashboardModel->pesoMedioAtual(),
             'gmdMedio' => $dashboardModel->gmdMedio(),

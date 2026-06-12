@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+    
 
 <head>
 
@@ -198,6 +199,13 @@ function menuAtivoCabecalho($urlAtual, $url)
                 <span>Dashboard</span>
             </a>
 
+        <?php endif; ?>
+
+        <?php if (in_array($papelUsuario, ['gestor', 'veterinario', 'operador'], true)): ?>
+            <a href="<?= BASE_URL ?>/financeiro" class="main-header-link <?= menuAtivoCabecalho($urlAtual, '/financeiro') ?>">
+                <i class="ri-line-chart-line"></i>
+                <span>Financeiro</span>
+            </a>
         <?php endif; ?>
 
     </nav>

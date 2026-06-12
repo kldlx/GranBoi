@@ -79,8 +79,8 @@
         </div>
 
         <div class="dashboard-status-item">
-          <span>Mortos</span>
-          <strong><?= htmlspecialchars($totalMortos ?? 0) ?></strong>
+          <span>Perdas</span>
+          <strong><?= htmlspecialchars($totalPerdas ?? 0) ?></strong>
         </div>
 
       </div>
@@ -113,6 +113,17 @@
             <?php if (!empty($ultimosAnimais)): ?>
 
               <?php foreach ($ultimosAnimais as $animal): ?>
+                <?php
+                  $statusAnimal = strtolower(trim($animal['status'] ?? ''));
+                  $statusTextoMapa = [
+                    'ativo' => 'Ativo',
+                    'vendido' => 'Vendido',
+                    'perda' => 'Perda',
+                    'excluido' => 'Excluído',
+                  ];
+                  $statusClasse = array_key_exists($statusAnimal, $statusTextoMapa) ? $statusAnimal : 'perda';
+                  $statusTexto = $statusTextoMapa[$statusAnimal] ?? 'Perda';
+                ?>
 
                 <tr>
 
@@ -129,8 +140,8 @@
                   </td>
 
                   <td>
-                    <span class="dashboard-status dashboard-status-<?= htmlspecialchars($animal['status']) ?>">
-                      <?= ucfirst(htmlspecialchars($animal['status'])) ?>
+                    <span class="dashboard-status dashboard-status-<?= htmlspecialchars($statusClasse) ?>">
+                      <?= htmlspecialchars($statusTexto) ?>
                     </span>
                   </td>
 

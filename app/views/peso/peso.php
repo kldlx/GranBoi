@@ -83,7 +83,7 @@
       <?php if (!empty($animalSelecionado) && !$animalSelecionadoAtivo): ?>
 
         <?php
-          if ($statusSelecionadoNormalizado === 'morto') {
+          if ($statusSelecionadoNormalizado === 'perda') {
               $statusSelecionadoTexto = 'perda';
           } elseif ($statusSelecionadoNormalizado === 'vendido') {
               $statusSelecionadoTexto = 'vendido';
@@ -131,10 +131,10 @@
                     $statusAnimalTexto = 'Vendido';
                     $statusPesquisa = 'vendido';
                     $statusClasse = 'vendido';
-                } elseif ($statusAnimal === 'morto') {
+                } elseif ($statusAnimal === 'perda') {
                     $statusAnimalTexto = 'Perda';
-                    $statusPesquisa = 'morto perda';
-                    $statusClasse = 'morto';
+                    $statusPesquisa = 'perda';
+                    $statusClasse = 'perda';
                 } else {
                     $statusAnimalTexto = '-';
                     $statusPesquisa = '';

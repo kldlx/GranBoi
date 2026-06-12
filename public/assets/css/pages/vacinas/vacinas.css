@@ -150,14 +150,15 @@
 .vacinacao-table-container {
   background: #fff;
   border-radius: 24px;
-  padding: 24px;
+  padding: 18px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
   border: 1px solid #eef0ee;
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .vacinacao-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
@@ -170,23 +171,71 @@
 
 .vacinacao-table th {
   text-align: left;
-  padding: 16px;
-  font-size: 13px;
+  padding: 14px 10px;
+  font-size: 12px;
   color: #4d5a50;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   border-bottom: 1px solid #e8ece8;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.25;
 }
 
 .vacinacao-table td {
-  padding: 16px;
+  padding: 14px 10px;
   border-bottom: 1px solid #f0f1f0;
   font-size: 14px;
   color: #222;
   vertical-align: middle;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+
+.vacinacao-table th:nth-child(1),
+.vacinacao-table td:nth-child(1) {
+  width: 9%;
+}
+
+.vacinacao-table th:nth-child(2),
+.vacinacao-table td:nth-child(2) {
+  width: 16%;
+}
+
+.vacinacao-table th:nth-child(3),
+.vacinacao-table td:nth-child(3) {
+  width: 8%;
+}
+
+.vacinacao-table th:nth-child(4),
+.vacinacao-table td:nth-child(4) {
+  width: 10%;
+}
+
+.vacinacao-table th:nth-child(5),
+.vacinacao-table td:nth-child(5) {
+  width: 10%;
+}
+
+.vacinacao-table th:nth-child(6),
+.vacinacao-table td:nth-child(6) {
+  width: 11%;
+}
+
+.vacinacao-table th:nth-child(7),
+.vacinacao-table td:nth-child(7) {
+  width: 14%;
+}
+
+.vacinacao-table th:nth-child(8),
+.vacinacao-table td:nth-child(8) {
+  width: 10%;
+}
+
+.vacinacao-table th:nth-child(9),
+.vacinacao-table td:nth-child(9) {
+  width: 12%;
 }
 
 .vacinacao-table tbody tr:last-child td {
@@ -205,6 +254,52 @@
 }
 
 /* =========================
+   AÇÕES DA TABELA
+========================= */
+
+.vacinacao-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.vacinacao-actions .action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #f3f5f3;
+  color: #222;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
+}
+
+.vacinacao-actions .action-btn i {
+  font-size: 18px;
+}
+
+.vacinacao-actions .action-btn:hover {
+  background: #e8ece8;
+  transform: translateY(-1px);
+}
+
+.vacinacao-actions .action-btn.danger {
+  color: #c62828;
+}
+
+.vacinacao-actions .action-btn.danger:hover {
+  background: #ffebee;
+}
+
+/* =========================
    STATUS
 ========================= */
 
@@ -212,7 +307,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 88px;
+  min-width: 82px;
   padding: 7px 13px;
   border-radius: 999px;
   font-size: 13px;
@@ -306,6 +401,63 @@
     padding: 18px;
     border-radius: 20px;
   }
+
+  .vacinacao-table {
+    border-radius: 0;
+  }
+
+  .vacinacao-table thead {
+    display: none;
+  }
+
+  .vacinacao-table,
+  .vacinacao-table tbody,
+  .vacinacao-table tr,
+  .vacinacao-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .vacinacao-table tbody tr {
+    border: 1px solid #eef0ee;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .vacinacao-table tbody tr:hover {
+    background: #ffffff;
+  }
+
+  .vacinacao-table td {
+    display: grid;
+    grid-template-columns: minmax(120px, 34%) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f1f0;
+  }
+
+  .vacinacao-table td::before {
+    content: attr(data-label);
+    color: #4d5a50;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .vacinacao-table td:last-child {
+    border-bottom: none;
+  }
+
+  .vacinacao-actions {
+    justify-content: flex-start;
+  }
+
+  .vacinacao-empty {
+    display: block !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -326,55 +478,66 @@
     width: 100%;
   }
 
-  .vacinacao-table th,
-  .vacinacao-table td {
-    padding: 14px 12px;
+  .vacinacao-table-container {
+    padding: 12px;
   }
-}
 
-/* =========================
-   AÇÕES DA TABELA
-========================= */
+  .vacinacao-table {
+    border-radius: 0;
+  }
 
-.vacinacao-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-}
+  .vacinacao-table thead {
+    display: none;
+  }
 
-.vacinacao-actions .action-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: #f3f5f3;
-  color: #222;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.25s;
-  flex-shrink: 0;
-}
+  .vacinacao-table,
+  .vacinacao-table tbody,
+  .vacinacao-table tr,
+  .vacinacao-table td {
+    display: block;
+    width: 100%;
+  }
 
-.vacinacao-actions .action-btn i {
-  font-size: 18px;
-}
+  .vacinacao-table tbody tr {
+    border: 1px solid #eef0ee;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: #ffffff;
+  }
 
-.vacinacao-actions .action-btn:hover {
-  background: #e8ece8;
-  transform: translateY(-1px);
-}
+  .vacinacao-table tbody tr:hover {
+    background: #ffffff;
+  }
 
-.vacinacao-actions .action-btn.danger {
-  color: #c62828;
-}
+  .vacinacao-table td {
+    display: grid;
+    grid-template-columns: minmax(104px, 36%) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f1f0;
+  }
 
-.vacinacao-actions .action-btn.danger:hover {
-  background: #ffebee;
+  .vacinacao-table td::before {
+    content: attr(data-label);
+    color: #4d5a50;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .vacinacao-table td:last-child {
+    border-bottom: none;
+  }
+
+  .vacinacao-actions {
+    justify-content: flex-start;
+  }
+
+  .vacinacao-empty {
+    display: block !important;
+  }
 }
 
 /* =========================

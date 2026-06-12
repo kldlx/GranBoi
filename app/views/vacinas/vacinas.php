@@ -140,41 +140,41 @@
               data-status="<?= htmlspecialchars($vacinacao['status']) ?>"
             >
 
-              <td>
+              <td data-label="Animal">
                 #<?= htmlspecialchars($vacinacao['brinco_identificador']) ?>
               </td>
 
-              <td>
+              <td data-label="Vacina">
                 <?= htmlspecialchars($vacinacao['vacina']) ?>
               </td>
 
-              <td>
+              <td data-label="Dose">
                 <?= !empty($vacinacao['quantidade']) ? number_format((float) $vacinacao['quantidade'], 2, ',', '.') . ' ml' : '-' ?>
               </td>
 
-              <td>
+              <td data-label="Custo">
                 <?= isset($vacinacao['preco_custo_sanitario']) && $vacinacao['preco_custo_sanitario'] !== null ? 'R$ ' . number_format((float) $vacinacao['preco_custo_sanitario'], 2, ',', '.') : '-' ?>
               </td>
 
-              <td>
+              <td data-label="Aplicação">
                 <?= date('d/m/Y', strtotime($vacinacao['data_aplicacao'])) ?>
               </td>
 
-              <td>
+              <td data-label="Próxima Dose">
                 <?= !empty($vacinacao['proxima_dose']) ? date('d/m/Y', strtotime($vacinacao['proxima_dose'])) : '-' ?>
               </td>
 
-              <td>
+              <td data-label="Responsável">
                 <?= htmlspecialchars($vacinacao['responsavel'] ?? '-') ?>
               </td>
 
-              <td>
+              <td data-label="Status">
                 <span class="vacinacao-status vacinacao-status-<?= htmlspecialchars($vacinacao['status']) ?>">
                   <?= ucfirst(htmlspecialchars($vacinacao['status'])) ?>
                 </span>
               </td>
 
-              <td>
+              <td data-label="Ações">
 
                 <div class="vacinacao-actions">
 

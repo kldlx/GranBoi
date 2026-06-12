@@ -7,18 +7,37 @@ class FinanceiroController extends Controller
         $financeiro = $this->model('Financeiro');
         $loteModel  = $this->model('Lote');
 
-        $totalReceitas      = $financeiro->getTotalReceitas();
-        $totalSanitario     = $financeiro->getTotalCustosSanitarios();
-        $totalManejo        = $financeiro->getTotalCustosManejo();
-        $totalPasto         = $financeiro->getTotalCustosPasto();
-        $totalOperacional   = $financeiro->getTotalDespesasOperacionais();
-        $totalDespesas      = $totalSanitario + $totalManejo + $totalPasto + $totalOperacional;
-        $resultado          = $totalReceitas - $totalDespesas;
+        $isAdministrador = ($_SESSION['usuario']['papel'] ?? '') === 'administrador';
+
+        $totalReceitas = 0;
+        $totalSanitario = 0;
+        $totalManejo = 0;
+        $totalPasto = 0;
+        $totalOperacional = 0;
+        $totalDespesas = 0;
+        $resultado = 0;
+        $ultimasVendas = [];
+        $ultimosCustosSanitarios = [];
+        $ultimasDespesas = [];
+
+        if ($isAdministrador) {
+            $totalReceitas      = $financeiro->getTotalReceitas();
+            $totalSanitario     = $financeiro->getTotalCustosSanitarios();
+            $totalManejo        = $financeiro->getTotalCustosManejo();
+            $totalPasto         = $financeiro->getTotalCustosPasto();
+            $totalOperacional   = $financeiro->getTotalDespesasOperacionais();
+            $totalDespesas      = $totalSanitario + $totalManejo + $totalPasto + $totalOperacional;
+            $resultado          = $totalReceitas - $totalDespesas;
+            $ultimasVendas      = $financeiro->getUltimasVendas();
+            $ultimosCustosSanitarios = $financeiro->getUltimosCustosSanitarios();
+            $ultimasDespesas    = $financeiro->getUltimasDespesas();
+        }
 
         $this->render('financeiro/financeiro', [
             'titulo'                  => 'GranBoi - Financeiro',
             'pageCss'                 => ['/public/assets/css/pages/financeiro/financeiro.css'],
             'pageJs'                  => ['/public/assets/js/pages/financeiro/financeiro.js'],
+            'isAdministrador'         => $isAdministrador,
             'totalReceitas'           => $totalReceitas,
             'totalSanitario'          => $totalSanitario,
             'totalManejo'             => $totalManejo,
@@ -26,9 +45,9 @@ class FinanceiroController extends Controller
             'totalOperacional'        => $totalOperacional,
             'totalDespesas'           => $totalDespesas,
             'resultado'               => $resultado,
-            'ultimasVendas'           => $financeiro->getUltimasVendas(),
-            'ultimosCustosSanitarios' => $financeiro->getUltimosCustosSanitarios(),
-            'ultimasDespesas'         => $financeiro->getUltimasDespesas(),
+            'ultimasVendas'           => $ultimasVendas,
+            'ultimosCustosSanitarios' => $ultimosCustosSanitarios,
+            'ultimasDespesas'         => $ultimasDespesas,
             'lotes'                   => $loteModel->listarTodos(),
         ]);
     }

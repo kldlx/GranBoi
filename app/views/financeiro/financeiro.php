@@ -1,3 +1,5 @@
+<?php $isAdministrador = !empty($isAdministrador); ?>
+
 <main class="main-content financeiro-page">
 
   <header class="topbar">
@@ -33,6 +35,7 @@
     <?php unset($_SESSION['erro']); ?>
   <?php endif; ?>
 
+  <?php if ($isAdministrador): ?>
   <section class="financeiro-page-actions">
     <div>
       <h2>Resumo Financeiro</h2>
@@ -119,6 +122,15 @@
 
   <hr class="financeiro-divider">
 
+  <?php else: ?>
+  <section class="financeiro-page-actions">
+    <div>
+      <h2>Registrar Despesa</h2>
+      <p>Preencha os dados da despesa para manter o financeiro atualizado.</p>
+    </div>
+  </section>
+  <?php endif; ?>
+
   <p class="financeiro-section-label">Despesas Operacionais</p>
 
   <!-- Nova Despesa -->
@@ -186,6 +198,8 @@
       </button>
     </form>
   </div>
+
+  <?php if ($isAdministrador): ?>
 
   <!-- Despesas Registradas -->
   <div class="financeiro-table-card financeiro-mb">
@@ -325,7 +339,11 @@
     </table>
   </div>
 
+  <?php endif; ?>
+
 </main>
+
+<?php if ($isAdministrador): ?>
 
 <!-- Modal Editar Despesa -->
 <div class="fin-modal" id="modalEditarDespesa" hidden>
@@ -406,3 +424,5 @@
     </div>
   </div>
 </div>
+
+<?php endif; ?>

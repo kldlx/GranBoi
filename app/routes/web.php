@@ -238,14 +238,14 @@ $routes = [
         'controller' => 'FinanceiroController',
         'method' => 'index',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
     ],
 
     '/financeiro/salvar-despesa' => [
         'controller' => 'FinanceiroController',
         'method' => 'salvarDespesa',
         'auth' => true,
-        'roles' => ['administrador']
+        'roles' => ['administrador', 'gestor', 'veterinario', 'operador']
     ],
 
     '/financeiro/editar-despesa' => [
@@ -260,13 +260,6 @@ $routes = [
         'method' => 'excluirDespesa',
         'auth' => true,
         'roles' => ['administrador']
-    ],
-
-    '/financeiro/salvar-despesa' => [
-        'controller' => 'FinanceiroController',
-        'method' => 'salvarDespesa',
-        'auth' => true,
-        'roles' => ['administrador', 'gestor']
     ],
 
     '/relatorios' => [

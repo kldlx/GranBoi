@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const botoesEditar =
     document.querySelectorAll('.editar-vacinacao-btn');
 
+  const botoesAplicarProximaDose =
+    document.querySelectorAll('.aplicar-proxima-dose-btn');
+
   const formEditarVacinacao =
     document.getElementById('formEditarVacinacao');
 
@@ -105,6 +108,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     campo.value = valor || '';
+  }
+
+  function obterDataAtualSistema() {
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+
+    return `${ano}-${mes}-${dia}`;
+  }
+
+  function configurarModalEdicao(titulo, descricao, textoBotao) {
+    const tituloEl = modalEditarVacinacao?.querySelector('.modal-header h2');
+    const descricaoEl = modalEditarVacinacao?.querySelector('.modal-header p');
+    const botaoSalvar = formEditarVacinacao?.querySelector('button[type="submit"]');
+
+    if (tituloEl) {
+      tituloEl.textContent = titulo;
+    }
+
+    if (descricaoEl) {
+      descricaoEl.textContent = descricao;
+    }
+
+    if (botaoSalvar) {
+      botaoSalvar.textContent = textoBotao;
+    }
   }
 
   function mostrarMensagemEditar(tipo, mensagem) {
@@ -386,6 +416,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function abrirEdicaoVacinacao(botao) {
     limparMensagemEditar();
     esconderListaEditarAnimais();
+    configurarModalEdicao(
+      'Editar Vacinação',
+      'Atualize os dados do registro sanitário',
+      'Salvar Alterações'
+    );
 
     preencherCampo('editar_vacinacao_id', botao.dataset.id);
     preencherCampo('editar_vacina', botao.dataset.vacina);
@@ -395,6 +430,32 @@ document.addEventListener('DOMContentLoaded', () => {
     preencherCampo('editar_proxima_dose', botao.dataset.proximaDose);
 
     preencherAnimalAtualEdicao(botao.dataset.animalId);
+
+    abrirModal(modalEditarVacinacao);
+  }
+
+  function abrirAplicacaoProximaDose(botao) {
+    limparMensagemEditar();
+    esconderListaEditarAnimais();
+    configurarModalEdicao(
+      'Aplicar Próxima Dose',
+      'Atualize o registro atrasado com a nova aplicação',
+      'Aplicar Dose'
+    );
+
+    preencherCampo('editar_vacinacao_id', botao.dataset.id);
+    preencherCampo('editar_vacina', botao.dataset.vacina);
+    preencherCampo('editar_quantidade', botao.dataset.quantidade);
+    preencherCampo('editar_preco_custo_sanitario', botao.dataset.custo);
+    preencherCampo('editar_data_aplicacao', obterDataAtualSistema());
+    preencherCampo('editar_proxima_dose', '');
+
+    preencherAnimalAtualEdicao(botao.dataset.animalId);
+
+    mostrarMensagemEditar(
+      'success',
+      'Informe a data da próxima dose se houver. Ao salvar, este registro será atualizado.'
+    );
 
     abrirModal(modalEditarVacinacao);
   }
@@ -456,6 +517,12 @@ document.addEventListener('DOMContentLoaded', () => {
   botoesEditar.forEach((botao) => {
     botao.addEventListener('click', () => {
       abrirEdicaoVacinacao(botao);
+    });
+  });
+
+  botoesAplicarProximaDose.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      abrirAplicacaoProximaDose(botao);
     });
   });
 
