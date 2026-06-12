@@ -219,6 +219,7 @@
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Lote</th>
+            <th>Registrado por</th>
             <th>Valor</th>
             <th></th>
           </tr>
@@ -231,6 +232,7 @@
                 <td class="financeiro-td-descricao" title="<?= htmlspecialchars($despesa['descricao']) ?>"><?= htmlspecialchars($despesa['descricao']) ?></td>
                 <td><span class="financeiro-categoria-badge"><?= htmlspecialchars($despesa['categoria']) ?></span></td>
                 <td><?= htmlspecialchars($despesa['nome_lote'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($despesa['usuario_nome'] ?? '-') ?></td>
                 <td class="financeiro-negativo">R$ <?= number_format((float) $despesa['valor'], 2, ',', '.') ?></td>
                 <td class="financeiro-td-acoes">
                   <button class="financeiro-btn-acao financeiro-btn-editar" title="Editar"
@@ -250,7 +252,7 @@
               </tr>
             <?php endforeach; ?>
           <?php else: ?>
-            <tr><td colspan="6" class="financeiro-empty">Nenhuma despesa operacional registrada.</td></tr>
+            <tr><td colspan="7" class="financeiro-empty">Nenhuma despesa operacional registrada.</td></tr>
           <?php endif; ?>
         </tbody>
       </table>

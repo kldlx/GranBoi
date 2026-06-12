@@ -282,9 +282,13 @@ $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $basePath = parse_url(BASE_URL, PHP_URL_PATH);
 
-$url = str_replace($basePath, '', $url);
+$url = preg_replace(
+    '#^' . preg_quote($basePath, '#') . '#i',
+    '',
+    $url
+);
 
-if ($url === '') {
+if ($url === '' || $url === false) {
     $url = '/';
 }
 

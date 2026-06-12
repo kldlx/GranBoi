@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteBase /granboi
+RewriteBase /GranBoi
 
 RewriteCond %{REQUEST_FILENAME} !-f
 

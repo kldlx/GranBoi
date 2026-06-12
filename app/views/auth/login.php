@@ -130,7 +130,8 @@
 
               <label>Senha</label>
 
-              <a href="#">
+              <a href="https://wa.me/5561996548283?text=Ol%C3%A1%2C%20preciso%20recuperar%20minha%20senha%20do%20GranBoi."
+                 target="_blank" rel="noopener noreferrer">
                 Esqueceu a senha?
               </a>
 
@@ -184,7 +185,8 @@
 
           <p>
             Ainda não tem uma conta?
-            <a href="#">
+            <a href="https://wa.me/5561996548283?text=Ol%C3%A1%2C%20preciso%20solicitar%20acesso%20ao%20sistema%20GranBoi."
+               target="_blank" rel="noopener noreferrer">
               Solicitar acesso
             </a>
           </p>

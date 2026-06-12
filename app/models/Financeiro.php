@@ -101,10 +101,12 @@ class Financeiro
                     df.observacao,
                     df.lote_id,
                     a.brinco_identificador AS animal_brinco,
-                    l.nome_lote
+                    l.nome_lote,
+                    u.nome AS usuario_nome
                 FROM despesa_financeira df
                 LEFT JOIN animal a ON a.id = df.animal_id
                 LEFT JOIN lote l ON l.id = df.lote_id
+                LEFT JOIN usuario u ON u.id = df.usuario_id
                 ORDER BY df.data_despesa DESC, df.id DESC";
 
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
